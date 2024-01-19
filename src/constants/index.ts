@@ -62,6 +62,7 @@ export const SEED = {
         },
       ],
       league: 'Bad Doggies',
+      record: [2, 0],
     },
     {
       id: '905b4d32-ee84-4d1d-8d88-2d14416cfvac',
@@ -117,6 +118,7 @@ export const SEED = {
         },
       ],
       league: 'Killer Kitties',
+      record: [1, 1],
     },
     {
       id: '905b4d32-ee84-4d1d-8d88-2d14416cf333',
@@ -132,6 +134,7 @@ export const SEED = {
         },
       ],
       league: 'Bad Doggies',
+      record: [2, 0],
     },
     {
       id: '905b4d32-ee84-4d1d-8d88-2d14416cf101',
@@ -155,6 +158,7 @@ export const SEED = {
         },
       ],
       league: 'Bad Doggies',
+      record: [2, 0],
     },
     {
       id: '905b4d32-ee84-4d1d-8d88-2d14416llll',
@@ -186,6 +190,7 @@ export const SEED = {
         },
       ],
       league: 'Killer Kitties',
+      record: [0, 2],
     },
   ],
   leagues: [
@@ -247,9 +252,10 @@ export const SEED = {
             },
           ],
           league: 'Bad Doggies',
+          record: [2, 0],
         },
         {
-          id: '905b4d32-ee84-4d1d-8d88-2d14416cfvac',
+          id: '905b4d32-ee84-4d1d-8d88-2d14416cf333',
           name: 'The rotties',
           players: [
             {
@@ -262,9 +268,10 @@ export const SEED = {
             },
           ],
           league: 'Bad Doggies',
+          record: [2, 0],
         },
         {
-          id: '905b4d32-ee84-4d1d-8d88-2d14416cfvac',
+          id: '905b4d32-ee84-4d1d-8d88-2d14416cf101',
           name: 'Weiner Power',
           players: [
             {
@@ -285,6 +292,7 @@ export const SEED = {
             },
           ],
           league: 'Bad Doggies',
+          record: [2, 0],
         },
       ],
     },
@@ -346,6 +354,7 @@ export const SEED = {
             },
           ],
           league: 'Killer Kitties',
+          record: [1, 1],
         },
         {
           id: '905b4d32-ee84-4d1d-8d88-2d14416llll',
@@ -377,6 +386,7 @@ export const SEED = {
             },
           ],
           league: 'Killer Kitties',
+          record: [0, 2],
         },
       ],
     },

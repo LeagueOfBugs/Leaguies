@@ -34,7 +34,7 @@ interface Team {
   name: string;
   players: Player[];
   league: string;
-  record: string;
+  record: int[];
 }
 /* Team types  --- ENDS */
 

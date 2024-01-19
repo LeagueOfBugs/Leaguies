@@ -10,7 +10,6 @@ const League = () => {
   const {leagues} = useSelector((state: RootState) => state.leagues);
 
   const handleSubmit = () => {
-    console.log('leagueName: ', leagueName);
     dispatch(createLeague({name: leagueName}));
   };
 

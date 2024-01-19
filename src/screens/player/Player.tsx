@@ -5,7 +5,6 @@ import {
   Avatar,
   AvatarFallbackText,
   AvatarImage,
-  Heading,
   FabLabel,
   EditIcon,
   Fab,

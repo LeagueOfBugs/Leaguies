@@ -16,20 +16,34 @@ const teamSlice = createSlice({
         name: string;
         players: Player[];
         league: string;
+        record: [];
       }>,
     ) => {
-      const {id, name, league, players} = action.payload;
+      const {id, name, league, players, record} = action.payload;
       const newTeam: Team = {
         id: id || uuid.v4().toString(),
         name: name,
         players: [...players],
         league: league,
-        record: '',
+        record: record,
       };
       state.teams.push(newTeam);
       return state;
     },
+    edit: (state, action: PayloadAction<Partial<Team>>) => {
+      const updatedTeam = action.payload;
+      const teamIndex = state.teams.findIndex(
+        team => team.id === updatedTeam.id,
+      );
 
+      if (teamIndex !== -1) {
+        state.teams[teamIndex] = {
+          ...state.teams[teamIndex],
+          ...updatedTeam,
+        };
+      }
+      return state;
+    },
     // addPlayer: (state, action: PayloadAction<{player: Player}>): Team => {
     //   const {player} = action.payload;
     //   return {
@@ -51,5 +65,5 @@ const teamSlice = createSlice({
     // },
   },
 });
-export const {createTeam} = teamSlice.actions;
+export const {createTeam, edit} = teamSlice.actions;
 export default teamSlice.reducer;

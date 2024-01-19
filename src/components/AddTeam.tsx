@@ -12,11 +12,11 @@ import {
 import {Button, ButtonText, Text} from '@gluestack-ui/themed';
 import {createPlayer} from '../store/reducers/players/playerSlice';
 
-interface AddPlayerProps {
+interface AddTeamProps {
   onClose: (event: NativeSyntheticEvent<NativeTouchEvent>) => void;
 }
 
-const AddPlayer = ({onClose}: AddPlayerProps) => {
+const AddTeam = ({onClose}: AddTeamProps) => {
   const {players} = useSelector((state: RootState) => state.players);
   const dispatch = useDispatch();
   const [playerInfo, setPlayerInfo] = useState({
@@ -55,7 +55,7 @@ const AddPlayer = ({onClose}: AddPlayerProps) => {
   return (
     <View style={styles.container}>
       <Text>Add player</Text>
-      <View>
+      {/* <View>
         <TextInput
           onChangeText={text => handleInputChange('name', text)}
           placeholder="Player name"
@@ -82,7 +82,7 @@ const AddPlayer = ({onClose}: AddPlayerProps) => {
       </Button>
       <Button action="negative" onPress={event => onClose(event)}>
         <ButtonText>Close</ButtonText>
-      </Button>
+      </Button> */}
     </View>
   );
 };
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddPlayer;
+export default AddTeam;
