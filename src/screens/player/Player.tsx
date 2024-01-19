@@ -1,4 +1,4 @@
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Modal} from 'react-native';
 import {useSelector} from 'react-redux';
 import React, {useState} from 'react';
 import {
@@ -12,33 +12,34 @@ import {
   Text,
   VStack,
   AddIcon,
+  Center,
 } from '@gluestack-ui/themed';
 import {Icon} from '@gluestack-ui/themed';
+import AddPlayer from '../../components/AddPlayer';
+import EditPlayer from '../../components/EditPlayer';
 
 type Placement = 'bottom right' | 'bottom left';
 
 const Player = () => {
   const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState<JSX.Element | null>(null);
 
   const {players} = useSelector((state: RootState) => state.players);
-  const player = players.find(el => {
-    if (el.id === '905b4d32-ee84-4d1d-8d88-2d14416cfab8') {
-      return el;
-    }
-  });
+  const player = players.find(
+    el => el.id === '905b4d32-ee84-4d1d-8d88-2d14416cfab8',
+  );
 
   const handlePress = (placement: Placement) => {
     setShowModal(true);
     switch (placement) {
       case 'bottom right':
-        // Return edit player modal view
+        setModalType(<EditPlayer onClose={() => setShowModal(false)} />);
         break;
       case 'bottom left':
-        // Return add player modal view
+        setModalType(<AddPlayer onClose={() => setShowModal(false)} />);
         break;
-      // Add more cases if needed
       default:
-        break;
+        setModalType(null);
     }
   };
 
@@ -46,12 +47,12 @@ const Player = () => {
     <View style={styles.container}>
       <VStack space="2xl" style={styles.vStackContainer}>
         <Avatar bgColor="$amber600" size="md" borderRadius="$full">
-          <AvatarFallbackText>{player.name}</AvatarFallbackText>
+          <AvatarFallbackText>{player?.name}</AvatarFallbackText>
           <AvatarImage />
         </Avatar>
-        <Text>{player.name}</Text>
-        <Text>{player.position}</Text>
-        <Text>{player.team}</Text>
+        <Text>{player?.name}</Text>
+        <Text>{player?.position}</Text>
+        <Text>{player?.team}</Text>
       </VStack>
       <Fab
         size="md"
@@ -73,6 +74,11 @@ const Player = () => {
         <Icon as={AddIcon} color="white" m="$1" w="$4" h="$4" />
         <FabLabel>Add Player</FabLabel>
       </Fab>
+      <Center style={styles.modalContainer}>
+        <Modal visible={showModal} animationType="slide">
+          {modalType}
+        </Modal>
+      </Center>
     </View>
   );
 };
@@ -83,6 +89,13 @@ const styles = StyleSheet.create({
   },
   vStackContainer: {
     alignItems: 'center',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 300,
+    width: 200,
   },
 });
 

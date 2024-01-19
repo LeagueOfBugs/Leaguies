@@ -18,10 +18,10 @@ function App(): React.JSX.Element {
       <GluestackUIProvider config={config}>
         <NavigationContainer>
           <Tab.Navigator>
+            <Tab.Screen name="Team" component={Team} />
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Leagues" component={League} />
             <Tab.Screen name="Player" component={Player} />
-            <Tab.Screen name="Teams" component={Team} />
           </Tab.Navigator>
         </NavigationContainer>
       </GluestackUIProvider>
