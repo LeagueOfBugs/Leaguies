@@ -37,6 +37,7 @@ interface Team {
   league: string;
   record: number[];
   limit: number;
+  active: boolean;
 }
 /* Team types  --- ENDS */
 

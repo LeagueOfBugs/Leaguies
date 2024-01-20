@@ -26,6 +26,7 @@ export const SEED = {
         '905b4d32-ee84-4d1d-8d88-2d14416cnl23',
         '905b4d32-ee84-4d1d-8d88-2d14416cwpcs',
       ],
+      active: true,
     },
     {
       name: 'Barcelona',
@@ -38,6 +39,7 @@ export const SEED = {
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
       badge:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
+      active: false,
     },
     {
       name: 'Real Madrid',
@@ -50,6 +52,7 @@ export const SEED = {
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
       badge:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
+      active: false,
     },
     {
       name: 'Manchester United',
@@ -62,6 +65,7 @@ export const SEED = {
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
       badge:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
+      active: false,
     },
     {
       name: 'Bayern Munich',
@@ -74,6 +78,7 @@ export const SEED = {
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
       badge:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
+      active: false,
     },
     {
       name: 'Juventus',
@@ -86,6 +91,7 @@ export const SEED = {
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
       badge:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
+      active: false,
     },
     {
       name: 'Fluffly',
@@ -105,6 +111,7 @@ export const SEED = {
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
       badge:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
+      active: true,
     },
     {
       name: 'The rotties',
@@ -117,6 +124,7 @@ export const SEED = {
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
       badge:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
+      active: true,
     },
     {
       name: 'Weiner Power',
@@ -132,6 +140,7 @@ export const SEED = {
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
       badge:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
+      active: true,
     },
     {
       name: 'Flying Bunnies',
@@ -148,6 +157,7 @@ export const SEED = {
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
       badge:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
+      active: true,
     },
   ],
   leagues: [

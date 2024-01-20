@@ -1,5 +1,4 @@
 import {
-  View,
   Text,
   StyleSheet,
   SafeAreaView,
@@ -8,7 +7,7 @@ import {
   Pressable,
 } from 'react-native';
 import React from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {selectTeams} from '../../selectors/teamsSelector';
 import SectionContainer from '../../components/SectionContainer';
 import {
@@ -22,15 +21,20 @@ import {
   VStack,
   CircleIcon,
 } from '@gluestack-ui/themed';
+import {deleteTeamFromLeagueUpdate} from '../../utils';
 
 const LeagueTeamsTab = ({navigation, route}) => {
   const {item} = route.params;
   const teamIds = item.teams;
+  const dispatch = useDispatch();
   const {teams} = useSelector((state: RootState) => selectTeams(state));
-  const leagueTeams = teams.filter(team => teamIds.includes(team.id));
+  const leagueTeams = teams.filter(
+    team => teamIds.includes(team.id) && team.active === true,
+  );
   const otherTeams = teams.filter(
     team => !teamIds.includes(team.id) && team.league === '',
   );
+  const activityFalse = teams.filter(team => !team.active);
 
   const renderItem = ({item}) => {
     const [wins, loss] = item.record;
@@ -101,7 +105,10 @@ const LeagueTeamsTab = ({navigation, route}) => {
               <HStack>{limitedIcons}</HStack>
             </Center>
           </VStack>
-          <Pressable onPress={() => console.log('works')}>
+          <Pressable
+            onPress={() => {
+              deleteTeamFromLeagueUpdate(dispatch, item.id);
+            }}>
             <Icon as={TrashIcon} m="$2" w="$4" h="$4" />
           </Pressable>
         </Center>
@@ -130,7 +137,7 @@ const LeagueTeamsTab = ({navigation, route}) => {
       <SectionContainer title="Recruit Teams">
         {!(leagueTeams.length === item.limit) ? (
           <FlatList
-            data={otherTeams}
+            data={activityFalse}
             keyExtractor={item => item.id.toString()}
             renderItem={renderItem}
           />
