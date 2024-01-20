@@ -107,9 +107,15 @@ const LeagueTeamsTab = ({navigation, route}) => {
           </VStack>
           <Pressable
             onPress={() => {
+              console.log(item);
               deleteTeamFromLeagueUpdate(dispatch, item.id);
             }}>
-            <Icon as={TrashIcon} m="$2" w="$4" h="$4" />
+            <Icon
+              as={item.league && item.active ? TrashIcon : AddIcon}
+              m="$2"
+              w="$4"
+              h="$4"
+            />
           </Pressable>
         </Center>
       </HStack>
@@ -128,7 +134,12 @@ const LeagueTeamsTab = ({navigation, route}) => {
         ) : (
           <VStack>
             <Center>
-              <Icon as={AddIcon} m="$2" w="$10" h="$10" />
+              <Icon
+                as={item.league ? TrashIcon : AddIcon}
+                m="$2"
+                w="$10"
+                h="$10"
+              />
               <Text style={styles.text}>Add Teams</Text>
             </Center>
           </VStack>
