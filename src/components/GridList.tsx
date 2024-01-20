@@ -1,6 +1,6 @@
 import {Heading, ScrollView, Text} from '@gluestack-ui/themed';
 import React from 'react';
-import {View, StyleSheet, Image, FlatList} from 'react-native';
+import {View, StyleSheet, Image, FlatList, Pressable} from 'react-native';
 
 interface CardProps {
   name: string;
@@ -17,27 +17,33 @@ interface GridListProps {
   leagues: LeagueItem[];
 }
 
-const Card = ({name, imageUrl}: CardProps) => {
+const Card = ({name, imageUrl, navigation}: CardProps) => {
   return (
-    <View style={styles.card}>
+    <Pressable
+      style={styles.card}
+      onPress={() => navigation.navigate('League Details')}>
       <Image source={{uri: imageUrl}} style={styles.image} />
       <Text style={styles.cardText}>{name}</Text>
-    </View>
+    </Pressable>
   );
 };
 
-const GridList = ({leagues}: GridListProps) => {
+const GridList = ({leagues, navigation}: GridListProps) => {
   if (!leagues) {
     return <Text>Loading...</Text>;
   }
 
   const renderItem = ({item}: {item: LeagueItem}) => (
-    <Card name={item.name} imageUrl={item.badge} />
+    <Card name={item.name} imageUrl={item.badge} navigation={navigation} />
   );
 
   return (
     <>
-      <Heading style={styles.title}>Divisions</Heading>
+      <Heading
+        style={styles.title}
+        onPress={() => navigation.navigate('League Details')}>
+        Leagues
+      </Heading>
       <ScrollView style={styles.scrollView}>
         <View style={styles.gridContainer}>
           <FlatList

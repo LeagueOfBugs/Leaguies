@@ -53,7 +53,7 @@ const LFT = () => {
 
   return (
     <>
-      <Heading style={styles.title}>Teams looking for players</Heading>
+      <Heading style={styles.title}>Teams Looking for Players</Heading>
       <ScrollView style={styles.scrollView}>
         <View>
           <FlatList

@@ -1,4 +1,4 @@
-import {View, StyleSheet, Modal} from 'react-native';
+import {View, StyleSheet, Modal, SafeAreaView} from 'react-native';
 import {useSelector} from 'react-redux';
 import React, {useState} from 'react';
 import {
@@ -43,7 +43,7 @@ const Player = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <VStack space="2xl" style={styles.vStackContainer}>
         <Avatar bgColor="$amber600" size="md" borderRadius="$full">
           <AvatarFallbackText>{player?.name}</AvatarFallbackText>
@@ -78,7 +78,7 @@ const Player = () => {
           {modalType}
         </Modal>
       </Center>
-    </View>
+    </SafeAreaView>
   );
 };
 

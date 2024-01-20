@@ -36,6 +36,7 @@ interface Team {
   players: string[];
   league: string;
   record: number[];
+  limit: number;
 }
 /* Team types  --- ENDS */
 
@@ -50,5 +51,6 @@ interface League {
   badge: string;
   name: string;
   teams: string[];
+  limit: number;
 }
 /* League types  --- ENDS */

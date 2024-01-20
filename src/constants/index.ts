@@ -11,6 +11,13 @@ export const SEED = {
     {
       name: 'Leo',
       id: '905b4d32-ee84-4d1d-8d88-2d14416cfab9',
+      league: '905b4d32-ee84-4d1d-8d88-2d14416c0000',
+      record: [2, 0],
+      limit: 6,
+      image:
+        '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
+      badge:
+        '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
       players: [
         '905b4d32-ee84-4d1d-8d88-2d14416c1234',
         '905b4d32-ee84-4d1d-8d88-2d14416c567f',
@@ -19,16 +26,11 @@ export const SEED = {
         '905b4d32-ee84-4d1d-8d88-2d14416cnl23',
         '905b4d32-ee84-4d1d-8d88-2d14416cwpcs',
       ],
-      league: '905b4d32-ee84-4d1d-8d88-2d14416c0000',
-      record: [2, 0],
-      image:
-        '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
-      badge:
-        '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultTeamAvatar.png',
     },
     {
       name: 'Barcelona',
       id: '905b4d32-ee84-4d1d-8d88-2d14416cbarc',
+      limit: 11,
       players: [],
       league: '',
       record: [0, 0],
@@ -41,6 +43,7 @@ export const SEED = {
       name: 'Real Madrid',
       id: '905b4d32-ee84-4d1d-8d88-2d14416crmad',
       players: [],
+      limit: 11,
       league: '',
       record: [0, 0],
       image:
@@ -52,6 +55,7 @@ export const SEED = {
       name: 'Manchester United',
       id: '905b4d32-ee84-4d1d-8d88-2d14416cmun',
       players: [],
+      limit: 11,
       league: '',
       record: [0, 0],
       image:
@@ -63,6 +67,7 @@ export const SEED = {
       name: 'Bayern Munich',
       id: '905b4d32-ee84-4d1d-8d88-2d14416cbay',
       players: [],
+      limit: 11,
       league: '',
       record: [0, 0],
       image:
@@ -74,6 +79,7 @@ export const SEED = {
       name: 'Juventus',
       id: '905b4d32-ee84-4d1d-8d88-2d14416cjuv',
       players: [],
+      limit: 11,
       league: '',
       record: [0, 0],
       image:
@@ -84,6 +90,7 @@ export const SEED = {
     {
       name: 'Fluffly',
       id: '905b4d32-ee84-4d1d-8d88-2d14416cfvac',
+      limit: 6,
       players: [
         '905b4d32-ee84-4d1d-8d88-2d14416cerfc',
         '905b4d32-ee84-4d1d-8d88-2d14416c567f',
@@ -101,6 +108,7 @@ export const SEED = {
     },
     {
       name: 'The rotties',
+      limit: 6,
       id: '905b4d32-ee84-4d1d-8d88-2d14416cf333',
       players: ['905b4d32-ee84-4d1d-8d88-2d14416alss'],
       league: '905b4d32-ee84-4d1d-8d88-2d14416c0000',
@@ -112,6 +120,7 @@ export const SEED = {
     },
     {
       name: 'Weiner Power',
+      limit: 6,
       id: '905b4d32-ee84-4d1d-8d88-2d14416cf101',
       players: [
         '905b4d32-ee84-4d1d-8d88-2d14416vvvv',
@@ -126,6 +135,7 @@ export const SEED = {
     },
     {
       name: 'Flying Bunnies',
+      limit: 6,
       id: '905b4d32-ee84-4d1d-8d88-2d14416llll',
       players: [
         '905b4d32-ee84-4d1d-8d88-2d14416cerfc',
@@ -146,6 +156,7 @@ export const SEED = {
       id: '905b4d32-ee84-4d1d-8d88-2d14416c0000',
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge1.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge1.png',
+      limit: 10,
       teams: [
         '905b4d32-ee84-4d1d-8d88-2d14416cfab9',
         '905b4d32-ee84-4d1d-8d88-2d14416cf333',
@@ -157,6 +168,7 @@ export const SEED = {
       id: '905b4d32-ee84-4d1d-8d88-2d14416c0001',
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge2.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge2.png',
+      limit: 2,
       teams: [
         '905b4d32-ee84-4d1d-8d88-2d14416cfvac',
         '905b4d32-ee84-4d1d-8d88-2d14416llll',
@@ -167,6 +179,7 @@ export const SEED = {
       id: '905b4d32-ee84-4d1d-8d88-2d141231233',
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge3.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge3.png',
+      limit: 10,
       teams: [],
     },
     {
@@ -174,6 +187,7 @@ export const SEED = {
       id: '905b4d32-ee84-4d1d-8d88-2d14416cioio',
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge8.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge8.png',
+      limit: 10,
       teams: [],
     },
     {
@@ -181,6 +195,7 @@ export const SEED = {
       id: '905b4d32-ee84-4d1d-8d88-2d14416pleague',
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge7.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge7.png',
+      limit: 10,
       teams: [],
     },
     {
@@ -188,6 +203,7 @@ export const SEED = {
       id: '905b4d32-ee84-4d1d-8d88-2d14416laliga',
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge6.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge6.png',
+      limit: 10,
       teams: [],
     },
     {
@@ -195,6 +211,7 @@ export const SEED = {
       id: '905b4d32-ee84-4d1d-8d88-2d14416bundesliga',
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge5.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge5.png',
+      limit: 10,
       teams: [],
     },
     {
@@ -202,6 +219,7 @@ export const SEED = {
       id: '905b4d32-ee84-4d1d-8d88-2d14416seriea',
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge4.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge4.png',
+      limit: 10,
       teams: [],
     },
     {
@@ -209,6 +227,7 @@ export const SEED = {
       id: '905b4d32-ee84-4d1d-8d88-2d14416ligue1',
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge9.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge9.png',
+      limit: 10,
       teams: [],
     },
   ],

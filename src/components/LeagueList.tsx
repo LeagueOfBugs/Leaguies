@@ -1,4 +1,4 @@
-import {FlatList, StyleSheet, View} from 'react-native';
+import {FlatList, Pressable, StyleSheet, View} from 'react-native';
 import {
   Avatar,
   AvatarFallbackText,
@@ -12,7 +12,7 @@ interface LeagueListProps {
   leagues: League[];
 }
 
-const LeagueList = ({leagues}: LeagueListProps) => {
+const LeagueList = ({leagues, navigation}: LeagueListProps) => {
   const isLeagueEmpty = leagues.length > 0;
   const renderLeagues = () => {
     return (
@@ -20,16 +20,24 @@ const LeagueList = ({leagues}: LeagueListProps) => {
         data={leagues}
         keyExtractor={item => item.id.toString()}
         renderItem={({item}) => (
-          <View style={styles.leagueContainer}>
-            <View style={styles.wrapper}>
-              <Avatar bgColor="$amber600" size="xs" borderRadius="$full">
-                <AvatarFallbackText>{item.name}</AvatarFallbackText>
-                <AvatarImage />
-              </Avatar>
-              <Text style={styles.name}>{item.name}</Text>
-            </View>
-            <Text>{item.teams.length} / 10</Text>
-          </View>
+          <>
+            <Pressable
+              style={styles.leagueContainer}
+              onPress={() => {
+                navigation.navigate('League Details', {item: item});
+              }}>
+              <View style={styles.wrapper}>
+                <Avatar bgColor="$amber600" size="xs" borderRadius="$full">
+                  <AvatarFallbackText>{item.name}</AvatarFallbackText>
+                  <AvatarImage />
+                </Avatar>
+                <Text style={styles.name}>{item.name}</Text>
+              </View>
+              <Text style={{color: 'white'}}>
+                {item.teams.length} / {item.limit}
+              </Text>
+            </Pressable>
+          </>
         )}
       />
     );
@@ -40,12 +48,7 @@ const LeagueList = ({leagues}: LeagueListProps) => {
     return isLeagueEmpty ? renderLeagues() : noLeagues;
   };
 
-  return (
-    <View style={styles.container}>
-      <Heading style={styles.title}>Active Leagues</Heading>
-      {render()}
-    </View>
-  );
+  return <View style={styles.container}>{render()}</View>;
 };
 
 export default LeagueList;
@@ -54,17 +57,17 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     alignItems: 'center',
-    marginRight: 20,
-    marginLeft: 20,
   },
   leagueContainer: {
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingBottom: 10,
+    alignItems: 'center',
   },
   wrapper: {
+    marginTop: 10,
+    marginBottom: 10,
     display: 'flex',
     flexDirection: 'row',
   },
@@ -73,6 +76,7 @@ const styles = StyleSheet.create({
   },
   name: {
     paddingLeft: 10,
+    color: '#ffffff',
   },
   leagueInfo: {
     flex: 1,

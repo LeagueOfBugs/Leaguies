@@ -17,15 +17,17 @@ const leagueSlice = createSlice({
         badge: string;
         image: string;
         teams: string[];
+        limit: number;
       }>,
     ): Leagues => {
-      const {id, name, teams, badge, image} = action.payload;
+      const {id, name, teams, badge, image, limit} = action.payload;
       const newLeague = {
         id: id || uuid.v4().toString(),
         name: name,
         teams: teams,
         badge: badge,
         image: image,
+        limit: limit,
       };
       state.leagues.push(newLeague);
       return state;

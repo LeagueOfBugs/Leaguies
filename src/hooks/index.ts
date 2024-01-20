@@ -1,11 +1,11 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {createTeam} from '../store/reducers/teams/teamSlice';
 import {createPlayer} from '../store/reducers/players/playerSlice';
 import {createLeague} from '../store/reducers/leagues/leagueSlice';
 import {SEED} from '../constants';
 
-const useSeedRedux = () => {
+export const useSeedRedux = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,5 +25,3 @@ const useSeedRedux = () => {
     });
   }, [dispatch]);
 };
-
-export default useSeedRedux;

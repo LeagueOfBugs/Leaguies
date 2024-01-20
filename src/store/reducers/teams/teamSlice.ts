@@ -19,9 +19,10 @@ const teamSlice = createSlice({
         record: number[];
         badge: string;
         image: string;
+        limit: number;
       }>,
     ) => {
-      const {id, name, league, players, record, badge, image} = action.payload;
+      const {id, name, league, players, record, badge, image, limit} = action.payload;
       const newTeam: Team = {
         id: id || uuid.v4().toString(),
         name: name,
@@ -30,6 +31,7 @@ const teamSlice = createSlice({
         record: record,
         badge: badge,
         image: image,
+        limit: limit,
       };
       state.teams.push(newTeam);
       return state;
