@@ -1,40 +1,34 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, FlatList} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import LeagueList from '../../components/LeagueList';
-import {createPlayer} from '../../store/reducers/players/playerSlice';
-import {createTeam} from '../../store/reducers/teams/teamSlice';
-import {createLeague} from '../../store/reducers/leagues/leagueSlice';
-import {SEED, FREE_AGENT} from '../../constants';
+import {useSelector} from 'react-redux';
 import LFP from '../../components/LFP';
 import LFT from '../../components/LFT';
+import GridList from '../../components/GridList';
+import useSeedRedux from '../../hooks';
+import {selectLeagues} from '../../selectors/leagueSelector';
+
+type screenItem = 'leagues' | 'LFP' | 'LFT';
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const {leagues} = useSelector((state: RootState) => state.leagues);
+  const {leagues} = useSelector(selectLeagues);
+  const mappedLeagues = leagues.map(league => ({
+    id: league.id,
+    name: league.name,
+    badge: league.badge,
+  }));
 
-  useEffect(() => {
-    dispatch(createPlayer(SEED.player));
-    dispatch(createLeague(SEED.leagues[0]));
-    dispatch(createLeague(SEED.leagues[1]));
-    dispatch(createTeam(SEED.team[0]));
-    dispatch(createTeam(SEED.team[1]));
-    dispatch(createTeam(SEED.team[2]));
-    dispatch(createTeam(SEED.team[3]));
-    dispatch(createTeam(SEED.team[4]));
-    dispatch(createPlayer(FREE_AGENT[0]));
-    dispatch(createPlayer(FREE_AGENT[1]));
-    dispatch(createPlayer(FREE_AGENT[2]));
-  }, [dispatch]);
+  // Seed this please OMG!
+  useSeedRedux();
 
-  const renderItem = ({item}) => {
+  const renderItem = ({item}: {item: screenItem}) => {
     if (item === 'leagues') {
-      return <LeagueList leagues={leagues} />;
+      return <GridList leagues={mappedLeagues} />;
     } else if (item === 'LFP') {
       return <LFP />;
     } else if (item === 'LFT') {
       return <LFT />;
     }
+    return <GridList leagues={mappedLeagues} />;
   };
 
   return (

@@ -17,10 +17,11 @@ const playerSlice = createSlice({
         team: string;
         position: string;
         league: string;
-        agency: Agency;
+        agency: string;
+        image: string;
       }>,
     ): Players => {
-      const {id, name, team, position, league, agency} = action.payload;
+      const {id, name, team, position, league, agency, image} = action.payload;
       const newPlayer = {
         id: id || uuid.v4().toString(),
         name: name,
@@ -28,16 +29,10 @@ const playerSlice = createSlice({
         position: position,
         league: league,
         agency: agency,
+        image: image,
       };
       state.players.push(newPlayer);
       return state;
-    },
-
-    addPlayer: (state, action: PayloadAction<{player: Player}>): Players => {
-      const {player} = action.payload;
-      return {
-        players: [...state.players, player],
-      };
     },
     removePlayer: (
       state,
@@ -48,7 +43,7 @@ const playerSlice = createSlice({
         players: state.players.filter(player => player.id !== playerId),
       };
     },
-    edit: (state, action: PayloadAction<Partial<Player>>) => {
+    editPlyr: (state, action: PayloadAction<Partial<Player>>) => {
       const updatedPlayer = action.payload;
       const playerIndex = state.players.findIndex(
         player => player.id === updatedPlayer.id,
@@ -65,6 +60,5 @@ const playerSlice = createSlice({
   },
 });
 
-export const {createPlayer, removePlayer, addPlayer, edit} =
-  playerSlice.actions;
+export const {createPlayer, removePlayer, editPlyr} = playerSlice.actions;
 export default playerSlice.reducer;

@@ -11,7 +11,7 @@ import {useDispatch, useSelector} from 'react-redux';
 interface EditPlayerProps {
   onClose: (event: NativeSyntheticEvent<NativeTouchEvent>) => void;
 }
-import {edit} from '../store/reducers/players/playerSlice';
+import {editPlyr} from '../store/reducers/players/playerSlice';
 
 const EditPlayer = ({onClose}: EditPlayerProps) => {
   const dispatch = useDispatch();
@@ -45,7 +45,7 @@ const EditPlayer = ({onClose}: EditPlayerProps) => {
       id: '905b4d32-ee84-4d1d-8d88-2d14416cfab8',
       agency: agency,
     };
-    dispatch(edit(editedPlayer));
+    dispatch(editPlyr(editedPlayer));
     onClose(evt);
   };
   return (

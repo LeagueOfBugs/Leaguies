@@ -1,4 +1,3 @@
-// import {View} from 'react-native';
 import {useSelector} from 'react-redux';
 import React, {useState} from 'react';
 import {
@@ -9,75 +8,58 @@ import {
   EditIcon,
   Center,
 } from '@gluestack-ui/themed';
-import {View, StyleSheet, Modal} from 'react-native';
-import EditTeam from '../../components/EditTeam';
-import AddTeam from '../../components/AddTeam';
-
-type Placement = 'bottom right' | 'bottom left';
+import {View, StyleSheet, Modal, SafeAreaView} from 'react-native';
+import TeamForm from '../../components/team/teamForm';
 
 const Team = () => {
+  const [showModal, setShowModal] = useState(false);
+
   const {teams} = useSelector((state: RootState) => state.teams);
-  const {leagues} = useSelector((state: RootState) => state.leagues);
   const myTeam = teams.find(
     team => team.id === '905b4d32-ee84-4d1d-8d88-2d14416cfab9',
   );
-  const [modalContent, setModalContent] = useState<React.ReactNode | null>(
-    null,
-  );
-  const [showModal, setShowModal] = useState(false);
-  const record = myTeam?.record ?? [];
-  const [wins, loss] = record;
+  const [wins, loss] = myTeam?.record ?? [];
 
-  const handlePress = (placement: Placement) => {
+  const {leagues} = useSelector((state: RootState) => state.leagues);
+
+  const handlePress = () => {
     setShowModal(true);
-    switch (placement) {
-      case 'bottom right':
-        setModalContent(
-          <EditTeam
-            onClose={() => setShowModal(false)}
-            myTeam={myTeam}
-            record={`${wins} - ${loss}`}
-            leagues={leagues}
-            teams={teams}
-          />,
-        );
-        console.log(modalContent);
-        break;
-      case 'bottom left':
-        setModalContent(<AddTeam onClose={() => setShowModal(false)} />);
-        break;
-      default:
-        setModalContent(null);
-    }
   };
 
+  const renderRecord = () =>
+    (wins || loss) && (
+      <Text>
+        {wins} - {loss}
+      </Text>
+    );
+
   return (
-    <View style={styles.container}>
-      <View style={styles.teamDetailsContainer}>
-        <Text>{myTeam?.name}</Text>
-        <Text>{myTeam?.league}</Text>
-        {(wins || loss) && (
-          <Text>
-            {wins} - {loss}
-          </Text>
-        )}
+    <SafeAreaView>
+      <View style={styles.container}>
+        {/* Team details component */}
+        <View style={styles.teamDetailsContainer}>
+          <Text>{myTeam?.name}</Text>
+          <Text>{myTeam?.league}</Text>
+          {renderRecord()}
+        </View>
+        {/* component for fab to min screen render */}
+        <Fab
+          size="md"
+          placement="bottom right"
+          isHovered={false}
+          isDisabled={false}
+          isPressed={false}
+          onPress={() => handlePress()}>
+          <FabIcon as={EditIcon} mr="$1" />
+          <FabLabel>Edit Team</FabLabel>
+        </Fab>
+        <Center style={styles.modalContainer}>
+          <Modal visible={showModal} animationType="slide">
+            <TeamForm onClose={() => setShowModal(false)} leagues={leagues} />
+          </Modal>
+        </Center>
       </View>
-      <Fab
-        size="md"
-        placement="bottom right"
-        isHovered={false}
-        isDisabled={false}
-        isPressed={false}
-        onPress={() => handlePress('bottom right')}>
-        <FabIcon as={EditIcon} mr="$1" />
-        <FabLabel>Edit Team Info</FabLabel>
-      </Fab>
-      <Center style={styles.modalContainer}>
-        <Modal visible={showModal} animationType="slide">
-          {modalContent}
-        </Modal>
-      </Center>
-    </View>
+    </SafeAreaView>
   );
 };
 

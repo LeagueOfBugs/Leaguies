@@ -1,71 +1,130 @@
-import {View, StyleSheet} from 'react-native';
-import {createSelector} from 'reselect';
+import {View, StyleSheet, ScrollView, FlatList, Text} from 'react-native';
 import {useSelector} from 'react-redux';
 import {
   Avatar,
   AvatarFallbackText,
   AvatarImage,
   Heading,
-  Text,
 } from '@gluestack-ui/themed';
 
 import React from 'react';
+import {selectIncompleteTeams} from '../selectors/teamsSelector';
 
-const selectTeams = (state: RootState) => state.teams;
+interface CardProps {
+  name: string;
+  imageUrl: string;
+  playersNeeded: number;
+}
 
-export const selectIncompleteTeams = createSelector(
-  [selectTeams],
-  teamsArray => {
-    const newArr = teamsArray.teams.filter(team => team.players.length < 6);
-    return newArr;
-  },
-);
+interface PlayerItem {
+  id: string;
+  name: string;
+  image: string;
+  players: string[];
+  playersNeeded?: number;
+}
 
-const LFT = () => {
-  const incompleteTeams = useSelector(selectIncompleteTeams);
-
+const Card = ({name, imageUrl, playersNeeded}: CardProps) => {
   return (
-    <View style={styles.container}>
-      <Heading style={styles.title}>Teams looking for players</Heading>
-      <View style={styles.teamList}>
-        {incompleteTeams.map(team => (
-          <View key={team.id} style={styles.teamContainer}>
-            <Avatar bgColor="$amber600" size="md" borderRadius="$full">
-              <AvatarFallbackText>{team.name}</AvatarFallbackText>
-              <AvatarImage />
-            </Avatar>
-            <Text style={styles.name}>{team.name}</Text>
-            <Text>need {6 - team.players.length}</Text>
-          </View>
-        ))}
+    <View style={styles.card}>
+      <Avatar>
+        <AvatarFallbackText>{name}</AvatarFallbackText>
+        <AvatarImage source={imageUrl} alt={name} />
+      </Avatar>
+      <View style={styles.playerInfo}>
+        <Text style={styles.cardText}>{name}</Text>
+        <Text style={styles.cardText}>{playersNeeded} / 6</Text>
       </View>
     </View>
   );
 };
 
+const LFT = () => {
+  const incompleteTeams = useSelector(selectIncompleteTeams);
+  const renderItem = ({item}: {item: PlayerItem}) => {
+    return (
+      <Card
+        name={item.name}
+        imageUrl={item.image}
+        playersNeeded={item.players.length}
+      />
+    );
+  };
+
+  return (
+    <>
+      <Heading style={styles.title}>Teams looking for players</Heading>
+      <ScrollView style={styles.scrollView}>
+        <View>
+          <FlatList
+            data={incompleteTeams}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            numColumns={4}
+            columnWrapperStyle={styles.row}
+          />
+        </View>
+      </ScrollView>
+    </>
+  );
+};
+
 const styles = StyleSheet.create({
+  scrollView: {
+    maxHeight: 250,
+  },
+  playerInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    height: 30,
+  },
+  image: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    marginBottom: 8,
+  },
   container: {
     display: 'flex',
+    flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    maxHeight: 300,
+    margin: 0,
   },
-  teamList: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  },
-  teamContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    margin: 15,
-    maxWidth: 160,
+  swiperContainer: {
+    height: '100%',
+    margin: 0,
+    padding: 0,
   },
   title: {
     fontSize: 20,
+    paddingLeft: 5,
+    margin: 10,
   },
-  name: {
+  card: {
+    width: 80,
+    padding: 5,
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  cardText: {
     textAlign: 'center',
-    fontWeight: 'bold',
+    fontSize: 10,
+  },
+  playerContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    height: '80%',
+  },
+  row: {
+    margin: 0,
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly',
+    marginBottom: 10,
   },
 });
 

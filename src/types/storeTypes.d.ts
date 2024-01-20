@@ -8,8 +8,6 @@ interface RootState {
 /* RootState types  --- STARTS */
 
 /* Player types  --- STARTS */
-type Agency = 'restricted' | 'freeAgent';
-
 interface Players {
   players: Player[];
 }
@@ -20,7 +18,8 @@ interface Player {
   team: string;
   position: string;
   league: string;
-  agency: Agency;
+  agency: string;
+  image: string;
 }
 /* Player types  --- ENDS */
 
@@ -31,23 +30,25 @@ interface Teams {
 
 interface Team {
   id: string;
+  badge: string;
+  image: string;
   name: string;
-  players: Player[];
+  players: string[];
   league: string;
-  record: int[];
+  record: number[];
 }
 /* Team types  --- ENDS */
 
 /* League types  --- STARTS */
 interface Leagues {
-  // id: string;
-  // name: string;
   leagues: League[];
 }
 
 interface League {
   id: string;
+  image: string;
+  badge: string;
   name: string;
-  teams: Team[];
+  teams: string[];
 }
 /* League types  --- ENDS */

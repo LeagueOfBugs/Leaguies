@@ -11,31 +11,25 @@ const leagueSlice = createSlice({
   reducers: {
     createLeague: (
       state,
-      action: PayloadAction<{id?: string; name: string; teams: Team[]}>,
+      action: PayloadAction<{
+        id?: string;
+        name: string;
+        badge: string;
+        image: string;
+        teams: string[];
+      }>,
     ): Leagues => {
-      const {id, name, teams} = action.payload;
+      const {id, name, teams, badge, image} = action.payload;
       const newLeague = {
         id: id || uuid.v4().toString(),
         name: name,
         teams: teams,
+        badge: badge,
+        image: image,
       };
       state.leagues.push(newLeague);
       return state;
     },
-    // addTeam: (state, action: PayloadAction<{team: Team}>): Leagues => {
-    //   const {team} = action.payload;
-    //   return {
-    //     ...state,
-    //     teams: [...state.teams, team],
-    //   };
-    // },
-    // deleteTeam: (state, action: PayloadAction<{teamId: string}>): Leagues => {
-    //   const {teamId} = action.payload;
-    //   return {
-    //     ...state,
-    //     teams: state.teams.filter(team => team.id !== teamId),
-    //   };
-    // },
   },
 });
 
