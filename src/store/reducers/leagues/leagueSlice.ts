@@ -43,7 +43,23 @@ const leagueSlice = createSlice({
         }
         return league;
       });
-      console.log(state.leagues)
+
+      return {
+        ...state,
+        leagues: updatedLeagues,
+      };
+    },
+    addTeamtoLeague: (state, action) => {
+      const {teamId, leagueId} = action.payload;
+      const updatedLeagues = state.leagues.map(league => {
+        if (league.id === leagueId) {
+          return {
+            ...league,
+            teams: [...league.teams, teamId], // Create a new array for teams
+          };
+        }
+        return league;
+      });
 
       return {
         ...state,
@@ -53,5 +69,6 @@ const leagueSlice = createSlice({
   },
 });
 
-export const {createLeague, deleteLeagueTeam} = leagueSlice.actions;
+export const {createLeague, deleteLeagueTeam, addTeamtoLeague} =
+  leagueSlice.actions;
 export default leagueSlice.reducer;

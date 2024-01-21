@@ -22,15 +22,19 @@ import {
   CircleIcon,
 } from '@gluestack-ui/themed';
 import {deleteTeamFromLeagueUpdate} from '../../utils';
+import {selectLeagues} from '../../selectors/leagueSelector';
 
 const LeagueTeamsTab = ({navigation, route}) => {
   const {item} = route.params;
-  const teamIds = item.teams;
+  const leagueId = item.id;
+  const {leagues} = useSelector((state: RootState) => selectLeagues(state));
+  const leagueTeamsIds = leagues.find(el => el.id === item.id)?.teams || [];
   const dispatch = useDispatch();
   const {teams} = useSelector((state: RootState) => selectTeams(state));
-  const leagueTeams = teams.filter(
-    team => teamIds.includes(team.id) && team.active === true,
-  );
+  const leagueTeams = teams.filter(team => {
+    return leagueTeamsIds.includes(team.id) && team.active === true;
+  });
+
   const activityFalse = teams.filter(team => !team.active);
 
   const renderItem = ({item}) => {
@@ -40,9 +44,7 @@ const LeagueTeamsTab = ({navigation, route}) => {
     const ICON_HEIGHT = '$2';
     const ICON_WIDTH = '$2';
     const ICON_M = '$1.5';
-    const LEAGUE = item.id;
 
-    // Display up to 5 icons for wins (green)
     for (let i = 0; i < Math.min(wins, 5); i++) {
       icons.push(
         <Icon
@@ -56,7 +58,6 @@ const LeagueTeamsTab = ({navigation, route}) => {
       );
     }
 
-    // Display up to 5 icons for losses (red)
     for (let i = 0; i < Math.min(loss, 5 - wins); i++) {
       icons.push(
         <Icon
@@ -105,14 +106,9 @@ const LeagueTeamsTab = ({navigation, route}) => {
           </VStack>
           <Pressable
             onPress={() => {
-              deleteTeamFromLeagueUpdate(dispatch, item);
+              deleteTeamFromLeagueUpdate(dispatch, item, leagueId);
             }}>
-            <Icon
-              as={item.league && item.active ? TrashIcon : AddIcon}
-              m="$2"
-              w="$4"
-              h="$4"
-            />
+            <Icon as={item.active ? TrashIcon : AddIcon} m="$2" w="$4" h="$4" />
           </Pressable>
         </Center>
       </HStack>
@@ -131,12 +127,7 @@ const LeagueTeamsTab = ({navigation, route}) => {
         ) : (
           <VStack>
             <Center>
-              <Icon
-                as={item.league ? TrashIcon : AddIcon}
-                m="$2"
-                w="$10"
-                h="$10"
-              />
+              <Icon as={AddIcon} m="$2" w="$10" h="$10" />
               <Text style={styles.text}>Add Teams</Text>
             </Center>
           </VStack>
