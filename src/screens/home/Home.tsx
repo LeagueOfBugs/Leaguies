@@ -28,11 +28,11 @@ const Home = ({navigation}) => {
 
   const renderItem = ({item}: {item: screenItem}) => {
     if (item === 'leagues') {
-      return <GridList leagues={mappedLeagues} navigation={navigation} />;
+      return <GridList leagues={leagues} navigation={navigation} />;
     } else if (item === 'LFP') {
-      return <LFP />;
+      return <LFP navigation={navigation} />;
     } else if (item === 'LFT') {
-      return <LFT />;
+      return <LFT navigation={navigation} />;
     }
     return <GridList leagues={mappedLeagues} />;
   };

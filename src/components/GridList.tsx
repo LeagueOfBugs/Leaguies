@@ -17,31 +17,35 @@ interface GridListProps {
   leagues: LeagueItem[];
 }
 
-const Card = ({name, imageUrl, navigation}: CardProps) => {
+const Card = ({name, imageUrl, navigation, item}: CardProps) => {
+  console.log('item', item);
   return (
     <Pressable
       style={styles.card}
-      onPress={() => navigation.navigate('League Details')}>
+      onPress={() => navigation.navigate('League Details', {item: item})}>
       <Image source={{uri: imageUrl}} style={styles.image} />
       <Text style={styles.cardText}>{name}</Text>
     </Pressable>
   );
 };
 
-const GridList = ({leagues, navigation}: GridListProps) => {
+const GridList = ({leagues, navigation, item}: GridListProps) => {
   if (!leagues) {
     return <Text>Loading...</Text>;
   }
 
   const renderItem = ({item}: {item: LeagueItem}) => (
-    <Card name={item.name} imageUrl={item.badge} navigation={navigation} />
+    <Card
+      name={item.name}
+      imageUrl={item.badge}
+      navigation={navigation}
+      item={item}
+    />
   );
 
   return (
     <>
-      <Heading
-        style={styles.title}
-        onPress={() => navigation.navigate('League Details')}>
+      <Heading style={styles.title} onPress={() => console.log('heading')}>
         Leagues
       </Heading>
       <ScrollView style={styles.scrollView}>

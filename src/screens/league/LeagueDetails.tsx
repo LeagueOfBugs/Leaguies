@@ -25,30 +25,9 @@ const Pill = ({text, action}) => {
 };
 
 const LeagueDetailsTab = ({navigation, route}) => {
-  // const [accPills, setAccPills] = useState([]);
   const {item} = route.params;
-  // if i need more pill categories
-  // action	error | warning | success | info | muted
   const needTeams = item.teams.length < item.limit;
   const teamsFull = item.teams.length === item.limit;
-  // useEffect(() => {
-  //   // Logic to update accPills
-  //   let updatedPills = [];
-
-  //   if (needTeams) {
-  //     updatedPills.push(
-  //       <Pill key="needTeams" text={pillMessages.NEED_TEAMS} action="error" />,
-  //     );
-  //   }
-
-  //   if (teamsFull) {
-  //     updatedPills.push(
-  //       <Pill key="teamsFull" text={pillMessages.READY} action="success" />,
-  //     );
-  //   }
-
-  //   setAccPills(updatedPills);
-  // }, [needTeams, teamsFull]);
   return (
     <SafeAreaView style={styles.container}>
       <Center>
@@ -89,7 +68,7 @@ const LeagueDetailsTab = ({navigation, route}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#252526',
-    height: 150,
+    height: 100,
   },
   avatarImage: {
     width: 40,

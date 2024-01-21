@@ -1,4 +1,11 @@
-import {View, StyleSheet, ScrollView, FlatList, Text} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  FlatList,
+  Text,
+  Pressable,
+} from 'react-native';
 import {useSelector} from 'react-redux';
 import {
   Avatar,
@@ -24,9 +31,11 @@ interface PlayerItem {
   playersNeeded?: number;
 }
 
-const Card = ({name, imageUrl, playersNeeded}: CardProps) => {
+const Card = ({name, imageUrl, playersNeeded, navigation}: CardProps) => {
   return (
-    <View style={styles.card}>
+    <Pressable
+      style={styles.card}
+      onPress={() => navigation.navigate('Team Details')}>
       <Avatar>
         <AvatarFallbackText>{name}</AvatarFallbackText>
         <AvatarImage source={imageUrl} alt={name} />
@@ -35,11 +44,11 @@ const Card = ({name, imageUrl, playersNeeded}: CardProps) => {
         <Text style={styles.cardText}>{name}</Text>
         <Text style={styles.cardText}>{playersNeeded} / 6</Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
-const LFT = () => {
+const LFT = ({navigation}) => {
   const incompleteTeams = useSelector(selectIncompleteTeams);
   const renderItem = ({item}: {item: PlayerItem}) => {
     return (
@@ -47,6 +56,7 @@ const LFT = () => {
         name={item.name}
         imageUrl={item.image}
         playersNeeded={item.players.length}
+        navigation={navigation}
       />
     );
   };

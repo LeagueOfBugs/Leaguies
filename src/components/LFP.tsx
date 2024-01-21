@@ -1,4 +1,4 @@
-import {View, StyleSheet, ScrollView, FlatList} from 'react-native';
+import {View, StyleSheet, ScrollView, FlatList, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 import {
   Avatar,
@@ -24,9 +24,11 @@ interface PlayerItem {
   position: string;
 }
 
-const Card = ({name, imageUrl, position}: CardProps) => {
+const Card = ({name, imageUrl, position, navigation}: CardProps) => {
   return (
-    <View style={styles.card}>
+    <Pressable
+      style={styles.card}
+      onPress={() => navigation.navigate('Player Details')}>
       <Avatar>
         <AvatarFallbackText>{name}</AvatarFallbackText>
         <AvatarImage source={imageUrl} alt={name} />
@@ -36,14 +38,20 @@ const Card = ({name, imageUrl, position}: CardProps) => {
         <Text style={styles.cardText}>{name}</Text>
         <Text style={styles.cardText}>{position}</Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
-const LFP = () => {
+const LFP = ({navigation}) => {
   const freeAgentPlayers = useSelector(selectFreeAgentPlayers);
+
   const renderItem = ({item}: {item: PlayerItem}) => (
-    <Card name={item.name} imageUrl={item.image} position={item.position} />
+    <Card
+      name={item.name}
+      imageUrl={item.image}
+      position={item.position}
+      navigation={navigation}
+    />
   );
 
   return (

@@ -11,10 +11,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {GluestackUIProvider} from '@gluestack-ui/themed';
 import {config} from '@gluestack-ui/config';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import LeagueDetails from './screens/league/LeagueDetails';
 import LeagueTeamTab from './screens/league/LeagueTeamsTab';
 import LeagueScheduleTab from './screens/league/LeagueScheduleTab';
-import {Text, View} from 'react-native';
 import LeagueHomeTab from './screens/league/LeagueHomeTab';
 import LeagueDetailsTab from './screens/league/LeagueDetails';
 
@@ -49,7 +47,8 @@ const HomeTabs = () => {
 };
 
 const TopLeagueDetailsTab = ({navigation, route}) => {
-  const {item} = route.params;
+  const {item} = route?.params ?? {};
+
   return (
     <>
       <LeagueDetailsTab navigation={navigation} route={route} />
@@ -97,7 +96,47 @@ function App(): React.JSX.Element {
             <Stack.Screen
               name="League Details"
               component={TopLeagueDetailsTab}
-              options={{headerShown: false}}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#252526',
+                },
+                headerTitle: '',
+                headerTintColor: '#ffffff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+                headerBackTitleVisible: false,
+              }}
+            />
+            <Stack.Screen
+              name="Player Details"
+              component={Player}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#252526',
+                },
+                headerTitle: '',
+                headerTintColor: '#ffffff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+                headerBackTitleVisible: false,
+              }}
+            />
+            <Stack.Screen
+              name="Team Details"
+              component={Team}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#252526',
+                },
+                headerTitle: '',
+                headerTintColor: '#ffffff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+                headerBackTitleVisible: false,
+              }}
             />
           </Stack.Navigator>
         </NavigationContainer>
