@@ -31,9 +31,6 @@ const LeagueTeamsTab = ({navigation, route}) => {
   const leagueTeams = teams.filter(
     team => teamIds.includes(team.id) && team.active === true,
   );
-  const otherTeams = teams.filter(
-    team => !teamIds.includes(team.id) && team.league === '',
-  );
   const activityFalse = teams.filter(team => !team.active);
 
   const renderItem = ({item}) => {
@@ -43,6 +40,7 @@ const LeagueTeamsTab = ({navigation, route}) => {
     const ICON_HEIGHT = '$2';
     const ICON_WIDTH = '$2';
     const ICON_M = '$1.5';
+    const LEAGUE = item.id;
 
     // Display up to 5 icons for wins (green)
     for (let i = 0; i < Math.min(wins, 5); i++) {
@@ -107,8 +105,7 @@ const LeagueTeamsTab = ({navigation, route}) => {
           </VStack>
           <Pressable
             onPress={() => {
-              console.log(item);
-              deleteTeamFromLeagueUpdate(dispatch, item.id);
+              deleteTeamFromLeagueUpdate(dispatch, item);
             }}>
             <Icon
               as={item.league && item.active ? TrashIcon : AddIcon}

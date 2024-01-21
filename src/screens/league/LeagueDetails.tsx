@@ -25,30 +25,30 @@ const Pill = ({text, action}) => {
 };
 
 const LeagueDetailsTab = ({navigation, route}) => {
-  const [accPills, setAccPills] = useState([]);
+  // const [accPills, setAccPills] = useState([]);
   const {item} = route.params;
   // if i need more pill categories
   // action	error | warning | success | info | muted
   const needTeams = item.teams.length < item.limit;
-  const teamsFull = item.teams.length >= item.limit;
-  useEffect(() => {
-    // Logic to update accPills
-    let updatedPills = [];
+  const teamsFull = item.teams.length === item.limit;
+  // useEffect(() => {
+  //   // Logic to update accPills
+  //   let updatedPills = [];
 
-    if (needTeams) {
-      updatedPills.push(
-        <Pill key="needTeams" text={pillMessages.NEED_TEAMS} action="error" />,
-      );
-    }
+  //   if (needTeams) {
+  //     updatedPills.push(
+  //       <Pill key="needTeams" text={pillMessages.NEED_TEAMS} action="error" />,
+  //     );
+  //   }
 
-    if (teamsFull) {
-      updatedPills.push(
-        <Pill key="teamsFull" text={pillMessages.READY} action="success" />,
-      );
-    }
+  //   if (teamsFull) {
+  //     updatedPills.push(
+  //       <Pill key="teamsFull" text={pillMessages.READY} action="success" />,
+  //     );
+  //   }
 
-    setAccPills(updatedPills);
-  }, [needTeams, teamsFull]); // Dependencies to watch for changes
+  //   setAccPills(updatedPills);
+  // }, [needTeams, teamsFull]);
   return (
     <SafeAreaView style={styles.container}>
       <Center>
@@ -63,7 +63,22 @@ const LeagueDetailsTab = ({navigation, route}) => {
           <VStack>
             <Text style={styles.text}>{item.name}</Text>
             <Text style={styles.text}>{item.teams.length} teams</Text>
-            <HStack>{accPills}</HStack>
+            <HStack>
+              {needTeams && (
+                <Pill
+                  key="needTeams"
+                  text={pillMessages.NEED_TEAMS}
+                  action="error"
+                />
+              )}
+              {teamsFull && (
+                <Pill
+                  key="teamsFull"
+                  text={pillMessages.READY}
+                  action="success"
+                />
+              )}
+            </HStack>
           </VStack>
         </HStack>
       </Center>
