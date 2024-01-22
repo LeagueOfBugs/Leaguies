@@ -4,8 +4,8 @@ export const selectPlayers = (state: RootState) => state.players;
 
 export const selectFreeAgentPlayers = createSelector(
   [selectPlayers],
-  players => {
-    const allPlayers = players.players;
+  ({players}) => {
+    const allPlayers = players;
     const freeAgents = allPlayers.filter(
       player => player.agency === 'unrestricted',
     );
@@ -13,3 +13,7 @@ export const selectFreeAgentPlayers = createSelector(
   },
 );
 
+export const selectPlayerById = (playerId: string) =>
+  createSelector([selectPlayers], ({players}) => {
+    return players.find(player => player.id === playerId);
+  });

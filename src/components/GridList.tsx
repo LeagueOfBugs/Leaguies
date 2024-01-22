@@ -5,16 +5,20 @@ import {View, StyleSheet, Image, FlatList, Pressable} from 'react-native';
 interface CardProps {
   name: string;
   imageUrl: string;
+  navigation: any;
+  item: League;
 }
 
 interface LeagueItem {
-  id: string;
-  name: string;
   badge: string;
+  name: string;
+  item: League;
+  limit: string;
 }
 
 interface GridListProps {
-  leagues: LeagueItem[];
+  allLeagues: LeagueItem[];
+  navigation: any;
 }
 
 const Card = ({name, imageUrl, navigation, item}: CardProps) => {
@@ -28,8 +32,8 @@ const Card = ({name, imageUrl, navigation, item}: CardProps) => {
   );
 };
 
-const GridList = ({leagues, navigation}: GridListProps) => {
-  if (!leagues) {
+const GridList = ({allLeagues, navigation}: GridListProps) => {
+  if (!allLeagues) {
     return <Text>Loading...</Text>;
   }
 
@@ -50,7 +54,7 @@ const GridList = ({leagues, navigation}: GridListProps) => {
       <ScrollView style={styles.scrollView}>
         <View style={styles.gridContainer}>
           <FlatList
-            data={leagues}
+            data={allLeagues}
             renderItem={renderItem}
             keyExtractor={item => item.id}
             numColumns={4}

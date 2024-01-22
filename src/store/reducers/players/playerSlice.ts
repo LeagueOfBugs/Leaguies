@@ -19,9 +19,10 @@ const playerSlice = createSlice({
         league: string;
         agency: string;
         image: string;
+        onlineStatus: boolean;
       }>,
     ): Players => {
-      const {id, name, team, position, league, agency, image} = action.payload;
+      const {id, name, team, position, league, agency, image, onlineStatus} = action.payload;
       const newPlayer = {
         id: id || uuid.v4().toString(),
         name: name,
@@ -30,6 +31,7 @@ const playerSlice = createSlice({
         league: league,
         agency: agency,
         image: image,
+        onlineStatus: onlineStatus,
       };
       state.players.push(newPlayer);
       return state;

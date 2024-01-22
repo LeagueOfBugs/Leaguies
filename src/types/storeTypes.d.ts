@@ -20,6 +20,7 @@ interface Player {
   league: string;
   agency: string;
   image: string;
+  onlineStatus: boolean;
 }
 /* Player types  --- ENDS */
 

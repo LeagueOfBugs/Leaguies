@@ -15,6 +15,8 @@ interface CardProps {
   name: string;
   imageUrl: string;
   position: string;
+  navigation: any;
+  item: Player;
 }
 
 interface PlayerItem {
@@ -24,34 +26,30 @@ interface PlayerItem {
   position: string;
 }
 
-const Card = ({name, imageUrl, position, navigation}: CardProps) => {
+const Card = ({item, navigation}: CardProps) => {
+  let itemId = item.id;
   return (
     <Pressable
       style={styles.card}
-      onPress={() => navigation.navigate('Player Details')}>
+      onPress={() => navigation.navigate('Player Details', {itemId})}>
       <Avatar>
-        <AvatarFallbackText>{name}</AvatarFallbackText>
-        <AvatarImage source={imageUrl} alt={name} />
-        <AvatarBadge />
+        <AvatarFallbackText>{item.name}</AvatarFallbackText>
+        <AvatarImage source={item.image} alt={item.name} />
+        {item.onlineStatus && <AvatarBadge />}
+        {!item.onlineStatus && <AvatarBadge style={styles.offline} />}
       </Avatar>
       <View style={styles.playerInfo}>
-        <Text style={styles.cardText}>{name}</Text>
-        <Text style={styles.cardText}>{position}</Text>
+        <Text style={styles.cardText}>{item.name}</Text>
+        <Text style={styles.cardText}>{item.position}</Text>
       </View>
     </Pressable>
   );
 };
 
-const LFP = ({navigation}) => {
+const LFP = ({navigation}: any) => {
   const freeAgentPlayers = useSelector(selectFreeAgentPlayers);
-
   const renderItem = ({item}: {item: PlayerItem}) => (
-    <Card
-      name={item.name}
-      imageUrl={item.image}
-      position={item.position}
-      navigation={navigation}
-    />
+    <Card item={item} navigation={navigation} />
   );
 
   return (
@@ -105,6 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingLeft: 5,
     margin: 10,
+    color: '#ffffff',
   },
   card: {
     width: 80,
@@ -128,6 +127,9 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
     marginBottom: 10,
+  },
+  offline: {
+    backgroundColor: 'red',
   },
 });
 export default LFP;

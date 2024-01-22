@@ -16,6 +16,9 @@ import LeagueScheduleTab from './screens/league/LeagueScheduleTab';
 import LeagueHomeTab from './screens/league/LeagueHomeTab';
 import LeagueDetailsTab from './screens/league/LeagueDetails';
 import createLeague from './screens/league/CreateLeague';
+import PlayerStatsTab from './screens/player/PlayerStatsTab';
+import PlayerActivityTab from './screens/player/PlayerActivityTab';
+import PlayerDetailsTab from './screens/player/PlayerDetailsTab';
 
 // Define custom theme for NavigationContainer
 const customTheme = {
@@ -27,6 +30,7 @@ const customTheme = {
 };
 
 const LeagueTopTab = createMaterialTopTabNavigator();
+const PlayerTopTab = createMaterialTopTabNavigator();
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -61,7 +65,6 @@ const TopLeagueDetailsTab: React.FC<{navigation: any; route: any}> = ({
   route,
 }) => {
   const {item} = route?.params ?? {};
-
   return (
     <>
       <LeagueDetailsTab navigation={navigation} route={route} />
@@ -94,6 +97,35 @@ const TopLeagueDetailsTab: React.FC<{navigation: any; route: any}> = ({
     </>
   );
 };
+const TopPlayerDetailsTab = ({route}: any) => {
+  const {itemId} = route.params;
+  return (
+    <>
+      <PlayerDetailsTab item={itemId} />
+      <PlayerTopTab.Navigator
+        screenOptions={{
+          tabBarLabelStyle: {
+            color: '#ffffff',
+            fontSize: 13,
+          },
+          tabBarStyle: {
+            backgroundColor: '#252526',
+          },
+        }}>
+        <PlayerTopTab.Screen
+          name="Stats"
+          component={PlayerStatsTab}
+          initialParams={itemId}
+        />
+        <PlayerTopTab.Screen
+          name="Activity"
+          component={PlayerActivityTab}
+          initialParams={itemId}
+        />
+      </PlayerTopTab.Navigator>
+    </>
+  );
+};
 
 const App = () => {
   return (
@@ -123,7 +155,7 @@ const App = () => {
             />
             <Stack.Screen
               name="Player Details"
-              component={Player}
+              component={TopPlayerDetailsTab}
               options={{
                 headerStyle: {
                   backgroundColor: '#252526',

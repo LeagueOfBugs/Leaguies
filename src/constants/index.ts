@@ -251,6 +251,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Bunny Alfred',
@@ -261,6 +262,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Bunny Fred',
@@ -271,6 +273,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Little Weiner',
@@ -291,6 +294,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Theo rotties',
@@ -311,6 +315,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Flandres Farias',
@@ -321,6 +326,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Fasey Farias',
@@ -331,6 +337,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Fleela Farias',
@@ -341,6 +348,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Fluffy',
@@ -351,16 +359,18 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Trevor',
-      id: '905b4d32-ee84-4d1d-8d88-2d14416c33d',
+      id: '905b4d32-ee84-4d1d-8d88-2d144trevor',
       team: '905b4d32-ee84-4d1d-8d88-2d14416cfvac',
       position: 'Defender',
       league: '905b4d32-ee84-4d1d-8d88-2d14416c0001',
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Fluffy',
@@ -371,6 +381,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Trevor',
@@ -381,6 +392,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Leela Arias',
@@ -391,6 +403,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Casey Arias',
@@ -401,6 +414,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Andres Arias',
@@ -411,6 +425,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Leo Arias',
@@ -421,6 +436,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Lionel Messi',
@@ -431,6 +447,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Kylian Mbappé',
@@ -441,6 +458,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Cristiano Ronaldo',
@@ -451,6 +469,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Neymar Jr.',
@@ -461,6 +480,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Robert Lewandowski',
@@ -471,6 +491,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Kevin De Bruyne',
@@ -481,6 +502,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Sadio Mané',
@@ -491,6 +513,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Luis Suárez',
@@ -501,6 +524,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Harry Kane',
@@ -511,6 +535,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Mohamed Salah',
@@ -521,6 +546,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Virgil van Dijk',
@@ -531,6 +557,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Bruno Fernandes',
@@ -541,6 +568,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Joshua Kimmich',
@@ -551,6 +579,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Erling Haaland',
@@ -561,6 +590,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Alphonso Davies',
@@ -571,6 +601,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Marcus Rashford',
@@ -581,6 +612,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Raheem Sterling',
@@ -591,6 +623,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Thiago Alcântara',
@@ -601,6 +634,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Gianluigi Donnarumma',
@@ -611,6 +645,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: false,
     },
     {
       name: 'Hakim Ziyech',
@@ -621,6 +656,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Andrew Robertson',
@@ -631,6 +667,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Bruno Fernandes',
@@ -641,6 +678,7 @@ export const SEED = {
       agency: 'unrestricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
   ],
 };

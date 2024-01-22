@@ -1,33 +1,23 @@
 import React from 'react';
-import {
-  StyleSheet,
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-  Button,
-} from 'react-native';
+import {StyleSheet, FlatList, SafeAreaView} from 'react-native';
 import {useSelector} from 'react-redux';
 import LFP from '../../components/LFP';
 import LFT from '../../components/LFT';
 import GridList from '../../components/GridList';
 import {useSeedRedux} from '../../hooks';
 import {selectLeagues} from '../../selectors/leagueSelector';
-import { selectPlayers } from '../../selectors/playerSelectors';
-import { selectTeams } from '../../selectors/teamsSelector';
 
 type screenItem = 'leagues' | 'LFP' | 'LFT';
 
 const Home = ({navigation}) => {
   const {leagues} = useSelector(selectLeagues);
-  const {players} = useSelector(selectPlayers);
-  const {teams} = useSelector(selectTeams);
 
   // Seed this please OMG!
   useSeedRedux();
 
   const renderItem = ({item}: {item: screenItem}) => {
     if (item === 'leagues') {
-      return <GridList leagues={leagues} navigation={navigation} />;
+      return <GridList allLeagues={leagues} navigation={navigation} />;
     } else if (item === 'LFP') {
       return <LFP navigation={navigation} />;
     } else if (item === 'LFT') {

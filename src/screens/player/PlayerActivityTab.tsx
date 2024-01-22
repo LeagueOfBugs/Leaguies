@@ -1,12 +1,12 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-const PlayerDetails = () => {
+const PlayerActivityTab = () => {
   return (
     <View>
-      <Text>PlayerDetails</Text>
+      <Text>PlayerActivityTab</Text>
     </View>
   );
 };
 
-export default PlayerDetails;
+export default PlayerActivityTab;

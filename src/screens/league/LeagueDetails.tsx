@@ -16,7 +16,6 @@ import {selectLeagueById, selectLeagues} from '../../selectors/leagueSelector';
 import useLeagueDispatch from '../../hooks/useLeagueDispatch';
 import {selectTeams} from '../../selectors/teamsSelector';
 import {selectPlayers} from '../../selectors/playerSelectors';
-import {G} from 'react-native-svg';
 
 interface PillProps {
   text: string;
@@ -38,25 +37,20 @@ const Pill = ({text, action}: PillProps) => {
 
 const LeagueDetailsTab = ({navigation, route}) => {
   const {item} = route.params;
-  console.log('params: ', route.params.item);
+
   let leagueId: string;
   if (typeof item === 'object') {
-    console.log('yep');
     leagueId = item.id;
   } else {
-    console.log('nope');
     leagueId = item;
   }
 
-  console.log(leagueId);
   const {deleteLeague} = useLeagueDispatch();
   const {leagues} = useSelector(selectLeagues);
   const {teams} = useSelector(selectTeams);
   const league: League | undefined = useSelector(selectLeagueById(leagueId));
   const {players} = useSelector(selectPlayers);
 
-  console.log('leagueId: ', league);
-  console.log('leahueeee: ', item);
   const needTeams = league?.teams?.length < parseInt(league?.limit, 10);
   const teamsFull = league?.teams?.length >= parseInt(league?.limit, 10);
 
