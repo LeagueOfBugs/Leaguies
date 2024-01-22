@@ -39,20 +39,9 @@ const teamSlice = createSlice({
       state.teams.push(newTeam);
       return state;
     },
-    editTm: (state, action: PayloadAction<Partial<Team>>) => {
-      const updatedTeam = action.payload;
-      const teamIndex = state.teams.findIndex(team => {
-        return team.id === updatedTeam.id;
-      });
-
-
-      if (teamIndex !== -1) {
-        state.teams[teamIndex] = {
-          ...state.teams[teamIndex],
-          ...updatedTeam,
-        };
-      }
-      return state;
+    editTeam: (state, action) => {
+      // console.log('inslice', action.payload)
+      return action.payload;
     },
     deleteTeam: (state, action: PayloadAction<string>) => {
       const teamIdToDelete = action.payload;
@@ -61,5 +50,5 @@ const teamSlice = createSlice({
     },
   },
 });
-export const {createTeam, editTm, deleteTeam} = teamSlice.actions;
+export const {createTeam, editTeam, deleteTeam} = teamSlice.actions;
 export default teamSlice.reducer;

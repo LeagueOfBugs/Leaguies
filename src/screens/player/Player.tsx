@@ -85,6 +85,7 @@ const Player = () => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+    backgroundColor: '#1C1C1D',
   },
   vStackContainer: {
     alignItems: 'center',

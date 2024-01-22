@@ -38,7 +38,7 @@ const Home = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: '#1C1C1D'}}>
       <FlatList
         data={['leagues', 'LFP', 'LFT']}
         keyExtractor={(item, index) => index.toString()}
@@ -54,7 +54,9 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#1C1C1D',
     flexGrow: 1,
     paddingVertical: 10,
+    height: '100%',
   },
 });

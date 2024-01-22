@@ -3,23 +3,25 @@ import {
   Avatar,
   AvatarFallbackText,
   AvatarImage,
-  Heading,
   Text,
 } from '@gluestack-ui/themed';
 import React from 'react';
 
 interface LeagueListProps {
   leagues: League[];
+  navigation: any;
 }
 
 const LeagueList = ({leagues, navigation}: LeagueListProps) => {
   const isLeagueEmpty = leagues.length > 0;
-  const renderLeagues = () => {
-    return (
-      <FlatList
-        data={leagues}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => (
+  // console.log('leagues', leagues);
+  return (
+    <FlatList
+      data={leagues}
+      keyExtractor={item => item.id.toString()}
+      renderItem={({item}) => {
+        // console.log('item: ',item);
+        return (
           <>
             <Pressable
               style={styles.leagueContainer}
@@ -38,17 +40,10 @@ const LeagueList = ({leagues, navigation}: LeagueListProps) => {
               </Text>
             </Pressable>
           </>
-        )}
-      />
-    );
-  };
-
-  const render = () => {
-    const noLeagues = <Heading>No Leagues</Heading>;
-    return isLeagueEmpty ? renderLeagues() : noLeagues;
-  };
-
-  return <View style={styles.container}>{render()}</View>;
+        );
+      }}
+    />
+  );
 };
 
 export default LeagueList;

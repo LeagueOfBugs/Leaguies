@@ -12,3 +12,4 @@ export const selectFreeAgentPlayers = createSelector(
     return freeAgents;
   },
 );
+

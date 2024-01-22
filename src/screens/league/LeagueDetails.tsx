@@ -1,22 +1,28 @@
-import {View, Text, Image, StyleSheet, SafeAreaView} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import {Text, Image, StyleSheet, SafeAreaView} from 'react-native';
+import React from 'react';
 import {
   Avatar,
   AvatarFallbackText,
   Badge,
-  BadgeIcon,
   BadgeText,
   Center,
   HStack,
   VStack,
 } from '@gluestack-ui/themed';
+import {useSelector} from 'react-redux';
+import {selectLeagueById} from '../../selectors/leagueSelector';
+
+interface PillProps {
+  text: string;
+  action: 'error' | 'warning' | 'success' | 'info' | 'muted';
+}
 
 const pillMessages = {
   NEED_TEAMS: 'recruit more teams',
   READY: 'ready',
 };
 
-const Pill = ({text, action}) => {
+const Pill = ({text, action}: PillProps) => {
   return (
     <Badge size="sm" variant="outline" borderRadius="$full" action={action}>
       <BadgeText>{text}</BadgeText>
@@ -26,8 +32,9 @@ const Pill = ({text, action}) => {
 
 const LeagueDetailsTab = ({navigation, route}) => {
   const {item} = route.params;
-  const needTeams = item.teams.length < item.limit;
-  const teamsFull = item.teams.length === item.limit;
+  const league: League | undefined = useSelector(selectLeagueById(item.id));
+  const needTeams = league?.teams?.length < league?.limit;
+  const teamsFull = league?.teams?.length === league?.limit;
   return (
     <SafeAreaView style={styles.container}>
       <Center>
@@ -40,8 +47,8 @@ const LeagueDetailsTab = ({navigation, route}) => {
             )}
           </Avatar>
           <VStack>
-            <Text style={styles.text}>{item.name}</Text>
-            <Text style={styles.text}>{item.teams.length} teams</Text>
+            <Text style={styles.text}>{league?.name}</Text>
+            <Text style={styles.text}>{league?.teams.length} teams</Text>
             <HStack>
               {needTeams && (
                 <Pill

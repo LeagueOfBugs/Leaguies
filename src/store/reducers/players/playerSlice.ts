@@ -43,7 +43,7 @@ const playerSlice = createSlice({
         players: state.players.filter(player => player.id !== playerId),
       };
     },
-    editPlyr: (state, action: PayloadAction<Partial<Player>>) => {
+    editPlayer: (state, action: PayloadAction<Partial<Player>>) => {
       const updatedPlayer = action.payload;
       const playerIndex = state.players.findIndex(
         player => player.id === updatedPlayer.id,
@@ -60,5 +60,5 @@ const playerSlice = createSlice({
   },
 });
 
-export const {createPlayer, removePlayer, editPlyr} = playerSlice.actions;
+export const {createPlayer, removePlayer, editPlayer} = playerSlice.actions;
 export default playerSlice.reducer;

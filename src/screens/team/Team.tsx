@@ -34,8 +34,8 @@ const Team = () => {
     );
 
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View>
         {/* Team details component */}
         <View style={styles.teamDetailsContainer}>
           <Text>{myTeam?.name}</Text>
@@ -66,6 +66,7 @@ const Team = () => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
+    backgroundColor: '#1C1C1D',
   },
   teamDetailsContainer: {
     alignItems: 'center',

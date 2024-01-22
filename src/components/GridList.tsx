@@ -18,7 +18,6 @@ interface GridListProps {
 }
 
 const Card = ({name, imageUrl, navigation, item}: CardProps) => {
-  console.log('item', item);
   return (
     <Pressable
       style={styles.card}
@@ -29,7 +28,7 @@ const Card = ({name, imageUrl, navigation, item}: CardProps) => {
   );
 };
 
-const GridList = ({leagues, navigation, item}: GridListProps) => {
+const GridList = ({leagues, navigation}: GridListProps) => {
   if (!leagues) {
     return <Text>Loading...</Text>;
   }

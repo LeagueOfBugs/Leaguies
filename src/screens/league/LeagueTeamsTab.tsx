@@ -7,7 +7,7 @@ import {
   Pressable,
 } from 'react-native';
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {selectTeams} from '../../selectors/teamsSelector';
 import SectionContainer from '../../components/SectionContainer';
 import {
@@ -21,19 +21,20 @@ import {
   VStack,
   CircleIcon,
 } from '@gluestack-ui/themed';
-import {deleteTeamFromLeagueUpdate} from '../../utils';
 import {selectLeagues} from '../../selectors/leagueSelector';
+import useLeagueDispatch from '../../hooks/useDeleteTeamToLeague';
 
 const LeagueTeamsTab = ({navigation, route}) => {
   const {item} = route.params;
   const leagueId = item.id;
   const {leagues} = useSelector((state: RootState) => selectLeagues(state));
-  const leagueTeamsIds = leagues.find(el => el.id === item.id)?.teams || [];
-  const dispatch = useDispatch();
   const {teams} = useSelector((state: RootState) => selectTeams(state));
+  const leagueTeamsIds = leagues.find(el => el.id === item.id)?.teams || [];
   const leagueTeams = teams.filter(team => {
     return leagueTeamsIds.includes(team.id) && team.active === true;
   });
+  // console.log(teams);
+  const {addLeagueTeam, removeLeagueTeam} = useLeagueDispatch();
 
   const activityFalse = teams.filter(team => !team.active);
 
@@ -87,6 +88,7 @@ const LeagueTeamsTab = ({navigation, route}) => {
         );
       }
     }
+
     return (
       <HStack>
         <Avatar bg="rgba(0, 0, 0, 0)">
@@ -105,9 +107,11 @@ const LeagueTeamsTab = ({navigation, route}) => {
             </Center>
           </VStack>
           <Pressable
-            onPress={() => {
-              deleteTeamFromLeagueUpdate(dispatch, item, leagueId);
-            }}>
+            onPress={() =>
+              item.active
+                ? removeLeagueTeam(item, leagueId, leagues, teams)
+                : addLeagueTeam(item, leagueId, leagues, teams)
+            }>
             <Icon as={item.active ? TrashIcon : AddIcon} m="$2" w="$4" h="$4" />
           </Pressable>
         </Center>
@@ -120,6 +124,7 @@ const LeagueTeamsTab = ({navigation, route}) => {
       <SectionContainer title="League Teams">
         {!(leagueTeams.length === 0) ? (
           <FlatList
+            id="delete"
             data={leagueTeams}
             keyExtractor={item => item.id.toString()}
             renderItem={renderItem}
@@ -136,6 +141,7 @@ const LeagueTeamsTab = ({navigation, route}) => {
       <SectionContainer title="Recruit Teams">
         {!(leagueTeams.length === item.limit) ? (
           <FlatList
+            id="add"
             data={activityFalse}
             keyExtractor={item => item.id.toString()}
             renderItem={renderItem}

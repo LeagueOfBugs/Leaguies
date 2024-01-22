@@ -53,5 +53,32 @@ interface League {
   name: string;
   teams: string[];
   limit: number;
+  seasonId: string;
 }
 /* League types  --- ENDS */
+
+interface Seasons {
+  seasons: Season[];
+}
+
+interface Match {
+  id: string;
+  name: string;
+  homeTeam: string;
+  awayTeam: string;
+  date: string;
+  time: string;
+  location: string;
+  leagueId: string;
+  officiating: string[];
+}
+
+interface Season {
+  id: string;
+  leagueId: string;
+  start: string;
+  end: string;
+  games: number;
+  cadence: string;
+  matches: string[];
+}

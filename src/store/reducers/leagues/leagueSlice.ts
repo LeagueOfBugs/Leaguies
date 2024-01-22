@@ -1,6 +1,8 @@
 // leagueSlice.js
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import uuid from 'react-native-uuid';
+import {useSelector} from 'react-redux';
+import {selectTeamById} from '../../../selectors/teamsSelector';
 const initialState: Leagues = {
   leagues: [],
 };
@@ -18,9 +20,10 @@ const leagueSlice = createSlice({
         image: string;
         teams: string[];
         limit: number;
+        seasonId: string;
       }>,
     ): Leagues => {
-      const {id, name, teams, badge, image, limit} = action.payload;
+      const {id, name, teams, badge, image, limit, seasonId} = action.payload;
       const newLeague = {
         id: id || uuid.v4().toString(),
         name: name,
@@ -28,47 +31,19 @@ const leagueSlice = createSlice({
         badge: badge,
         image: image,
         limit: limit,
+        seasonId: seasonId,
       };
       state.leagues.push(newLeague);
       return state;
     },
-    deleteLeagueTeam: (state, action) => {
-      const {leagueId, teamId} = action.payload;
-      const updatedLeagues = state.leagues.map(league => {
-        if (league.id === leagueId && league.teams.includes(teamId)) {
-          return {
-            ...league,
-            teams: league.teams.filter(id => id !== teamId),
-          };
-        }
-        return league;
-      });
-
-      return {
-        ...state,
-        leagues: updatedLeagues,
-      };
+    deleteTeam: (state, action) => {
+      return action.payload;
     },
-    addTeamtoLeague: (state, action) => {
-      const {teamId, leagueId} = action.payload;
-      const updatedLeagues = state.leagues.map(league => {
-        if (league.id === leagueId) {
-          return {
-            ...league,
-            teams: [...league.teams, teamId], // Create a new array for teams
-          };
-        }
-        return league;
-      });
-
-      return {
-        ...state,
-        leagues: updatedLeagues,
-      };
+    addTeam: (state, action) => {
+      return action.payload;
     },
   },
 });
 
-export const {createLeague, deleteLeagueTeam, addTeamtoLeague} =
-  leagueSlice.actions;
+export const {createLeague, deleteTeam, addTeam} = leagueSlice.actions;
 export default leagueSlice.reducer;
