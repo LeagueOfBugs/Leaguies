@@ -45,10 +45,11 @@ const teamSlice = createSlice({
         teams: [...action.payload],
       };
     },
-    deleteTeam: (state, action: PayloadAction<string>) => {
-      const teamIdToDelete = action.payload;
-      state.teams = state.teams.filter(team => team.id !== teamIdToDelete);
-      return state;
+    deleteTeam: (state, action) => {
+      return {
+        ...state,
+        teams: [...action.payload],
+      };
     },
   },
 });

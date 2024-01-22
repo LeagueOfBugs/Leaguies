@@ -25,18 +25,22 @@ import {selectLeagues} from '../../selectors/leagueSelector';
 import useLeagueDispatch from '../../hooks/useLeagueDispatch';
 
 const LeagueTeamsTab = ({navigation, route}) => {
-  const {item} = route.params;
-  const leagueId = item.id;
   const {leagues} = useSelector((state: RootState) => selectLeagues(state));
   const {teams} = useSelector((state: RootState) => selectTeams(state));
-  const leagueTeamsIds = leagues.find(el => el.id === item.id)?.teams || [];
+  const {addLeagueTeam, removeLeagueTeam} = useLeagueDispatch();
+  const {item} = route.params;
+  let leagueId: string;
+  if (typeof item === 'object') {
+    leagueId = item.id;
+  } else {
+    leagueId = item;
+  }
+
+  const leagueTeamsIds = leagues.find(el => el.id === leagueId)?.teams || [];
   const leagueTeams = teams.filter(team => {
     return leagueTeamsIds.includes(team.id) && team.active === true;
   });
-  const {addLeagueTeam, removeLeagueTeam} = useLeagueDispatch();
   const activityFalse = teams.filter(team => team.active === false);
-  // console.log('Teams:   ', activityFalse);
-  // console.log('ALL Teams:   ', teams);
 
   const renderItem = ({item}) => {
     const [wins, loss] = item.record;

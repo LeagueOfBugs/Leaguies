@@ -5,12 +5,18 @@ import {
   AvatarFallbackText,
   Badge,
   BadgeText,
+  Button,
+  ButtonText,
   Center,
   HStack,
   VStack,
 } from '@gluestack-ui/themed';
 import {useSelector} from 'react-redux';
-import {selectLeagueById} from '../../selectors/leagueSelector';
+import {selectLeagueById, selectLeagues} from '../../selectors/leagueSelector';
+import useLeagueDispatch from '../../hooks/useLeagueDispatch';
+import {selectTeams} from '../../selectors/teamsSelector';
+import {selectPlayers} from '../../selectors/playerSelectors';
+import {G} from 'react-native-svg';
 
 interface PillProps {
   text: string;
@@ -32,40 +38,77 @@ const Pill = ({text, action}: PillProps) => {
 
 const LeagueDetailsTab = ({navigation, route}) => {
   const {item} = route.params;
-  const league: League | undefined = useSelector(selectLeagueById(item.id));
-  const needTeams = league?.teams?.length < league?.limit;
-  const teamsFull = league?.teams?.length === league?.limit;
+  console.log('params: ', route.params.item);
+  let leagueId: string;
+  if (typeof item === 'object') {
+    console.log('yep');
+    leagueId = item.id;
+  } else {
+    console.log('nope');
+    leagueId = item;
+  }
+
+  console.log(leagueId);
+  const {deleteLeague} = useLeagueDispatch();
+  const {leagues} = useSelector(selectLeagues);
+  const {teams} = useSelector(selectTeams);
+  const league: League | undefined = useSelector(selectLeagueById(leagueId));
+  const {players} = useSelector(selectPlayers);
+
+  console.log('leagueId: ', league);
+  console.log('leahueeee: ', item);
+  const needTeams = league?.teams?.length < parseInt(league?.limit, 10);
+  const teamsFull = league?.teams?.length >= parseInt(league?.limit, 10);
+
+  const handleDelete = () => {
+    deleteLeague(league?.id, leagues, teams, players, navigation);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Center>
-        <HStack space="md">
-          <Avatar bg="rgba(0, 0, 0, 0)">
-            {item.badge ? (
-              <Image source={{uri: item.badge}} style={styles.avatarImage} />
-            ) : (
-              <AvatarFallbackText>{item.name}</AvatarFallbackText>
-            )}
-          </Avatar>
-          <VStack>
-            <Text style={styles.text}>{league?.name}</Text>
-            <Text style={styles.text}>{league?.teams.length} teams</Text>
-            <HStack>
-              {needTeams && (
-                <Pill
-                  key="needTeams"
-                  text={pillMessages.NEED_TEAMS}
-                  action="error"
-                />
-              )}
-              {teamsFull && (
-                <Pill
-                  key="teamsFull"
-                  text={pillMessages.READY}
-                  action="success"
-                />
-              )}
+        <HStack space="4xl">
+          <Center>
+            <HStack space="md">
+              <Avatar bg="rgba(0, 0, 0, 0)">
+                {league.badge ? (
+                  <Image
+                    source={{uri: league.badge}}
+                    style={styles.avatarImage}
+                  />
+                ) : (
+                  <AvatarFallbackText>{item.name}</AvatarFallbackText>
+                )}
+              </Avatar>
+              <VStack>
+                <Text style={styles.text}>{league?.name}</Text>
+                <Text style={styles.text}>{league?.teams.length} teams</Text>
+                <HStack>
+                  {needTeams && (
+                    <Pill
+                      key="needTeams"
+                      text={pillMessages.NEED_TEAMS}
+                      action="error"
+                    />
+                  )}
+                  {teamsFull && (
+                    <Pill
+                      key="teamsFull"
+                      text={pillMessages.READY}
+                      action="success"
+                    />
+                  )}
+                </HStack>
+              </VStack>
             </HStack>
-          </VStack>
+          </Center>
+          <Button
+            size="sm"
+            variant="outline"
+            action="negative"
+            onPress={() => handleDelete()}>
+            <ButtonText>Delete League</ButtonText>
+          </Button>
         </HStack>
       </Center>
     </SafeAreaView>

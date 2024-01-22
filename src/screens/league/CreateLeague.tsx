@@ -29,7 +29,7 @@ import {
 import SectionContainer from '../../components/SectionContainer';
 import useLeagueDispatch from '../../hooks/useLeagueDispatch';
 import {useNavigation} from '@react-navigation/native';
-import {selectLeagues} from '../../selectors/leagueSelector';
+import {selectLeagueById, selectLeagues} from '../../selectors/leagueSelector';
 
 const {height, width} = Dimensions.get('window');
 const defaultUri =
@@ -81,7 +81,6 @@ const CreateLeague = () => {
 
   const handleSubmit = async () => {
     addLeague(newLeague);
-    // console.log('teamsToUpdate', teamsToUpdate);
     updateTeamsSelected(teamsToUpdate, leagueObject.id, teams);
     navigation.goBack();
   };

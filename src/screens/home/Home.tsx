@@ -12,16 +12,15 @@ import LFT from '../../components/LFT';
 import GridList from '../../components/GridList';
 import {useSeedRedux} from '../../hooks';
 import {selectLeagues} from '../../selectors/leagueSelector';
+import { selectPlayers } from '../../selectors/playerSelectors';
+import { selectTeams } from '../../selectors/teamsSelector';
 
 type screenItem = 'leagues' | 'LFP' | 'LFT';
 
 const Home = ({navigation}) => {
   const {leagues} = useSelector(selectLeagues);
-  const mappedLeagues = leagues.map(league => ({
-    id: league.id,
-    name: league.name,
-    badge: league.badge,
-  }));
+  const {players} = useSelector(selectPlayers);
+  const {teams} = useSelector(selectTeams);
 
   // Seed this please OMG!
   useSeedRedux();
@@ -34,7 +33,7 @@ const Home = ({navigation}) => {
     } else if (item === 'LFT') {
       return <LFT navigation={navigation} />;
     }
-    return <GridList leagues={mappedLeagues} />;
+    // return <GridList leagues={mappedLeagues} />;
   };
 
   return (

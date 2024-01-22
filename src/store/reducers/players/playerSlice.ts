@@ -43,19 +43,11 @@ const playerSlice = createSlice({
         players: state.players.filter(player => player.id !== playerId),
       };
     },
-    editPlayer: (state, action: PayloadAction<Partial<Player>>) => {
-      const updatedPlayer = action.payload;
-      const playerIndex = state.players.findIndex(
-        player => player.id === updatedPlayer.id,
-      );
-
-      if (playerIndex !== -1) {
-        state.players[playerIndex] = {
-          ...state.players[playerIndex],
-          ...updatedPlayer,
-        };
-      }
-      return state;
+    editPlayer: (state, action) => {
+      return {
+        ...state,
+        players: action.payload,
+      };
     },
   },
 });

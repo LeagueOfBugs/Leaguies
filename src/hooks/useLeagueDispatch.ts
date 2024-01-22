@@ -4,9 +4,10 @@ import {
   addTeam,
   createLeague,
   deleteTeam,
+  terminateLeague,
 } from '../store/reducers/leagues/leagueSlice';
 import {editTeam} from '../store/reducers/teams/teamSlice';
-import {selectTeamByIdBulk} from '../selectors/teamsSelector';
+import {editPlayer} from '../store/reducers/players/playerSlice';
 
 function useLeagueDispatch() {
   const dispatch = useDispatch();
@@ -74,9 +75,9 @@ function useLeagueDispatch() {
 
   const addLeague = (leagueObj: League) => {
     dispatch(createLeague(leagueObj));
+    return leagueObj;
   };
 
-  // update teams
   const updateTeamsSelected = (
     teamsToUpdate: Team[],
     leagueId: string | undefined,
@@ -95,7 +96,53 @@ function useLeagueDispatch() {
     dispatch(editTeam([...removeTeamsToUpdate, ...updatedTeams]));
   };
 
-  return {addLeagueTeam, removeLeagueTeam, addLeague, updateTeamsSelected};
+  const deleteLeague = (
+    leagueId: any,
+    leagues: League[],
+    teams: Team[],
+    players: Player[],
+    navigation: any,
+  ) => {
+    // update teams
+    const newTeamState = teams.map(team => {
+      if (team.league === leagueId) {
+        return {
+          ...team,
+          league: '',
+          active: false,
+        };
+      }
+      return team;
+    });
+
+    dispatch(editTeam(newTeamState));
+
+    // update players
+    const newPlayerState = players.map(player => {
+      if (player.league === leagueId) {
+        return {
+          ...player,
+          league: '',
+        };
+      }
+      return player;
+    });
+
+    dispatch(editPlayer(newPlayerState));
+
+    // Update leagues
+    const newLeagueState = leagues.filter(league => league.id !== leagueId);
+    dispatch(terminateLeague(newLeagueState));
+    navigation.navigate('Leagues');
+  };
+
+  return {
+    addLeagueTeam,
+    removeLeagueTeam,
+    addLeague,
+    updateTeamsSelected,
+    deleteLeague,
+  };
 }
 
 export default useLeagueDispatch;

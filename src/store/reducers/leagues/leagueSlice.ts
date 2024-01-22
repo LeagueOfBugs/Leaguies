@@ -31,8 +31,14 @@ const leagueSlice = createSlice({
     addTeam: (state, action) => {
       return action.payload;
     },
+    terminateLeague: (state, action) => {
+      return {
+        ...state,
+        leagues: action.payload,
+      };
+    },
   },
 });
 
-export const {createLeague, deleteTeam, addTeam} = leagueSlice.actions;
+export const {createLeague, deleteTeam, addTeam, terminateLeague} = leagueSlice.actions;
 export default leagueSlice.reducer;

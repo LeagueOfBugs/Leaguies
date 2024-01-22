@@ -13,20 +13,17 @@ interface LeagueListProps {
 }
 
 const LeagueList = ({leagues, navigation}: LeagueListProps) => {
-  const isLeagueEmpty = leagues.length > 0;
-  // console.log('leagues', leagues);
   return (
     <FlatList
       data={leagues}
-      keyExtractor={item => item.id.toString()}
+      keyExtractor={item => item?.id?.toString()}
       renderItem={({item}) => {
-        // console.log('item: ',item);
         return (
           <>
             <Pressable
               style={styles.leagueContainer}
               onPress={() => {
-                navigation.navigate('League Details', {item: item});
+                navigation.navigate('League Details', {item: item.id});
               }}>
               <View style={styles.wrapper}>
                 <Avatar bgColor="$amber600" size="xs" borderRadius="$full">
@@ -36,7 +33,7 @@ const LeagueList = ({leagues, navigation}: LeagueListProps) => {
                 <Text style={styles.name}>{item.name}</Text>
               </View>
               <Text style={{color: 'white'}}>
-                {item.teams.length} / {item.limit}
+                {item?.teams?.length} / {item.limit}
               </Text>
             </Pressable>
           </>
