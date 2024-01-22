@@ -19,3 +19,8 @@ export const selectTeamsNoLeague = createSelector([selectTeams], ({teams}) => {
     }
   });
 });
+
+export const selectTeamByIdBulk = (idsArray: string[] | undefined) =>
+  createSelector([selectTeams], ({teams}) => {
+    return teams.filter(team => idsArray?.includes(team.id));
+  });

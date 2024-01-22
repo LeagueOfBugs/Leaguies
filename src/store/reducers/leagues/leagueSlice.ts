@@ -1,6 +1,5 @@
 // leagueSlice.js
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import uuid from 'react-native-uuid';
 const initialState: Leagues = {
   leagues: [],
 };
@@ -16,15 +15,11 @@ const leagueSlice = createSlice({
         name: string;
         badge?: string;
         image?: string;
-        teams?: string[];
+        teams?: string[] | undefined;
         limit: string;
       }>,
     ): Leagues => {
       const newLeague = {
-        id: action.payload.id || uuid.v4().toString(),
-        teams: [],
-        badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge1.png',
-        image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge1.png',
         ...action.payload,
       };
       state.leagues.push(newLeague);

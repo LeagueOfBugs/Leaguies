@@ -22,7 +22,7 @@ import {
   CircleIcon,
 } from '@gluestack-ui/themed';
 import {selectLeagues} from '../../selectors/leagueSelector';
-import useLeagueDispatch from '../../hooks/useDeleteTeamToLeague';
+import useLeagueDispatch from '../../hooks/useLeagueDispatch';
 
 const LeagueTeamsTab = ({navigation, route}) => {
   const {item} = route.params;
@@ -33,10 +33,10 @@ const LeagueTeamsTab = ({navigation, route}) => {
   const leagueTeams = teams.filter(team => {
     return leagueTeamsIds.includes(team.id) && team.active === true;
   });
-  // console.log(teams);
   const {addLeagueTeam, removeLeagueTeam} = useLeagueDispatch();
-
-  const activityFalse = teams.filter(team => !team.active);
+  const activityFalse = teams.filter(team => team.active === false);
+  // console.log('Teams:   ', activityFalse);
+  // console.log('ALL Teams:   ', teams);
 
   const renderItem = ({item}) => {
     const [wins, loss] = item.record;

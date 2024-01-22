@@ -33,9 +33,9 @@ interface Team {
   badge: string;
   image: string;
   name: string;
-  players: string[];
+  players?: string[];
   league: string;
-  record: number[];
+  record: number[] | undefined;
   limit: number;
   active: boolean;
 }
@@ -49,9 +49,9 @@ interface Leagues {
 interface League {
   id?: string;
   name: string;
-  image: string | undefined;
-  badge: string | undefined;
-  teams: string[];
+  image?: string | undefined;
+  badge?: string | undefined;
+  teams?: string[] | undefined;
   limit: string;
   seasonId?: string | undefined;
 }
@@ -62,7 +62,7 @@ interface Seasons {
 }
 
 interface Match {
-  id: string;
+  id?: string;
   name: string;
   homeTeam: string;
   awayTeam: string;
@@ -70,15 +70,15 @@ interface Match {
   time: string;
   location: string;
   leagueId: string;
-  officiating: string[];
+  officiating: string[] | undefined;
 }
 
 interface Season {
-  id: string;
+  id?: string;
   leagueId: string;
   start: string;
   end: string;
   games: number;
   cadence: string;
-  matches: string[];
+  matches: string[] | undefined;
 }

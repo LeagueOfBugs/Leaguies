@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions, View} from 'react-native';
+import uuid from 'react-native-uuid';
 import React, {useState} from 'react';
 import {
   ChevronDownIcon,
@@ -20,30 +21,40 @@ import {
   BadgeText,
 } from '@gluestack-ui/themed';
 import {useSelector} from 'react-redux';
-import {selectTeamsNoLeague} from '../../selectors/teamsSelector';
+import {
+  selectTeamByIdBulk,
+  selectTeams,
+  selectTeamsNoLeague,
+} from '../../selectors/teamsSelector';
 import SectionContainer from '../../components/SectionContainer';
-import useLeagueDispatch from '../../hooks/useDeleteTeamToLeague';
+import useLeagueDispatch from '../../hooks/useLeagueDispatch';
 import {useNavigation} from '@react-navigation/native';
+import {selectLeagues} from '../../selectors/leagueSelector';
 
 const {height, width} = Dimensions.get('window');
-
-const LeagueObject: League = {
+const defaultUri =
+  '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge1.png';
+const leagueObject: League = {
   name: '',
-  image: '',
-  badge: '',
+  id: uuid.v4().toString(),
+  image: defaultUri,
   teams: [],
   limit: '',
+  badge: defaultUri,
 };
+// add image receiver and save to state
 const CreateLeague = () => {
   const [selectedTeams, setSelectedTeams] = useState([]);
-  const [newLeague, setNewLeague] = useState(LeagueObject);
+  const [newLeague, setNewLeague] = useState(leagueObject);
   const leaguelessTeams = useSelector(selectTeamsNoLeague);
-  const {CreateLeague} = useLeagueDispatch();
+  const {addLeague, updateTeamsSelected} = useLeagueDispatch();
   const navigation = useNavigation();
   /* 
   TODO:
   make sure multiple team ids dont end up in league
   */
+  const {teams} = useSelector(selectTeams);
+  const teamsToUpdate = useSelector(selectTeamByIdBulk(newLeague.teams));
   const numberSelector = (number: number) => {
     const selectItemArray = [];
     for (let i = 0; i <= number; i++) {
@@ -68,8 +79,10 @@ const CreateLeague = () => {
     return teamsArray;
   };
 
-  const handleSubmit = () => {
-    CreateLeague(newLeague);
+  const handleSubmit = async () => {
+    addLeague(newLeague);
+    // console.log('teamsToUpdate', teamsToUpdate);
+    updateTeamsSelected(teamsToUpdate, leagueObject.id, teams);
     navigation.goBack();
   };
   return (
@@ -135,15 +148,7 @@ const CreateLeague = () => {
         <SectionContainer title="selected teams">
           {selectedTeams.map(team => {
             return (
-              <View
-                key={team}
-                style={{
-                  width: 150,
-                  padding: 10,
-                  alignContent: 'center',
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                }}>
+              <View key={team} style={styles.pillContainer}>
                 <Badge
                   size="sm"
                   variant="outline"
@@ -160,7 +165,7 @@ const CreateLeague = () => {
         <FormControl>
           <Button bg="$darkBlue600" onPress={() => handleSubmit()}>
             <ButtonText fontSize="$sm" fontWeight="$medium">
-              Next
+              Create!
             </ButtonText>
           </Button>
         </FormControl>
@@ -192,6 +197,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#ffffff',
+  },
+  pillContainer: {
+    width: 150,
+    padding: 10,
+    alignContent: 'center',
+    display: 'flex',
+    flexWrap: 'wrap',
   },
 });
 

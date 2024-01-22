@@ -6,6 +6,7 @@ import {
   deleteTeam,
 } from '../store/reducers/leagues/leagueSlice';
 import {editTeam} from '../store/reducers/teams/teamSlice';
+import {selectTeamByIdBulk} from '../selectors/teamsSelector';
 
 function useLeagueDispatch() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ function useLeagueDispatch() {
       if (league.id === leagueId) {
         return {
           ...league,
-          teams: [...league.teams, teamObj.id],
+          teams: [...league?.teams, teamObj.id],
         };
       }
       return league;
@@ -38,7 +39,7 @@ function useLeagueDispatch() {
     });
 
     dispatch(addTeam({leagues: newState}));
-    dispatch(editTeam({teams: newTeamState}));
+    dispatch(editTeam(newTeamState));
   };
 
   const removeLeagueTeam = (
@@ -51,7 +52,7 @@ function useLeagueDispatch() {
       if (league.id === leagueId) {
         return {
           ...league,
-          teams: league.teams.filter(team => team !== teamObj.id),
+          teams: league?.teams?.filter(team => team !== teamObj.id),
         };
       }
       return league;
@@ -68,14 +69,33 @@ function useLeagueDispatch() {
       return team;
     });
     dispatch(deleteTeam({leagues: newLeagueState}));
-    dispatch(editTeam({teams: newTeamState}));
+    dispatch(editTeam(newTeamState));
   };
 
-  const CreateLeague = (leagueObj: League) => {
+  const addLeague = (leagueObj: League) => {
     dispatch(createLeague(leagueObj));
   };
 
-  return {addLeagueTeam, removeLeagueTeam, CreateLeague};
+  // update teams
+  const updateTeamsSelected = (
+    teamsToUpdate: Team[],
+    leagueId: string | undefined,
+    teams: Team[],
+  ) => {
+    const removeTeamsToUpdate = teams.filter(
+      team => !teamsToUpdate.map(updateTeam => updateTeam.id).includes(team.id),
+    );
+
+    const updatedTeams = teamsToUpdate.map(team => ({
+      ...team,
+      active: true,
+      league: leagueId,
+    }));
+
+    dispatch(editTeam([...removeTeamsToUpdate, ...updatedTeams]));
+  };
+
+  return {addLeagueTeam, removeLeagueTeam, addLeague, updateTeamsSelected};
 }
 
 export default useLeagueDispatch;

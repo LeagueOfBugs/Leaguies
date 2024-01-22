@@ -40,8 +40,10 @@ const teamSlice = createSlice({
       return state;
     },
     editTeam: (state, action) => {
-      // console.log('inslice', action.payload)
-      return action.payload;
+      return {
+        ...state,
+        teams: [...action.payload],
+      };
     },
     deleteTeam: (state, action: PayloadAction<string>) => {
       const teamIdToDelete = action.payload;
