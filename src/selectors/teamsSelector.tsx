@@ -11,3 +11,11 @@ export const selectTeamById = (id: string) =>
     [selectTeams],
     ({teams}) => teams.filter(team => team.id === id) || null,
   );
+
+export const selectTeamsNoLeague = createSelector([selectTeams], ({teams}) => {
+  return teams.filter(team => {
+    if (team.league === '') {
+      return team;
+    }
+  });
+});

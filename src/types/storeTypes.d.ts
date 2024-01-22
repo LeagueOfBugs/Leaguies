@@ -47,13 +47,13 @@ interface Leagues {
 }
 
 interface League {
-  id: string;
-  image: string;
-  badge: string;
+  id?: string;
   name: string;
+  image: string | undefined;
+  badge: string | undefined;
   teams: string[];
-  limit: number;
-  seasonId: string;
+  limit: string;
+  seasonId?: string | undefined;
 }
 /* League types  --- ENDS */
 

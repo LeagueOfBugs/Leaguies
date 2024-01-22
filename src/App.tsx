@@ -15,6 +15,7 @@ import LeagueTeamTab from './screens/league/LeagueTeamsTab';
 import LeagueScheduleTab from './screens/league/LeagueScheduleTab';
 import LeagueHomeTab from './screens/league/LeagueHomeTab';
 import LeagueDetailsTab from './screens/league/LeagueDetails';
+import createLeague from './screens/league/CreateLeague';
 
 // Define custom theme for NavigationContainer
 const customTheme = {
@@ -139,6 +140,22 @@ const App = () => {
               name="Team Details"
               component={Team}
               options={{
+                headerStyle: {
+                  backgroundColor: '#252526',
+                },
+                headerTitle: '',
+                headerTintColor: '#ffffff',
+                headerTitleStyle: {
+                  fontWeight: 'bold',
+                },
+                headerBackTitleVisible: false,
+              }}
+            />
+            <Stack.Screen
+              name="Create League"
+              component={createLeague}
+              options={{
+                headerLeft: () => null,
                 headerStyle: {
                   backgroundColor: '#252526',
                 },

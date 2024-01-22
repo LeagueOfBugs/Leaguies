@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {addTeam, deleteTeam} from '../store/reducers/leagues/leagueSlice';
+import {
+  addTeam,
+  createLeague,
+  deleteTeam,
+} from '../store/reducers/leagues/leagueSlice';
 import {editTeam} from '../store/reducers/teams/teamSlice';
 
 function useLeagueDispatch() {
@@ -67,7 +71,11 @@ function useLeagueDispatch() {
     dispatch(editTeam({teams: newTeamState}));
   };
 
-  return {addLeagueTeam, removeLeagueTeam};
+  const CreateLeague = (leagueObj: League) => {
+    dispatch(createLeague(leagueObj));
+  };
+
+  return {addLeagueTeam, removeLeagueTeam, CreateLeague};
 }
 
 export default useLeagueDispatch;
