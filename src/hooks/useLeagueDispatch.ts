@@ -4,6 +4,7 @@ import {
   addTeam,
   createLeague,
   deleteTeam,
+  editLeagues,
   terminateLeague,
 } from '../store/reducers/leagues/leagueSlice';
 import {editTeam} from '../store/reducers/teams/teamSlice';
@@ -136,12 +137,31 @@ function useLeagueDispatch() {
     navigation.navigate('League');
   };
 
+  // update seasons
+  const addSeasonToLeague = (
+    seasonModel: Season,
+    leagues: League[],
+    leagueId: string,
+  ) => {
+    const modifiedLeagues = leagues.map((league: League) => {
+      if (league.id === leagueId) {
+        return {
+          ...league,
+          seasonId: seasonModel.id,
+        };
+      }
+      return league;
+    });
+    dispatch(editLeagues(modifiedLeagues));
+  };
+
   return {
     addLeagueTeam,
     removeLeagueTeam,
     addLeague,
     updateTeamsSelected,
     deleteLeague,
+    addSeasonToLeague,
   };
 }
 

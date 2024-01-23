@@ -9,11 +9,13 @@ const League = ({navigation}) => {
   const {leagues} = useSelector((state: RootState) => state.leagues);
 
   const handleSubmit = () => {};
- 
+
   return (
     <SafeAreaView style={styles.mainContainer}>
       <VStack space="md" style={styles.margin}>
-        <SectionContainer title="My League"></SectionContainer>
+        <SectionContainer title="My League">
+          <Text>Season Title</Text>
+        </SectionContainer>
         <SectionContainer title="Leagues">
           <LeagueList leagues={leagues} navigation={navigation} />
         </SectionContainer>

@@ -50,13 +50,15 @@ const LeagueDetailsTab = ({navigation, route}) => {
   const {leagues} = useSelector(selectLeagues);
   const {teams} = useSelector(selectTeams);
 
-  const league: League | undefined = useSelector(selectLeagueById(leagueId));
+  const league: League = useSelector(selectLeagueById(leagueId));
   const {players} = useSelector(selectPlayers);
 
   const needTeams = league?.teams?.length < parseInt(league?.limit, 10);
   const teamsFull = league?.teams?.length >= parseInt(league?.limit, 10);
-  const activeSeason = league?.seasonId === 0;
+  console.log('season id:', league.seasonId);
+  const activeSeason = league?.seasonId.length > 0;
 
+  // TODO: handle this in league dispatcher for side effects
   const handleDelete = () => {
     deleteLeague(league?.id, leagues, teams, players, navigation);
   };

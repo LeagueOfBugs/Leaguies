@@ -27,9 +27,16 @@ const leagueSlice = createSlice({
         leagues: action.payload,
       };
     },
+    editLeagues: (state, action) => {
+      console.log(action.payload)
+      return {
+        ...state,
+        leagues: action.payload,
+      };
+    },
   },
 });
 
-export const {createLeague, deleteTeam, addTeam, terminateLeague} =
+export const {createLeague, deleteTeam, addTeam, terminateLeague, editLeagues} =
   leagueSlice.actions;
 export default leagueSlice.reducer;

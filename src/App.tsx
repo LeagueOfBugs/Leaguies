@@ -13,13 +13,12 @@ import {config} from '@gluestack-ui/config';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import LeagueTeamTab from './screens/league/LeagueTeamsTab';
 import LeagueScheduleTab from './screens/league/LeagueScheduleTab';
-import LeagueHomeTab from './screens/league/LeagueSeasonTab';
+import LeagueSeasonTab from './screens/league/LeagueSeasonTab';
 import LeagueDetailsTab from './screens/league/LeagueDetails';
 import createLeague from './screens/league/CreateLeague';
 import PlayerStatsTab from './screens/player/PlayerStatsTab';
 import PlayerActivityTab from './screens/player/PlayerActivityTab';
 import PlayerDetailsTab from './screens/player/PlayerDetailsTab';
-import LeagueSeasonTab from './screens/league/LeagueSeasonTab';
 
 // Define custom theme for NavigationContainer
 const customTheme = {

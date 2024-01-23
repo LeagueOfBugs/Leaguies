@@ -4,7 +4,7 @@ import {createTeam} from '../store/reducers/teams/teamSlice';
 import {createPlayer} from '../store/reducers/players/playerSlice';
 import {createLeague} from '../store/reducers/leagues/leagueSlice';
 import {SEED} from '../constants';
-import {selectLeagues} from '../selectors/leagueSelector';
+import {createSeason} from '../store/reducers/seasons/seasonSlice';
 
 export const useSeedRedux = () => {
   const dispatch = useDispatch();
@@ -24,5 +24,14 @@ export const useSeedRedux = () => {
     SEED.leagues.forEach(league => {
       dispatch(createLeague(league));
     });
+
+    // Seed seasons
+    SEED.seasons.forEach(season => {
+      dispatch(createSeason(season));
+    });
+    // // Seed matches
+    // SEED.matches.forEach(match => {
+    //   dispatch(createMatch(league));
+    // });
   }, [dispatch]);
 };

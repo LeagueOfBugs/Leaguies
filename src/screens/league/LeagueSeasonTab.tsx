@@ -32,6 +32,9 @@ import SectionContainer from '../../components/SectionContainer';
 import DatePicker from 'react-native-date-picker';
 import {format} from 'date-fns';
 import uuid from 'react-native-uuid';
+import useSeasonDispatch from '../../hooks/useSeasonDispatch';
+import {useSelector} from 'react-redux';
+import {selectLeagues} from '../../selectors/leagueSelector';
 
 const numberSelector = () => {
   const selectItemArray = [];
@@ -51,15 +54,16 @@ const initialState = {
 };
 
 const LeagueSeasonTab = ({navigation, route}) => {
-  const {id} = route.params.item;
-  const leagueId = id;
   const [showForm, setShowForm] = useState(false);
   const [date, setDate] = useState(new Date());
   const [newSeason, setNewSeason] = useState(initialState);
 
-  const generateUUID = () => uuid.v4().toString();
+  const {makeSeason} = useSeasonDispatch();
+  const {leagues} = useSelector(selectLeagues);
+  const {id} = route.params.item;
+  const leagueId = id;
 
-  console.log(newSeason);
+  const generateUUID = () => uuid.v4().toString();
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -94,7 +98,7 @@ const LeagueSeasonTab = ({navigation, route}) => {
     });
   };
 
-  const generateSeasonObj = () => {
+  const generateSeasonModel = () => {
     return {
       ...newSeason,
       id: generateUUID(),
@@ -107,10 +111,11 @@ const LeagueSeasonTab = ({navigation, route}) => {
   };
 
   const createSeasonOnSubmit = () => {
-    console.log(generateSeasonObj());
-
+    const seasonModel = generateSeasonModel();
+    makeSeason(seasonModel, leagues, leagueId);
+    navigation.navigate('Schedule');
     // reset season form
-    // hitReset()
+    // hitReset();
   };
 
   return (
@@ -122,6 +127,7 @@ const LeagueSeasonTab = ({navigation, route}) => {
               <FormControl>
                 <Input>
                   <InputField
+                    value={newSeason.name}
                     placeholder="Name"
                     style={styles.text}
                     onChangeText={input =>
@@ -137,7 +143,7 @@ const LeagueSeasonTab = ({navigation, route}) => {
                   </FormControlLabelText>
                 </FormControlLabel>
                 <Select
-                  value={newSeason.games}
+                  selectedValue={newSeason.games.toString()}
                   onValueChange={input =>
                     setNewSeason(prev => ({
                       ...prev,

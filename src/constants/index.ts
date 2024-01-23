@@ -293,6 +293,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Big Weiner',
@@ -314,6 +315,7 @@ export const SEED = {
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
+      onlineStatus: true,
     },
     {
       name: 'Fleo Farias',
@@ -688,6 +690,31 @@ export const SEED = {
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
       onlineStatus: true,
+    },
+  ],
+  seasons: [
+    {
+      name: 'First Season',
+      id: 'e7964932-7c15-4960-a059-941544f6ac19',
+      cadence: '',
+      games: 9,
+      end: '2024-01-24T16:35:58.000Z',
+      start: '2024-01-23T16:35:44.040Z',
+      leagueId: '905b4d32-ee84-4d1d-8d88-2d14416c0000',
+    },
+  ],
+  matches: [
+    {
+      id: '',
+      seasonId: '',
+      leagueId: '',
+      name: '',
+      homeTeam: '',
+      awayTeam: '',
+      date: '',
+      time: '',
+      location: '',
+      officiating: [],
     },
   ],
 };

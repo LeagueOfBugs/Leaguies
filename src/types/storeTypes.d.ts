@@ -60,23 +60,6 @@ interface League {
 }
 /* League types  --- ENDS */
 
-/* Match types  --- ENDS */
-interface Matches {
-  matches: Match[];
-}
-interface Match {
-  id?: string;
-  name: string;
-  homeTeam: string;
-  awayTeam: string;
-  date?: string;
-  time?: string;
-  location?: string;
-  leagueId: string;
-  officiating?: string[] | undefined;
-}
-/* Match types  --- ENDS */
-
 /* Seasons types  --- ENDS */
 interface Seasons {
   seasons: Season[];
@@ -88,7 +71,26 @@ interface Season {
   start?: string;
   end?: string;
   games?: number;
-  cadence: string;
+  cadence?: string;
   matches?: Match[] | undefined;
 }
 /* Seasons types  --- ENDS */
+
+/* Match types  --- ENDS */
+interface Matches {
+  matches: Match[];
+}
+
+interface Match {
+  id?: string;
+  seasonId: string;
+  leagueId: string;
+  name: string;
+  homeTeam: string;
+  awayTeam: string;
+  date?: string;
+  time?: string;
+  location?: string;
+  officiating?: string[] | undefined;
+}
+/* Match types  --- ENDS */

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 
-function useLeagueDispatch() {
+function usePlayerDispatch() {
   const dispatch = useDispatch();
 
   return {};
 }
 
-export default useLeagueDispatch;
+export default usePlayerDispatch;
