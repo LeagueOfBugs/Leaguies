@@ -167,6 +167,7 @@ export const SEED = {
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge1.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge1.png',
       limit: 10,
+      seasonId: '',
       teams: [
         '905b4d32-ee84-4d1d-8d88-2d14416cfab9',
         '905b4d32-ee84-4d1d-8d88-2d14416cf333',
@@ -179,6 +180,7 @@ export const SEED = {
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge2.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge2.png',
       limit: 2,
+      seasonId: '',
       teams: [
         '905b4d32-ee84-4d1d-8d88-2d14416cfvac',
         '905b4d32-ee84-4d1d-8d88-2d14416llll',
@@ -190,6 +192,7 @@ export const SEED = {
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge3.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge3.png',
       limit: 10,
+      seasonId: '',
       teams: [],
     },
     {
@@ -198,6 +201,7 @@ export const SEED = {
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge8.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge8.png',
       limit: 10,
+      seasonId: '',
       teams: [],
     },
     {
@@ -206,6 +210,7 @@ export const SEED = {
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge7.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge7.png',
       limit: 10,
+      seasonId: '',
       teams: [],
     },
     {
@@ -214,6 +219,7 @@ export const SEED = {
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge6.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge6.png',
       limit: 10,
+      seasonId: '',
       teams: [],
     },
     {
@@ -222,6 +228,7 @@ export const SEED = {
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge5.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge5.png',
       limit: 10,
+      seasonId: '',
       teams: [],
     },
     {
@@ -230,6 +237,7 @@ export const SEED = {
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge4.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge4.png',
       limit: 10,
+      seasonId: '',
       teams: [],
     },
     {
@@ -238,6 +246,7 @@ export const SEED = {
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge9.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge9.png',
       limit: 10,
+      seasonId: '',
       teams: [],
     },
   ],

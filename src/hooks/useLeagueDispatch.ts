@@ -133,7 +133,7 @@ function useLeagueDispatch() {
     // Update leagues
     const newLeagueState = leagues.filter(league => league.id !== leagueId);
     dispatch(terminateLeague(newLeagueState));
-    navigation.navigate('Leagues');
+    navigation.navigate('League');
   };
 
   return {

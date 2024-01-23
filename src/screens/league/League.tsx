@@ -1,25 +1,23 @@
-import {Text, TextInput, Button, SafeAreaView, StyleSheet} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
+import {SafeAreaView, StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
 import React, {useState} from 'react';
-import {createLeague} from '../../store/reducers/leagues/leagueSlice';
-import LeagueList from '../../components/LeagueList';
+import LeagueList from './LeagueList';
 import SectionContainer from '../../components/SectionContainer';
-import {AddIcon, Fab, FabIcon, FabLabel} from '@gluestack-ui/themed';
+import {AddIcon, Fab, FabIcon, FabLabel, VStack} from '@gluestack-ui/themed';
 
-interface LeagueProps {
-  navigation: any;
-}
 const League = ({navigation}) => {
-  const [leagueName, setLeagueName] = useState('');
   const {leagues} = useSelector((state: RootState) => state.leagues);
 
   const handleSubmit = () => {};
-
+ 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <SectionContainer title="Leagues">
-        <LeagueList leagues={leagues} navigation={navigation} />
-      </SectionContainer>
+      <VStack space="md" style={styles.margin}>
+        <SectionContainer title="My League"></SectionContainer>
+        <SectionContainer title="Leagues">
+          <LeagueList leagues={leagues} navigation={navigation} />
+        </SectionContainer>
+      </VStack>
       <Fab
         size="md"
         placement="bottom right"
@@ -41,6 +39,9 @@ const styles = StyleSheet.create({
   },
   whiteFont: {
     color: '#ffffff',
+  },
+  margin: {
+    marginTop: 20,
   },
 });
 

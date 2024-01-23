@@ -25,6 +25,7 @@ interface PillProps {
 const pillMessages = {
   NEED_TEAMS: 'recruit more teams',
   READY: 'ready',
+  NO_SEASON: 'no season',
 };
 
 const Pill = ({text, action}: PillProps) => {
@@ -48,11 +49,13 @@ const LeagueDetailsTab = ({navigation, route}) => {
   const {deleteLeague} = useLeagueDispatch();
   const {leagues} = useSelector(selectLeagues);
   const {teams} = useSelector(selectTeams);
+
   const league: League | undefined = useSelector(selectLeagueById(leagueId));
   const {players} = useSelector(selectPlayers);
 
   const needTeams = league?.teams?.length < parseInt(league?.limit, 10);
   const teamsFull = league?.teams?.length >= parseInt(league?.limit, 10);
+  const activeSeason = league?.seasonId === 0;
 
   const handleDelete = () => {
     deleteLeague(league?.id, leagues, teams, players, navigation);
@@ -90,6 +93,13 @@ const LeagueDetailsTab = ({navigation, route}) => {
                       key="teamsFull"
                       text={pillMessages.READY}
                       action="success"
+                    />
+                  )}
+                  {!activeSeason && (
+                    <Pill
+                      key="activeSeason"
+                      text={pillMessages.NO_SEASON}
+                      action="error"
                     />
                   )}
                 </HStack>

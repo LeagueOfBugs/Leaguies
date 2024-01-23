@@ -17,3 +17,4 @@ export const selectPlayerById = (playerId: string) =>
   createSelector([selectPlayers], ({players}) => {
     return players.find(player => player.id === playerId);
   });
+

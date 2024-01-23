@@ -1,5 +1,5 @@
 // leagueSlice.js
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 const initialState: Leagues = {
   leagues: [],
 };
@@ -8,17 +8,7 @@ const leagueSlice = createSlice({
   name: 'leagues',
   initialState,
   reducers: {
-    createLeague: (
-      state,
-      action: PayloadAction<{
-        id?: string;
-        name: string;
-        badge?: string;
-        image?: string;
-        teams?: string[] | undefined;
-        limit: string;
-      }>,
-    ): Leagues => {
+    createLeague: (state, action) => {
       const newLeague = {
         ...action.payload,
       };
@@ -40,5 +30,6 @@ const leagueSlice = createSlice({
   },
 });
 
-export const {createLeague, deleteTeam, addTeam, terminateLeague} = leagueSlice.actions;
+export const {createLeague, deleteTeam, addTeam, terminateLeague} =
+  leagueSlice.actions;
 export default leagueSlice.reducer;

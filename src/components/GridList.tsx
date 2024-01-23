@@ -10,6 +10,7 @@ interface CardProps {
 }
 
 interface LeagueItem {
+  id: string;
   badge: string;
   name: string;
   item: League;
@@ -72,8 +73,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    margin: 10,
     paddingLeft: 5,
+    margin: 10,
+    color: '#ffffff',
   },
   card: {
     width: 80,

@@ -4,6 +4,8 @@ interface RootState {
   leagues: Leagues;
   teams: Teams;
   players: Players;
+  seasons: Seasons;
+  matches: Matches;
 }
 /* RootState types  --- STARTS */
 
@@ -58,28 +60,35 @@ interface League {
 }
 /* League types  --- ENDS */
 
-interface Seasons {
-  seasons: Season[];
+/* Match types  --- ENDS */
+interface Matches {
+  matches: Match[];
 }
-
 interface Match {
   id?: string;
   name: string;
   homeTeam: string;
   awayTeam: string;
-  date: string;
-  time: string;
-  location: string;
+  date?: string;
+  time?: string;
+  location?: string;
   leagueId: string;
-  officiating: string[] | undefined;
+  officiating?: string[] | undefined;
 }
+/* Match types  --- ENDS */
 
+/* Seasons types  --- ENDS */
+interface Seasons {
+  seasons: Season[];
+}
 interface Season {
   id?: string;
+  name: string;
   leagueId: string;
-  start: string;
-  end: string;
-  games: number;
+  start?: string;
+  end?: string;
+  games?: number;
   cadence: string;
-  matches: string[] | undefined;
+  matches?: Match[] | undefined;
 }
+/* Seasons types  --- ENDS */

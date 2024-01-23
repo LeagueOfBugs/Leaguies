@@ -29,7 +29,6 @@ import {
 import SectionContainer from '../../components/SectionContainer';
 import useLeagueDispatch from '../../hooks/useLeagueDispatch';
 import {useNavigation} from '@react-navigation/native';
-import {selectLeagueById, selectLeagues} from '../../selectors/leagueSelector';
 
 const {height, width} = Dimensions.get('window');
 const defaultUri =
