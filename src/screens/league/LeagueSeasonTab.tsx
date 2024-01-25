@@ -30,11 +30,11 @@ import {
 } from '@gluestack-ui/themed';
 import SectionContainer from '../../components/SectionContainer';
 import DatePicker from 'react-native-date-picker';
-import {format} from 'date-fns';
 import uuid from 'react-native-uuid';
 import useSeasonDispatch from '../../hooks/useSeasonDispatch';
 import {useSelector} from 'react-redux';
-import {selectLeagues} from '../../selectors/leagueSelector';
+import {selectLeagueById, selectLeagues} from '../../selectors/leagueSelector';
+import {format} from 'date-fns';
 
 const numberSelector = () => {
   const selectItemArray = [];
@@ -53,7 +53,7 @@ const initialState = {
   cadence: '',
 };
 
-const LeagueSeasonTab = ({navigation, route}) => {
+const LeagueSeasonTab = ({route}) => {
   const [showForm, setShowForm] = useState(false);
   const [date, setDate] = useState(new Date());
   const [newSeason, setNewSeason] = useState(initialState);
@@ -62,8 +62,16 @@ const LeagueSeasonTab = ({navigation, route}) => {
   const {leagues} = useSelector(selectLeagues);
   const {id} = route.params.item;
   const leagueId = id;
+  const leagueModel = useSelector(selectLeagueById(id));
+  const hasSeason = leagueModel?.seasonId;
 
   const generateUUID = () => uuid.v4().toString();
+
+  /*
+TODO:
+integrate with cadence num of games is the same thing
+either here or somewhere else
+*/
 
   const toggleForm = () => {
     setShowForm(!showForm);
@@ -106,10 +114,6 @@ const LeagueSeasonTab = ({navigation, route}) => {
     };
   };
 
-  // const hitReset = () => {
-  //   setNewSeason(initialState);
-  // };
-
   const createSeasonOnSubmit = () => {
     const seasonModel = generateSeasonModel();
     makeSeason(seasonModel, leagues, leagueId);
@@ -118,86 +122,109 @@ const LeagueSeasonTab = ({navigation, route}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        {showForm ? (
-          <View style={styles.formContainer}>
-            <SectionContainer title="New Season">
-              <FormControl>
-                <Input>
-                  <InputField
-                    value={newSeason.name}
-                    placeholder="Name"
-                    style={styles.text}
-                    onChangeText={input =>
-                      setNewSeason({...newSeason, name: input})
-                    }
-                  />
-                </Input>
-              </FormControl>
-              <FormControl>
-                <FormControlLabel>
-                  <FormControlLabelText style={styles.text}>
-                    Number of games
-                  </FormControlLabelText>
-                </FormControlLabel>
-                <Select
-                  selectedValue={newSeason.games.toString()}
-                  onValueChange={input =>
-                    setNewSeason(prev => ({
-                      ...prev,
-                      games: parseInt(input, 10),
-                    }))
-                  }>
-                  <SelectTrigger>
-                    <SelectInput placeholder="num" style={styles.text} />
-                    <Icon as={ChevronDownIcon} />
-                  </SelectTrigger>
-                  <SelectPortal>
-                    <ScrollView>{numberSelector()}</ScrollView>
-                  </SelectPortal>
-                </Select>
-              </FormControl>
-              {newSeason.start.length > 0 && newSeason.end.length > 0 ? (
-                <Button onPress={editDates}>
-                  <ButtonText>Edit Dates</ButtonText>
-                </Button>
-              ) : (
-                <>
-                  <HStack>
-                    <VStack>
-                      <Text style={styles.text}>
-                        Pick {startEndRender()}
-                        date
-                      </Text>
-                      <DatePicker
-                        date={date}
-                        onDateChange={setDate}
-                        mode="date"
-                        minimumDate={new Date()}
-                      />
-                    </VStack>
-                    <Center>
-                      <VStack space="lg">
-                        <Button onPress={handleSubmit}>
-                          <ButtonText>Submit {}</ButtonText>
-                        </Button>
+      {leagueModel && hasSeason?.length === 0 ? (
+        <ScrollView>
+          {showForm ? (
+            <View style={styles.formContainer}>
+              <SectionContainer title="New Season">
+                <FormControl>
+                  <Input>
+                    <InputField
+                      value={newSeason.name}
+                      placeholder="Name"
+                      style={styles.text}
+                      onChangeText={input =>
+                        setNewSeason({...newSeason, name: input})
+                      }
+                    />
+                  </Input>
+                </FormControl>
+                <FormControl>
+                  <FormControlLabel>
+                    <FormControlLabelText style={styles.text}>
+                      Number of games
+                    </FormControlLabelText>
+                  </FormControlLabel>
+                  <Select
+                    selectedValue={newSeason.games.toString()}
+                    onValueChange={input =>
+                      setNewSeason(prev => ({
+                        ...prev,
+                        games: parseInt(input, 10),
+                      }))
+                    }>
+                    <SelectTrigger>
+                      <SelectInput placeholder="num" style={styles.text} />
+                      <Icon as={ChevronDownIcon} />
+                    </SelectTrigger>
+                    <SelectPortal>
+                      <ScrollView>{numberSelector()}</ScrollView>
+                    </SelectPortal>
+                  </Select>
+                </FormControl>
+                {newSeason.start.length > 0 && newSeason.end.length > 0 ? (
+                  <Button onPress={editDates}>
+                    <ButtonText>Edit Dates</ButtonText>
+                  </Button>
+                ) : (
+                  <>
+                    <HStack>
+                      <VStack>
+                        <Text style={styles.text}>
+                          Pick {startEndRender()}
+                          date
+                        </Text>
+                        <DatePicker
+                          date={date}
+                          onDateChange={setDate}
+                          mode="date"
+                          minimumDate={new Date()}
+                        />
                       </VStack>
-                    </Center>
-                  </HStack>
-                </>
-              )}
-              <Button onPress={createSeasonOnSubmit}>
-                <ButtonText>Create Season</ButtonText>
-              </Button>
-            </SectionContainer>
-          </View>
-        ) : (
-          <Pressable style={styles.subContainer} onPress={toggleForm}>
-            <Icon as={AddIcon} m="$2" w="$10" h="$10" color="#ffffff" />
-            <Heading style={styles.text}>Start a Season</Heading>
-          </Pressable>
-        )}
-      </ScrollView>
+                      <Center>
+                        <VStack space="lg">
+                          <Button onPress={handleSubmit}>
+                            <ButtonText>Submit {}</ButtonText>
+                          </Button>
+                        </VStack>
+                      </Center>
+                    </HStack>
+                  </>
+                )}
+                <FormControl>
+                  <FormControlLabel>
+                    <FormControlLabelText style={styles.text}>
+                      Select a cadence
+                    </FormControlLabelText>
+                  </FormControlLabel>
+                  <Input>
+                    <InputField
+                      value={newSeason.cadence}
+                      placeholder="Games per week"
+                      style={styles.text}
+                      onChangeText={input =>
+                        setNewSeason({...newSeason, cadence: input})
+                      }
+                    />
+                  </Input>
+                </FormControl>
+                <Button onPress={createSeasonOnSubmit}>
+                  <ButtonText>Create Season</ButtonText>
+                </Button>
+              </SectionContainer>
+            </View>
+          ) : (
+            <Pressable style={styles.subContainer} onPress={toggleForm}>
+              <Icon as={AddIcon} m="$2" w="$10" h="$10" color="#ffffff" />
+              <Heading style={styles.text}>Start a Season</Heading>
+            </Pressable>
+          )}
+        </ScrollView>
+      ) : (
+        <SectionContainer title={'Season details'}>
+          <Text>Active season</Text>
+        </SectionContainer>
+      )}
     </SafeAreaView>
   );
 };

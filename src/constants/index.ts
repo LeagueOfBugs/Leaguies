@@ -167,7 +167,7 @@ export const SEED = {
       image: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge1.png',
       badge: '/Users/andres/Desktop/UIPractice/leaguies/src/assets/badge1.png',
       limit: 10,
-      seasonId: '',
+      seasonId: 'e7964932-7c15-4960-a059-941544f6ac19',
       teams: [
         '905b4d32-ee84-4d1d-8d88-2d14416cfab9',
         '905b4d32-ee84-4d1d-8d88-2d14416cf333',

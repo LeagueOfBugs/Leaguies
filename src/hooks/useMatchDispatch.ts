@@ -5,7 +5,7 @@ function useMatchDispatch() {
   const dispatch = useDispatch();
 
   const makeMatch = newMatchState => {
-    console.log('sdfsdfsdfsdf', newMatchState);
+    // console.log('sdfsdfsdfsdf', newMatchState);
   };
   return {makeMatch};
 }

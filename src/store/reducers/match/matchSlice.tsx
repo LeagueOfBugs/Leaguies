@@ -11,7 +11,7 @@ const matchesSlice = createSlice({
   reducers: {
     createMatch: (state, action) => {
       state.matches.push(action.payload);
-      console.log('in create match: ', state.matches);
+      // console.log('in create match: ', state.matches);
       return state;
     },
     editMatch: (state, action) => {
