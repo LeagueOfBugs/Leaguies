@@ -1,12 +1,27 @@
 import {View, Text, SafeAreaView, Image, StyleSheet} from 'react-native';
 import React from 'react';
+import {AddIcon, Fab, FabIcon, FabLabel, HStack} from '@gluestack-ui/themed';
+import LeagueCalendar from '../../components/Calendar';
+const LeagueScheduleTab = ({route}) => {
+  const data = route.params;
+  const handleCreateTeam = () => {
+    console.log('create game MF!!!!');
+  };
 
-const LeagueScheduleTab = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <View>
-        <Image />
-        <Text style={styles.text}>LeagueDetailsTab</Text>
+      <View style={styles.subContainer}>
+        <LeagueCalendar markedDates={data} route={route} />
+        <Fab
+          onPress={() => handleCreateTeam()}
+          size="md"
+          placement="bottom right"
+          isHovered={false}
+          isDisabled={false}
+          isPressed={false}>
+          <FabIcon as={AddIcon} mr="$1" />
+          <FabLabel>Add a Game</FabLabel>
+        </Fab>
       </View>
     </SafeAreaView>
   );
@@ -14,11 +29,12 @@ const LeagueScheduleTab = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#1C1C1D',
-    height: '100%',
+    flex: 1,
   },
-  text: {
-    color: '#ffffff',
+  subContainer: {
+    flex: 1,
+    justifyContent: 'space-between',
+    paddingTop: 50,
   },
 });
 export default LeagueScheduleTab;

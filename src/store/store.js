@@ -4,7 +4,7 @@ import leagueReducer from './reducers/leagues/leagueSlice';
 import teamsReducer from './reducers/teams/teamSlice';
 import playerReducer from './reducers/players/playerSlice';
 import seasonReducer from './reducers/seasons/seasonSlice';
-// import matchReducer from './reducers/matches/matchSlice';
+import matchReducer from './reducers/matches/matchesSlice';
 
 const store = configureStore({
   reducer: {
@@ -12,7 +12,7 @@ const store = configureStore({
     teams: teamsReducer,
     players: playerReducer,
     seasons: seasonReducer,
-    // matches: matchReducer,
+    matches: matchReducer,
   },
   devTools: true,
 });

@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {createSeason} from '../store/reducers/seasons/seasonSlice';
 import useLeagueDispatch from '../hooks/useLeagueDispatch';
+import {createSeason} from '../store/reducers/seasons/seasonSlice';
 
 function useSeasonDispatch() {
   const dispatch = useDispatch();
@@ -10,10 +9,10 @@ function useSeasonDispatch() {
   const makeSeason = (
     seasonObj: Season,
     leagues: League[],
-    leagueId?: string,
+    leagueId: string,
   ) => {
-    createSeason(seasonObj);
     addSeasonToLeague(seasonObj, leagues, leagueId);
+    dispatch(createSeason(seasonObj));
   };
 
   return {makeSeason};

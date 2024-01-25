@@ -106,16 +106,14 @@ const LeagueSeasonTab = ({navigation, route}) => {
     };
   };
 
-  const hitReset = () => {
-    setNewSeason(initialState);
-  };
+  // const hitReset = () => {
+  //   setNewSeason(initialState);
+  // };
 
   const createSeasonOnSubmit = () => {
     const seasonModel = generateSeasonModel();
     makeSeason(seasonModel, leagues, leagueId);
-    navigation.navigate('Schedule');
-    // reset season form
-    // hitReset();
+    navigation.navigate('Schedule', {seasonModel});
   };
 
   return (

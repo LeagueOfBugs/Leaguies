@@ -4,7 +4,7 @@ export const selectSeasons = (state: RootState) => state.seasons;
 
 export const selectSeasonsObjById = (seasonId: string) =>
   createSelector(selectSeasons, ({seasons}) => {
-    return seasons.filter(season => season.id === seasonId);
+    return seasons.find(season => season.id === seasonId);
   });
 
 export const selectSeasonsObjByLeagueId = (leagueId: string) =>

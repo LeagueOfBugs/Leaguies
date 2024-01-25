@@ -72,7 +72,7 @@ interface Season {
   end?: string;
   games?: number;
   cadence?: string;
-  matches?: Match[] | undefined;
+  matches?: string[] | undefined;
 }
 /* Seasons types  --- ENDS */
 

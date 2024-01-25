@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux';
 import React, {useState} from 'react';
 import LeagueList from './LeagueList';
 import SectionContainer from '../../components/SectionContainer';
-import {AddIcon, Fab, FabIcon, FabLabel, VStack} from '@gluestack-ui/themed';
+import {AddIcon, Fab, FabIcon, FabLabel, Text, VStack} from '@gluestack-ui/themed';
 
 const League = ({navigation}) => {
   const {leagues} = useSelector((state: RootState) => state.leagues);
@@ -14,7 +14,7 @@ const League = ({navigation}) => {
     <SafeAreaView style={styles.mainContainer}>
       <VStack space="md" style={styles.margin}>
         <SectionContainer title="My League">
-          <Text>Season Title</Text>
+          <Text>League Title</Text>
         </SectionContainer>
         <SectionContainer title="Leagues">
           <LeagueList leagues={leagues} navigation={navigation} />

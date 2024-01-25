@@ -40,7 +40,7 @@ function useLeagueDispatch() {
       return team;
     });
 
-    dispatch(addTeam({leagues: newState}));
+    dispatch(addTeam(newState));
     dispatch(editTeam(newTeamState));
   };
 
@@ -70,7 +70,7 @@ function useLeagueDispatch() {
       }
       return team;
     });
-    dispatch(deleteTeam({leagues: newLeagueState}));
+    dispatch(deleteTeam(newLeagueState));
     dispatch(editTeam(newTeamState));
   };
 

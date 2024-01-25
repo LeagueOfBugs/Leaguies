@@ -16,10 +16,13 @@ const leagueSlice = createSlice({
       return state;
     },
     deleteTeam: (state, action) => {
-      return action.payload;
+      return {...state, leagues: action.payload};
     },
     addTeam: (state, action) => {
-      return action.payload;
+      return {
+        ...state,
+        leagues: action.payload,
+      };
     },
     terminateLeague: (state, action) => {
       return {
@@ -28,7 +31,6 @@ const leagueSlice = createSlice({
       };
     },
     editLeagues: (state, action) => {
-      console.log(action.payload)
       return {
         ...state,
         leagues: action.payload,

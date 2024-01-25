@@ -55,7 +55,7 @@ const LeagueDetailsTab = ({navigation, route}) => {
 
   const needTeams = league?.teams?.length < parseInt(league?.limit, 10);
   const teamsFull = league?.teams?.length >= parseInt(league?.limit, 10);
-  console.log('season id:', league.seasonId);
+
   const activeSeason = league?.seasonId.length > 0;
 
   // TODO: handle this in league dispatcher for side effects

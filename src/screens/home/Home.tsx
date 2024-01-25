@@ -15,8 +15,6 @@ const Home = ({navigation}) => {
 
   // Seed this please OMG!
   useSeedRedux();
-  const {seasons} = useSelector(selectSeasons);
-  // console.log('seasons in home', seasons);
   const renderItem = ({item}: {item: screenItem}) => {
     if (item === 'leagues') {
       return <GridList allLeagues={leagues} navigation={navigation} />;
