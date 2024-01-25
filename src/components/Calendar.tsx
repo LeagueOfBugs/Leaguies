@@ -3,25 +3,20 @@ import React from 'react';
 import {Calendar} from 'react-native-calendars';
 import {format} from 'date-fns';
 import {useSelector} from 'react-redux';
-import {
-  selectSeasons,
-  selectSeasonsObjByLeagueId,
-} from '../selectors/seasonSelector';
+import {selectSeasonsObjByLeagueId} from '../selectors/seasonSelector';
 
 const LeagueCalendar = ({markedDates, route}) => {
   const {item} = markedDates;
-  // console.log(item);
   let leagueId;
   if (item) {
     leagueId = item.id;
   }
-  const {seasons} = useSelector(selectSeasons);
+
   const [seasonModel] = useSelector(selectSeasonsObjByLeagueId(leagueId));
   // const seasonId = leagueModel.seasonId;
-  console.log('Seasons: ', seasons);
+
   const makeMarkedDates = () => {
     if (seasonModel) {
-      console.log(format(new Date(seasonModel.start), 'yyyy-MM-dd'));
       const startDate = new Date(seasonModel.start);
       const endDate = new Date(seasonModel.end);
       const markedDates = {};

@@ -10,7 +10,6 @@ const seasonSlice = createSlice({
   reducers: {
     createSeason: (state, action) => {
       state.seasons.push(action.payload);
-      console.log('state: ', state.seasons);
       return state;
     },
     editSeason: (state, action) => {
