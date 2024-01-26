@@ -6,7 +6,7 @@ import {
   ScrollView,
   Text,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {
   AddIcon,
   FormControl,
@@ -35,6 +35,11 @@ import useSeasonDispatch from '../../hooks/useSeasonDispatch';
 import {useSelector} from 'react-redux';
 import {selectLeagueById, selectLeagues} from '../../selectors/leagueSelector';
 import {format} from 'date-fns';
+import {
+  selectMatchBySeasonId,
+  selectMatches,
+} from '../../selectors/matchSelector';
+import LeagueGame from './LeagueGame';
 
 const numberSelector = () => {
   const selectItemArray = [];
@@ -64,6 +69,14 @@ const LeagueSeasonTab = ({route}) => {
   const leagueId = id;
   const leagueModel = useSelector(selectLeagueById(id));
   const hasSeason = leagueModel?.seasonId;
+  const {matches} = useSelector(selectMatches);
+
+  const allLeagueMatches = matches.map(match => {
+    if (match.seasonId === leagueModel?.seasonId) {
+      return match;
+    }
+    return match;
+  });
 
   const generateUUID = () => uuid.v4().toString();
 
@@ -221,8 +234,22 @@ either here or somewhere else
           )}
         </ScrollView>
       ) : (
-        <SectionContainer title={'Season details'}>
-          <Text>Active season</Text>
+        <SectionContainer title="Season details">
+          <Text style={styles.text}>Upcoming Games</Text>
+          {allLeagueMatches.map(match => {
+            return (
+              <Fragment key={match.id}>
+                <LeagueGame
+                  gameName={match.name}
+                  date={match.date}
+                  time={match.time}
+                  location={match.location}
+                  homeTeam={match.homeTeam}
+                  awayTeam={match.awayTeam}
+                />
+              </Fragment>
+            );
+          })}
         </SectionContainer>
       )}
     </SafeAreaView>

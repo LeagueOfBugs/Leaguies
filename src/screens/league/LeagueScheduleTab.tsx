@@ -30,13 +30,17 @@ import {
 import LeagueCalendar from '../../components/Calendar';
 import uuid from 'react-native-uuid';
 import {useSelector} from 'react-redux';
-import {selectSeasonsObjByLeagueId} from '../../selectors/seasonSelector';
+import {
+  selectSeasons,
+  selectSeasonsObjByLeagueId,
+} from '../../selectors/seasonSelector';
 import useMatchDispatch from '../../hooks/useMatchDispatch';
 import {selectMatches} from '../../selectors/matchSelector';
 import DatePicker from 'react-native-date-picker';
 import {selectTeams} from '../../selectors/teamsSelector';
 import {format} from 'date-fns';
 import Geolocation from 'react-native-geolocation-service';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 const LeagueScheduleTab = ({route}) => {
   // league id
@@ -54,35 +58,37 @@ const LeagueScheduleTab = ({route}) => {
     awayTeam: '',
     date: '',
     time: '',
-    localtion: '',
+    location: '',
     offictiating: [],
   });
 
-  // useEffect(() => {
-  //   Geolocation.requestAuthorization('whenInUse').then(result => {
-  //     if (result === 'granted') {
-  //       // Get current location
-  //       Geolocation.getCurrentPosition(
-  //         position => {
-  //           setLocation(position.coords);
-  //         },
-  //         err => {
-  //           setError(err.message);
-  //         },
-  //         {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-  //       );
-  //     } else {
-  //       setError('Location permission denied');
-  //     }
-  //   });
+  useEffect(() => {
+    Geolocation.requestAuthorization('whenInUse').then(result => {
+      if (result === 'granted') {
+        // Get current location
+        Geolocation.getCurrentPosition(
+          position => {
+            return setLocation(position.coords);
+          },
+          err => {
+            setError(err.message);
+          },
+          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+        );
+      } else {
+        setError('Location permission denied');
+      }
+    });
 
-  //   // Clean up on component unmount
-  //   return () => {
-  //     Geolocation.stopObserving();
-  //   };
-  // }, []);
+    // Clean up on component unmount
+    return () => {
+      Geolocation.stopObserving();
+    };
+  }, []);
 
   const [seasonModel] = useSelector(selectSeasonsObjByLeagueId(id));
+  const {matches} = useSelector(selectMatches);
+  const {seasons} = useSelector(selectSeasons);
   const opsModels = teams.filter(team => team.league === id && team.league);
   const selectNames = opsModels.map(ops => ({
     name: ops.name,
@@ -101,9 +107,9 @@ const LeagueScheduleTab = ({route}) => {
   };
 
   const handleCreateTeam = () => {
+    const newMatchModel = createMatchModel();
+    makeMatch(newMatchModel, seasons);
     setShowModal(false);
-    const newMatchState = [];
-    makeMatch(newMatchState);
   };
 
   // can be memoized, otherwise will create lists every render
@@ -130,8 +136,6 @@ const LeagueScheduleTab = ({route}) => {
       time: formattedTime,
     });
   };
-
-  console.log(newMatch);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -237,8 +241,28 @@ const LeagueScheduleTab = ({route}) => {
                 </FormControl>
                 <FormControl>
                   <FormControlLabel>
-                    <FormControlLabelText>location</FormControlLabelText>
+                    <FormControlLabelText>Location</FormControlLabelText>
                   </FormControlLabel>
+                  {/* <Input>
+                    <InputField value={newMatch.location} />
+                  </Input> */}
+                  <GooglePlacesAutocomplete
+                    placeholder="Search for a location"
+                    onPress={(data, details = null) => {
+                      // 'data' contains information about the selected place
+                      // 'details' contains more details about the place
+                      setNewMatch({
+                        ...newMatch,
+                        location: data.description,
+                      });
+                    }}
+                    query={{
+                      key: 'AIzaSyBGIr75oXUdjdwffvo1Q0ROKftQK0FOUJ4',
+                      language: 'en',
+                    }}
+                    nearbyPlacesAPI="GooglePlacesSearch" // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+                    debounce={300}
+                  />
                 </FormControl>
               </VStack>
               <Button
