@@ -55,9 +55,10 @@ const LeagueDetailsTab = ({navigation, route}) => {
 
   const needTeams = league?.teams?.length < parseInt(league?.limit, 10);
   const teamsFull = league?.teams?.length >= parseInt(league?.limit, 10);
-
-  const activeSeason = league?.seasonId.length > 0;
-
+  let activeSeason;
+  if (league?.seasonId) {
+    activeSeason = league?.seasonId.length > 0;
+  }
   // TODO: handle this in league dispatcher for side effects
   const handleDelete = () => {
     deleteLeague(league?.id, leagues, teams, players, navigation);

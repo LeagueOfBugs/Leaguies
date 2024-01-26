@@ -41,11 +41,14 @@ import {selectTeams} from '../../selectors/teamsSelector';
 import {format} from 'date-fns';
 import Geolocation from 'react-native-geolocation-service';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
+import {selectLeagueById} from '../../selectors/leagueSelector';
 
 const LeagueScheduleTab = ({route}) => {
   // league id
   const {id} = route.params.item;
   const data = route.params;
+  const league = useSelector(selectLeagueById(id));
+  const leagueId = league?.id;
   const {teams} = useSelector(selectTeams);
   const [location, setLocation] = useState('');
   const [error, setError] = useState('');
@@ -86,7 +89,7 @@ const LeagueScheduleTab = ({route}) => {
     };
   }, []);
 
-  const [seasonModel] = useSelector(selectSeasonsObjByLeagueId(id));
+  const [seasonModel] = useSelector(selectSeasonsObjByLeagueId(leagueId));
   const {matches} = useSelector(selectMatches);
   const {seasons} = useSelector(selectSeasons);
   const opsModels = teams.filter(team => team.league === id && team.league);
@@ -106,7 +109,7 @@ const LeagueScheduleTab = ({route}) => {
     };
   };
 
-  const handleCreateTeam = () => {
+  const handleCreateMatch = () => {
     const newMatchModel = createMatchModel();
     makeMatch(newMatchModel, seasons);
     setShowModal(false);
@@ -268,7 +271,7 @@ const LeagueScheduleTab = ({route}) => {
               <Button
                 mt="$4"
                 onPress={() => {
-                  handleCreateTeam();
+                  handleCreateMatch();
                 }}>
                 <ButtonText>Create Match!</ButtonText>
               </Button>

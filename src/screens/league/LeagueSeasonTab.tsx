@@ -40,7 +40,8 @@ import {
   selectMatches,
 } from '../../selectors/matchSelector';
 import LeagueGame from './LeagueGame';
-
+import {useNavigation} from '@react-navigation/native';
+import {selectSeasons} from '../../selectors/seasonSelector';
 const numberSelector = () => {
   const selectItemArray = [];
   for (let i = 0; i <= 25; i++) {
@@ -65,19 +66,16 @@ const LeagueSeasonTab = ({route}) => {
 
   const {makeSeason} = useSeasonDispatch();
   const {leagues} = useSelector(selectLeagues);
+  const {seasons} = useSelector(selectSeasons);
   const {id} = route.params.item;
   const leagueId = id;
   const leagueModel = useSelector(selectLeagueById(id));
   const hasSeason = leagueModel?.seasonId;
   const {matches} = useSelector(selectMatches);
-
-  const allLeagueMatches = matches.map(match => {
-    if (match.seasonId === leagueModel?.seasonId) {
-      return match;
-    }
-    return match;
+  const navigation = useNavigation();
+  const allLeagueMatches = matches.filter(match => {
+    return match.seasonId === leagueModel?.seasonId;
   });
-
   const generateUUID = () => uuid.v4().toString();
 
   /*
@@ -124,6 +122,7 @@ either here or somewhere else
       ...newSeason,
       id: generateUUID(),
       leagueId: leagueId,
+      matches: [],
     };
   };
 
@@ -135,7 +134,7 @@ either here or somewhere else
 
   return (
     <SafeAreaView style={styles.container}>
-      {leagueModel && hasSeason?.length === 0 ? (
+      {hasSeason?.length === 0 ? (
         <ScrollView>
           {showForm ? (
             <View style={styles.formContainer}>
@@ -236,20 +235,26 @@ either here or somewhere else
       ) : (
         <SectionContainer title="Season details">
           <Text style={styles.text}>Upcoming Games</Text>
-          {allLeagueMatches.map(match => {
-            return (
-              <Fragment key={match.id}>
-                <LeagueGame
-                  gameName={match.name}
-                  date={match.date}
-                  time={match.time}
-                  location={match.location}
-                  homeTeam={match.homeTeam}
-                  awayTeam={match.awayTeam}
-                />
-              </Fragment>
-            );
-          })}
+          {allLeagueMatches.length > 0 ? (
+            allLeagueMatches.map(match => {
+              return (
+                <Fragment key={match.id}>
+                  <LeagueGame
+                    gameName={match.name}
+                    date={match.date}
+                    time={match.time}
+                    location={match.location}
+                    homeTeam={match.homeTeam}
+                    awayTeam={match.awayTeam}
+                  />
+                </Fragment>
+              );
+            })
+          ) : (
+            <Center>
+              <Text style={styles.text}>No games</Text>
+            </Center>
+          )}
         </SectionContainer>
       )}
     </SafeAreaView>

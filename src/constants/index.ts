@@ -701,7 +701,7 @@ export const SEED = {
       end: '2024-03-23T16:35:58.000Z',
       start: '2024-01-23T16:35:44.040Z',
       leagueId: '905b4d32-ee84-4d1d-8d88-2d14416c0000',
-      matches: [],
+      matches: ['6ae6b7c1-d58f-44d0-9bc8-fff0a691c11b'],
     },
   ],
   matches: [
