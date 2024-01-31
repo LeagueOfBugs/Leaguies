@@ -319,7 +319,7 @@ export const SEED = {
     },
     {
       name: 'Fleo Farias',
-      id: '905b4d32-ee84-4d1d-8d88-2d14416cerfc',
+      id: '905b4d32-ee84-4d1d-8d88-2d14416apapa',
       team: '905b4d32-ee84-4d1d-8d88-2d14416cfvac',
       position: 'Striker',
       league: '905b4d32-ee84-4d1d-8d88-2d14416c0001',
@@ -330,7 +330,7 @@ export const SEED = {
     },
     {
       name: 'Flandres Farias',
-      id: '905b4d32-ee84-4d1d-8d88-2d14416c567f',
+      id: '905b4d32-ee84-4d1d-8d88-2d14416aaaaa',
       team: '905b4d32-ee84-4d1d-8d88-2d14416cfvac',
       position: 'Striker',
       league: '905b4d32-ee84-4d1d-8d88-2d14416c0001',
@@ -341,7 +341,7 @@ export const SEED = {
     },
     {
       name: 'Fasey Farias',
-      id: '905b4d32-ee84-4d1d-8d88-2d1nnc16cdg4c',
+      id: '905b4d32-ee84-4d1d-8d88-2d1nqwerty',
       team: '905b4d32-ee84-4d1d-8d88-2d14416cfvac',
       position: 'Midfielder',
       league: '905b4d32-ee84-4d1d-8d88-2d14416c0001',
@@ -378,28 +378,6 @@ export const SEED = {
       team: '905b4d32-ee84-4d1d-8d88-2d14416cfvac',
       position: 'Defender',
       league: '905b4d32-ee84-4d1d-8d88-2d14416c0001',
-      agency: 'restricted',
-      image:
-        '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
-      onlineStatus: false,
-    },
-    {
-      name: 'Fluffy',
-      id: '905b4d32-ee84-4d1d-8d88-2d14416cnl23',
-      team: '905b4d32-ee84-4d1d-8d88-2d14416cfab9',
-      position: 'Defender',
-      league: '905b4d32-ee84-4d1d-8d88-2d14416c0000',
-      agency: 'restricted',
-      image:
-        '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
-      onlineStatus: false,
-    },
-    {
-      name: 'Trevor',
-      id: '905b4d32-ee84-4d1d-8d88-2d14416cwpcs',
-      team: '905b4d32-ee84-4d1d-8d88-2d14416cfab9',
-      position: 'Defender',
-      league: '905b4d32-ee84-4d1d-8d88-2d14416c0000',
       agency: 'restricted',
       image:
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
@@ -680,17 +658,6 @@ export const SEED = {
         '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
       onlineStatus: true,
     },
-    {
-      name: 'Bruno Fernandes',
-      id: '905b4d32-ee84-4d1d-8d88-2d14416bruno',
-      team: '',
-      position: 'Midfielder',
-      league: '',
-      agency: 'unrestricted',
-      image:
-        '/Users/andres/Desktop/UIPractice/leaguies/src/assets/defaultAvatar.png',
-      onlineStatus: true,
-    },
   ],
   seasons: [
     {
@@ -713,6 +680,18 @@ export const SEED = {
       leagueId: '905b4d32-ee84-4d1d-8d88-2d14416c0000',
       location: 'Binghamton, NY, USA',
       name: 'Andres first match',
+      offictiating: [],
+      seasonId: 'e7964932-7c15-4960-a059-941544f6ac19',
+      time: '7:35:14 PM',
+    },
+    {
+      awayTeam: '905b4d32-ee84-4d1d-8d88-2d14416cf333',
+      date: '2024-01-30',
+      homeTeam: '905b4d32-ee84-4d1d-8d88-2d14416cfab9',
+      id: '6ae6b7c1-d58f-44d0-9bc8-fff0dsdslxx',
+      leagueId: '905b4d32-ee84-4d1d-8d88-2d14416c0000',
+      location: 'Binghamton, NY, USA',
+      name: 'Andres second match',
       offictiating: [],
       seasonId: 'e7964932-7c15-4960-a059-941544f6ac19',
       time: '7:35:14 PM',

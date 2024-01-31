@@ -1,6 +1,6 @@
 import React from 'react';
 import store from './store/store';
-import {Provider} from 'react-redux';
+import {Provider, useSelector} from 'react-redux';
 import Home from './screens/home/Home';
 import League from './screens/league/League';
 import Player from './screens/player/Player';
@@ -19,8 +19,11 @@ import createLeague from './screens/league/CreateLeague';
 import PlayerStatsTab from './screens/player/PlayerStatsTab';
 import PlayerActivityTab from './screens/player/PlayerActivityTab';
 import PlayerDetailsTab from './screens/player/PlayerDetailsTab';
+import ResetPassword from './screens/auth/ResetPassword';
+import SignUp from './screens/auth/SignUp';
+import SignIn from './screens/auth/SignIn';
+import {selectUser} from './selectors/userSelector';
 
-// Define custom theme for NavigationContainer
 const customTheme = {
   ...DefaultTheme,
   colors: {
@@ -128,79 +131,109 @@ const TopPlayerDetailsTab = ({route}: any) => {
   );
 };
 
+const LoginFlowStack = () => {
+  const {user, loading, error} = useSelector(selectUser);
+
+  return (
+    <Stack.Navigator>
+      {user == null ? (
+        <>
+          <Stack.Screen
+            name="Sign in"
+            component={SignIn}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Sign up"
+            component={SignUp}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Reset password"
+            component={ResetPassword}
+            options={{headerShown: false}}
+          />
+        </>
+      ) : (
+        <>
+          <Stack.Screen
+            name="Home"
+            component={HomeTabs}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="League Details"
+            component={TopLeagueDetailsTab}
+            options={{
+              headerStyle: {
+                backgroundColor: '#252526',
+              },
+              headerTitle: '',
+              headerTintColor: '#ffffff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+              headerBackTitleVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="Player Details"
+            component={TopPlayerDetailsTab}
+            options={{
+              headerStyle: {
+                backgroundColor: '#252526',
+              },
+              headerTitle: '',
+              headerTintColor: '#ffffff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+              headerBackTitleVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="Team Details"
+            component={Team}
+            options={{
+              headerStyle: {
+                backgroundColor: '#252526',
+              },
+              headerTitle: '',
+              headerTintColor: '#ffffff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+              headerBackTitleVisible: false,
+            }}
+          />
+          <Stack.Screen
+            name="Create League"
+            component={createLeague}
+            options={{
+              headerLeft: () => null,
+              headerStyle: {
+                backgroundColor: '#252526',
+              },
+              headerTitle: '',
+              headerTintColor: '#ffffff',
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+              headerBackTitleVisible: false,
+            }}
+          />
+        </>
+      )}
+    </Stack.Navigator>
+  );
+};
+
 const App = () => {
   return (
     <Provider store={store}>
       <GluestackUIProvider config={config}>
         <NavigationContainer theme={customTheme}>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Home"
-              component={HomeTabs}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="League Details"
-              component={TopLeagueDetailsTab}
-              options={{
-                headerStyle: {
-                  backgroundColor: '#252526',
-                },
-                headerTitle: '',
-                headerTintColor: '#ffffff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-                headerBackTitleVisible: false,
-              }}
-            />
-            <Stack.Screen
-              name="Player Details"
-              component={TopPlayerDetailsTab}
-              options={{
-                headerStyle: {
-                  backgroundColor: '#252526',
-                },
-                headerTitle: '',
-                headerTintColor: '#ffffff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-                headerBackTitleVisible: false,
-              }}
-            />
-            <Stack.Screen
-              name="Team Details"
-              component={Team}
-              options={{
-                headerStyle: {
-                  backgroundColor: '#252526',
-                },
-                headerTitle: '',
-                headerTintColor: '#ffffff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-                headerBackTitleVisible: false,
-              }}
-            />
-            <Stack.Screen
-              name="Create League"
-              component={createLeague}
-              options={{
-                headerLeft: () => null,
-                headerStyle: {
-                  backgroundColor: '#252526',
-                },
-                headerTitle: '',
-                headerTintColor: '#ffffff',
-                headerTitleStyle: {
-                  fontWeight: 'bold',
-                },
-                headerBackTitleVisible: false,
-              }}
-            />
-          </Stack.Navigator>
+          <LoginFlowStack />
         </NavigationContainer>
       </GluestackUIProvider>
     </Provider>

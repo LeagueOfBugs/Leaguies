@@ -1,6 +1,7 @@
 /* RootState types  --- STARTS */
 
 interface RootState {
+  user: any;
   leagues: Leagues;
   teams: Teams;
   players: Players;

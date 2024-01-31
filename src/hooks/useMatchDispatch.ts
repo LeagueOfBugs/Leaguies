@@ -19,7 +19,6 @@ function useMatchDispatch() {
         return season;
       })
       .filter(season => season !== null);
-    console.log('change in season state: ', newSeasonState);
     dispatch(editSeason(newSeasonState));
   };
 

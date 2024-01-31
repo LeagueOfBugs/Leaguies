@@ -6,7 +6,6 @@ import LFT from '../../components/LFT';
 import GridList from '../../components/GridList';
 import {useSeedRedux} from '../../hooks';
 import {selectLeagues} from '../../selectors/leagueSelector';
-import {selectSeasons} from '../../selectors/seasonSelector';
 
 type screenItem = 'leagues' | 'LFP' | 'LFT';
 
