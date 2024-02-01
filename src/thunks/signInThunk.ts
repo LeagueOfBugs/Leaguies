@@ -11,8 +11,12 @@ export const signInUser = createAsyncThunk('user/singInUser', async creds => {
       username: username,
       password: password,
     });
-    const user = response.data;
-    return JSON.parse(user.body);
+
+    console.log(response.data.statusCode);
+    return {
+      data: JSON.parse(response.data.body),
+      statusCode: JSON.parse(response.data.statusCode),
+    };
   } catch (error) {
     console.error('Error with user auth', error);
     throw error;

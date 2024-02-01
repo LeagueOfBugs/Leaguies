@@ -8,7 +8,7 @@ import Team from './screens/team/Team';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {GluestackUIProvider} from '@gluestack-ui/themed';
+import {GluestackUIProvider, Spinner, Text} from '@gluestack-ui/themed';
 import {config} from '@gluestack-ui/config';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import LeagueTeamTab from './screens/league/LeagueTeamsTab';
@@ -23,6 +23,8 @@ import ResetPassword from './screens/auth/ResetPassword';
 import SignUp from './screens/auth/SignUp';
 import SignIn from './screens/auth/SignIn';
 import {selectUser} from './selectors/userSelector';
+import LoadingSpinner from './components/LoadingSpinner';
+import SignUpButton from './components/SignUpButton';
 
 const customTheme = {
   ...DefaultTheme,
@@ -131,9 +133,14 @@ const TopPlayerDetailsTab = ({route}: any) => {
   );
 };
 
-const LoginFlowStack = () => {
+const signUp = <SignUpButton />;
+const LoginFlowStack = ({component}) => {
   const {user, loading, error} = useSelector(selectUser);
-
+  // Need error handling
+  if (loading) {
+    return <LoadingSpinner loading={loading} />;
+  }
+  console.log(user);
   return (
     <Stack.Navigator>
       {user == null ? (
@@ -141,7 +148,10 @@ const LoginFlowStack = () => {
           <Stack.Screen
             name="Sign in"
             component={SignIn}
-            options={{headerShown: false}}
+            options={{
+              headerTitle: '',
+              headerRight: () => component,
+            }}
           />
           <Stack.Screen
             name="Sign up"
@@ -233,7 +243,7 @@ const App = () => {
     <Provider store={store}>
       <GluestackUIProvider config={config}>
         <NavigationContainer theme={customTheme}>
-          <LoginFlowStack />
+          <LoginFlowStack component={signUp} />
         </NavigationContainer>
       </GluestackUIProvider>
     </Provider>

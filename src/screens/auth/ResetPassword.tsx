@@ -1,5 +1,5 @@
 import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Heading,
   FormControl,
@@ -7,9 +7,25 @@ import {
   InputField,
   Button,
   ButtonText,
+  Link,
+  LinkText,
 } from '@gluestack-ui/themed';
-
+import resetPassword from '../../service/resetPassword';
+import {useNavigation} from '@react-navigation/native';
 const ResetPassword = () => {
+  const [username, setUsername] = useState('');
+  const [initiated, setInitiated] = useState(false);
+  const [newPass, setNewPass] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const navigation = useNavigation();
+  const handleSubmit = () => {
+    resetPassword(username, newPass, verificationCode);
+    setInitiated(!initiated);
+    if (!initiated) {
+      navigation.goBack();
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.subContainer}>
@@ -20,12 +36,42 @@ const ResetPassword = () => {
         <View style={styles.formContainer}>
           <FormControl minWidth="$80">
             <Input>
-              <InputField placeholder="Username" />
+              <InputField
+                placeholder="Username"
+                value={username}
+                onChangeText={setUsername}
+              />
             </Input>
           </FormControl>
-          <Button>
+          {initiated && (
+            <>
+              <FormControl minWidth="$80">
+                <Input>
+                  <InputField
+                    placeholder="New password"
+                    type="password"
+                    value={newPass}
+                    onChangeText={setNewPass}
+                  />
+                </Input>
+              </FormControl>
+              <FormControl minWidth="$80">
+                <Input>
+                  <InputField
+                    placeholder="Verification Code"
+                    value={verificationCode}
+                    onChangeText={setVerificationCode}
+                  />
+                </Input>
+              </FormControl>
+            </>
+          )}
+          <Button onPress={() => handleSubmit()}>
             <ButtonText>Continue</ButtonText>
           </Button>
+          <Link onPress={() => navigation.navigate('Sign in')}>
+            <LinkText>Cancel</LinkText>
+          </Link>
         </View>
       </View>
     </SafeAreaView>

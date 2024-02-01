@@ -13,13 +13,11 @@ import {
 } from '@gluestack-ui/themed';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
-import {signInUser} from '../../thunks/signInThunk';
+import useUserDispatch from '../../hooks/useUserDispatch';
 
 const SignIn = () => {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const {loading, error, user} = useSelector((state: RootState) => state.user);
+  const {setUser} = useUserDispatch();
 
   const [creds, setCreds] = useState({
     username: '',
@@ -27,7 +25,7 @@ const SignIn = () => {
   });
 
   const onSubmit = () => {
-    dispatch(signInUser(creds));
+    setUser(creds);
     setCreds({
       username: '',
       password: '',
@@ -61,7 +59,6 @@ const SignIn = () => {
               />
             </Input>
           </FormControl>
-
           <Button onPress={() => onSubmit()}>
             <ButtonText>Continue</ButtonText>
           </Button>
@@ -80,7 +77,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  subContainer: {},
+  subContainer: {
+    alignItems: 'center',
+  },
   formContainer: {},
 });
+
 export default SignIn;

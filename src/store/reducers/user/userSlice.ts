@@ -26,11 +26,14 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(signInUser.fulfilled, (state, action) => {
+        const {data, statusCode} = action.payload;
         state.loading = false;
-        state.user = true;
-        const aT = action.payload.accessToken;
-        const iT = action.payload.idToken;
-        const rT = action.payload.refreshToken;
+        if (statusCode === 200) {
+          state.user = true;
+        }
+        const aT = data.accessToken;
+        const iT = data.idToken;
+        const rT = data.refreshToken;
         AsyncStorage.setItem(
           'user',
           JSON.stringify({
@@ -42,6 +45,7 @@ const authSlice = createSlice({
       })
       .addCase(signInUser.rejected, (state, action) => {
         state.loading = false;
+        state.user = false;
         state.error = action.payload as string;
       });
   },
