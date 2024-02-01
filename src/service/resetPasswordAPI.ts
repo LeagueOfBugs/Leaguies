@@ -3,7 +3,7 @@ import axios from 'axios';
 const FORGET_ENDPOINT =
   'https://bcvrht92wl.execute-api.us-east-2.amazonaws.com/Alpha/forget';
 
-const resetPassword = async (
+const resetPasswordAPI = async (
   username: string,
   password?: string,
   verification?: string,
@@ -14,11 +14,10 @@ const resetPassword = async (
       password,
       verification,
     });
-    console.log('forget response: ', response);
     return JSON.parse(response.data);
   } catch (error) {
     console.log(error);
   }
 };
 
-export default resetPassword;
+export default resetPasswordAPI;
