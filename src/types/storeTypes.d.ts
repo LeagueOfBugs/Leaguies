@@ -1,7 +1,7 @@
 /* RootState types  --- STARTS */
 
 interface RootState {
-  user: any;
+  user: User;
   leagues: Leagues;
   teams: Teams;
   players: Players;
@@ -23,7 +23,6 @@ interface Player {
   league: string;
   agency: string;
   image: string;
-  onlineStatus: boolean;
 }
 /* Player types  --- ENDS */
 
@@ -95,3 +94,21 @@ interface Match {
   officiating?: string[] | undefined;
 }
 /* Match types  --- ENDS */
+
+/* User types  --- ENDS */
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  settings: object;
+  preferences: object;
+  role: string;
+  active: boolean;
+  playerId: string;
+  verified: boolean;
+}
+/* User types  --- ENDS */
+
+// Should create a config file with all endpoints tha
+// can be retrieve as a first step, then all services take from this
+// would need to provide fallback as this strat has one point of fault

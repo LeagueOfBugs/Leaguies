@@ -17,7 +17,7 @@ import useUserDispatch from '../../hooks/useUserDispatch';
 
 const SignIn = () => {
   const navigation = useNavigation();
-  const {setUser} = useUserDispatch();
+  const {setUser, retrieveUserFromDb} = useUserDispatch();
 
   const [creds, setCreds] = useState({
     username: '',
@@ -30,6 +30,7 @@ const SignIn = () => {
       username: '',
       password: '',
     });
+    retrieveUserFromDb(creds.username);
   };
 
   return (

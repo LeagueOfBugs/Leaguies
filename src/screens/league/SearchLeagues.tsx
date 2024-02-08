@@ -1,12 +1,12 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-const PlayerForm = () => {
+const SearchLeagues = () => {
   return (
     <View>
-      <Text>PlayerForm</Text>
+      <Text>SearchLeagues</Text>
     </View>
   );
 };
 
-export default PlayerForm;
+export default SearchLeagues;

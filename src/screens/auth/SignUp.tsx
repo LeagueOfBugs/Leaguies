@@ -8,8 +8,8 @@ import {
   Button,
   ButtonText,
 } from '@gluestack-ui/themed';
-import registerUserAPI from '../../service/registerUserAPI';
 import {useNavigation} from '@react-navigation/native';
+import useUserDispatch from '../../hooks/useUserDispatch';
 
 const initialState = {
   username: '',
@@ -19,11 +19,12 @@ const initialState = {
 
 const SignUp = () => {
   const [newUser, setNewUser] = useState(initialState);
+  const {registerUser} = useUserDispatch();
   const navigation = useNavigation();
+
   const handleSubmit = () => {
-    const {username, email, password} = newUser;
-    registerUserAPI(username, email, password);
-    navigation.navigate('Sign in');
+    navigation.navigate('Validate', newUser);
+    registerUser(newUser);
     setNewUser(initialState);
   };
 
@@ -67,6 +68,7 @@ const SignUp = () => {
             <Input>
               <InputField
                 placeholder="Password"
+                type="password"
                 onChangeText={input =>
                   setNewUser({
                     ...newUser,

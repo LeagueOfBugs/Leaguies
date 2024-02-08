@@ -1,83 +1,109 @@
-import {View, StyleSheet, Modal, SafeAreaView} from 'react-native';
-import {useSelector} from 'react-redux';
 import React, {useState} from 'react';
 import {
-  Avatar,
-  AvatarFallbackText,
-  AvatarImage,
-  FabLabel,
-  EditIcon,
-  Fab,
+  StyleSheet,
+  SafeAreaView,
+  View,
   Text,
-  VStack,
-  AddIcon,
-  Center,
-} from '@gluestack-ui/themed';
-import {Icon} from '@gluestack-ui/themed';
-import AddPlayer from '../../components/AddPlayer';
-import EditPlayer from '../../components/EditPlayer';
+  TextInput,
+  ScrollView,
+} from 'react-native';
+import {Button} from 'react-native-paper';
+import Card from '../../components/card/Card';
 
-type Placement = 'bottom right' | 'bottom left';
+const sportsExample = [
+  {
+    sport: 'Soccer',
+    positions: ['Attacking center mid', 'Right winger', 'Left winger'],
+  },
+  {sport: 'Football', positions: ['Runnin back', 'Wide receiver']},
+  {
+    sport: 'Volleyball',
+    positions: ['Setter', 'Outside hitter', 'Defensive specialist'],
+  },
+];
+
+const teamExamples = [
+  {name: 'Team Name Here 1', badge: ''},
+  {name: 'Team Name Here 2', badge: ''},
+];
+
+const RenderPositions = () => {
+  return sportsExample.map(sport => {
+    return (
+      <View style={styles.mainPositionContainer} key={sport.sport}>
+        {/* <View style={styles.teamBadge} /> */}
+        <Text style={styles.sport}>{sport.sport}</Text>
+        <View style={styles.preferences}>
+          {sport.positions.map(position => {
+            return (
+              <View style={styles.subPositionsContainer} key={position}>
+                <Text>{position}</Text>
+              </View>
+            );
+          })}
+        </View>
+      </View>
+    );
+  });
+};
+
+const RenderCurrentTeam = () => {
+  return teamExamples.map(team => {
+    return (
+      <View style={styles.teamsContainer} key={team.name}>
+        <View style={styles.teamBadge} />
+        <Text style={styles.teamName}>{team.name}</Text>
+      </View>
+    );
+  });
+};
 
 const Player = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState<JSX.Element | null>(null);
-
-  const {players} = useSelector((state: RootState) => state.players);
-  const player = players.find(
-    el => el.id === '905b4d32-ee84-4d1d-8d88-2d14416cfab8',
-  );
-
-  const handlePress = (placement: Placement) => {
-    setShowModal(true);
-    switch (placement) {
-      case 'bottom right':
-        setModalType(<EditPlayer onClose={() => setShowModal(false)} />);
-        break;
-      case 'bottom left':
-        setModalType(<AddPlayer onClose={() => setShowModal(false)} />);
-        break;
-      default:
-        setModalType(null);
-    }
-  };
+  const [message, setMessage] = useState('');
+  const ViewingOtherPlayer = true;
 
   return (
     <SafeAreaView style={styles.container}>
-      <VStack space="2xl" style={styles.vStackContainer}>
-        <Avatar bgColor="$amber600" size="md" borderRadius="$full">
-          <AvatarFallbackText>{player?.name}</AvatarFallbackText>
-          <AvatarImage />
-        </Avatar>
-        <Text>{player?.name}</Text>
-        <Text>{player?.position}</Text>
-        <Text>{player?.team}</Text>
-      </VStack>
-      <Fab
-        size="md"
-        placement="bottom right"
-        isHovered={false}
-        isDisabled={false}
-        isPressed={false}
-        onPress={() => handlePress('bottom right')}>
-        <Icon as={EditIcon} color="white" m="$1" w="$4" h="$4" />
-        <FabLabel>Edit Player</FabLabel>
-      </Fab>
-      <Fab
-        size="md"
-        placement="bottom left"
-        isHovered={false}
-        isDisabled={false}
-        isPressed={false}
-        onPress={() => handlePress('bottom left')}>
-        <Icon as={AddIcon} color="white" m="$1" w="$4" h="$4" />
-        <FabLabel>Add Player</FabLabel>
-      </Fab>
-      <Center style={styles.modalContainer}>
-        <Modal visible={showModal} animationType="slide">
-          {modalType}
-        </Modal>
-      </Center>
+      <View style={styles.playerContainer}>
+        <View style={styles.avatar} />
+        <Text style={styles.playerName}>Player Name</Text>
+        <View style={styles.sportsContainer}>
+          <View style={styles.sportsIcons} />
+          <View style={styles.sportsIcons} />
+          <View style={styles.sportsIcons} />
+        </View>
+        {/* setting button or an action button with Edit Profile text */}
+        {/* <View>
+          <Button>Edit Profile</Button>
+        </View> */}
+      </View>
+      <ScrollView>
+        {ViewingOtherPlayer && (
+          <View style={styles.invite}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                value={message}
+                placeholder="Join our Soccer squad"
+                style={styles.input}
+                onChangeText={setMessage}
+              />
+            </View>
+            <View style={styles.actionContainer}>
+              <Button>Send request</Button>
+              <View>
+                {/* icon image goes here */}
+                <View style={styles.icon} />
+              </View>
+            </View>
+          </View>
+        )}
+        <Card title="Teams" footerText="see player history">
+          <RenderCurrentTeam />
+        </Card>
+        <Card title="Position preferences">
+          <RenderPositions />
+        </Card>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -85,17 +111,103 @@ const Player = () => {
 const styles = StyleSheet.create({
   container: {
     height: '100%',
-    backgroundColor: '#1C1C1D',
+    backgroundColor: '#C0c0c0',
   },
-  vStackContainer: {
+  playerContainer: {
+    maxHeight: 250,
+    minHeight: 250,
+    backgroundColor: '#D9D9D9',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
   },
-  modalContainer: {
-    flex: 1,
+  avatar: {
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    backgroundColor: '#3E3E3E',
+  },
+  playerName: {
+    fontSize: 25,
+  },
+  sportsContainer: {
+    height: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: 200,
+  },
+  sportsIcons: {
+    height: 40,
+    width: 40,
+    backgroundColor: '#878787',
+    borderRadius: 50,
+  },
+  invite: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 15,
+    marginBottom: 15,
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+  icon: {
+    height: 30,
+    width: 30,
+    borderRadius: 50,
+    backgroundColor: '#878787',
+  },
+  actionContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  inputContainer: {
+    padding: 8,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 5,
+    backgroundColor: '#D9D9D9',
+    minWidth: 200,
+    maxWidth: 220,
+  },
+  input: {
+    color: '#000',
+  },
+  preferences: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'flex-start',
+    paddingLeft: 10,
+  },
+  mainPositionContainer: {},
+  subPositionsContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 300,
-    width: 200,
+    height: 30,
+    paddingHorizontal: 10,
+    marginVertical: 5,
+    backgroundColor: '#D9D9D9',
+    borderRadius: 50,
+    marginRight: 10,
+  },
+  sport: {
+    fontSize: 18,
+    marginVertical: 10,
+  },
+  teamBadge: {
+    height: 20,
+    width: 20,
+    borderRadius: 50,
+    backgroundColor: '#D9D9D9',
+    marginRight: 10,
+  },
+  teamsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  teamName: {
+    fontSize: 18,
   },
 });
 

@@ -1,12 +1,12 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-const PlayerActivityTab = () => {
+const Season = () => {
   return (
     <View>
-      <Text>PlayerActivityTab</Text>
+      <Text>Season</Text>
     </View>
   );
 };
 
-export default PlayerActivityTab;
+export default Season;

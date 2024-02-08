@@ -1,4 +1,3 @@
-import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {createMatch} from '../store/reducers/matches/matchesSlice';
 import {editSeason} from '../store/reducers/seasons/seasonSlice';

@@ -10,20 +10,23 @@ import {
   Link,
   LinkText,
 } from '@gluestack-ui/themed';
-import resetPasswordAPI from '../../service/resetPasswordAPI';
 import {useNavigation} from '@react-navigation/native';
+import useUserDispatch from '../../hooks/useUserDispatch';
 const ResetPassword = () => {
   const [username, setUsername] = useState('');
   const [initiated, setInitiated] = useState(false);
   const [newPass, setNewPass] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const navigation = useNavigation();
+  const {resetUserCredentials} = useUserDispatch();
   const handleSubmit = () => {
-    resetPasswordAPI(username, newPass, verificationCode);
-    setInitiated(!initiated);
-    if (!initiated) {
+    resetUserCredentials(username, newPass, verificationCode);
+    setNewPass('');
+    setVerificationCode('');
+    if (initiated) {
       navigation.goBack();
     }
+    setInitiated(!initiated);
   };
 
   return (

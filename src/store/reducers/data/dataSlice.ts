@@ -1,7 +1,7 @@
 // itemsSlice.ts
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AppThunk} from '../../store'; // Assuming you have a store configuration
-import {fetchMatches} from '../../../thunks/seedThunk';
+import {fetchMatches} from '../../../thunks/seedLeagueThunk';
 
 interface ItemsState {
   data: Teams[]; // Replace YourItemType with the actual type of your items

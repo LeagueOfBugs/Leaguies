@@ -1,49 +1,48 @@
-import {SafeAreaView, StyleSheet} from 'react-native';
-import {useSelector} from 'react-redux';
-import React, {useState} from 'react';
-import LeagueList from './LeagueList';
-import SectionContainer from '../../components/SectionContainer';
-import {AddIcon, Fab, FabIcon, FabLabel, Text, VStack} from '@gluestack-ui/themed';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
+import React from 'react';
+import {Button} from 'react-native-paper';
+import {NoStateLeague} from './NoStatesUi';
+import {useNavigation} from '@react-navigation/native';
 
-const League = ({navigation}) => {
-  const {leagues} = useSelector((state: RootState) => state.leagues);
-
-  const handleSubmit = () => {};
+const League = () => {
+  const navigation = useNavigation();
+  const handleCreateLeague = () => {
+    navigation.navigate('Sports Select');
+  };
+  const handleJoinLeague = () => {};
 
   return (
     <SafeAreaView style={styles.mainContainer}>
-      <VStack space="md" style={styles.margin}>
-        <SectionContainer title="My League">
-          <Text>League Title</Text>
-        </SectionContainer>
-        <SectionContainer title="Leagues">
-          <LeagueList leagues={leagues} navigation={navigation} />
-        </SectionContainer>
-      </VStack>
-      <Fab
-        size="md"
-        placement="bottom right"
-        isHovered={false}
-        isDisabled={false}
-        isPressed={false}
-        onPress={() => navigation.navigate('Create League')}>
-        <FabIcon as={AddIcon} mr="$1" />
-        <FabLabel>Create a League</FabLabel>
-      </Fab>
+      <View style={styles.mainContainer}>
+        <NoStateLeague />
+        <View style={styles.actionContainer}>
+          <Button mode="contained" onPress={handleCreateLeague}>
+            CREATE A LEAGUE
+          </Button>
+          <Button mode="contained" onPress={handleJoinLeague}>
+            JOIN A LEAGUE
+          </Button>
+        </View>
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#C0c0c0',
+  },
+  actionContainer: {
+    height: 100,
+    justifyContent: 'space-between',
+  },
   mainContainer: {
-    backgroundColor: '#1C1C1D',
-    height: '100%',
-  },
-  whiteFont: {
-    color: '#ffffff',
-  },
-  margin: {
-    marginTop: 20,
+    flex: 1,
+    paddingLeft: '20%',
+    paddingRight: '20%',
+    justifyContent: 'space-evenly',
+    backgroundColor: '#C0c0c0',
   },
 });
 

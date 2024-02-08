@@ -14,7 +14,11 @@ const resetPasswordAPI = async (
       password,
       verification,
     });
-    return JSON.parse(response.data);
+    if (response.data.statusCode === 200) {
+      return response.data;
+    } else {
+      throw new Error('something went wrong');
+    }
   } catch (error) {
     console.log(error);
   }

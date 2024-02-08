@@ -697,4 +697,17 @@ export const SEED = {
       time: '7:35:14 PM',
     },
   ],
+  users: [
+    {
+      id: '618b1500-4051-7061-7325-83ed3ec823cf',
+      name: 'blah',
+      email: 'a@a.com',
+      settings: {},
+      preferences: {},
+      role: 'player',
+      active: true,
+      playerId: '618b1500-4051-7061-7325-83ed3ec823cf',
+      verified: true,
+    },
+  ],
 };

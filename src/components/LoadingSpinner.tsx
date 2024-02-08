@@ -1,9 +1,21 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import {StyleSheet} from 'react-native';
+import React, {useEffect} from 'react';
 import {Spinner} from '@gluestack-ui/themed';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import useUserDispatch from '../hooks/useUserDispatch';
+import {useSelector} from 'react-redux';
+import {selectUser} from '../selectors/userSelector';
 
 const LoadingSpinner = ({loading}) => {
+  const {saveUserToDB} = useUserDispatch();
+  const {user} = useSelector(selectUser);
+
+  useEffect(() => {
+    if (user) {
+      saveUserToDB(user);
+    }
+  }, [saveUserToDB, user]);
+
   if (loading) {
     return (
       <SafeAreaView style={styles.container}>

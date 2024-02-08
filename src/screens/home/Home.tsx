@@ -1,39 +1,45 @@
 import React from 'react';
-import {StyleSheet, FlatList, SafeAreaView} from 'react-native';
+import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
-import LFP from '../../components/LFP';
-import LFT from '../../components/LFT';
-import GridList from '../../components/GridList';
 import {useSeedRedux} from '../../hooks';
-import {selectLeagues} from '../../selectors/leagueSelector';
+import {selectUser} from '../../selectors/userSelector';
+import Card from '../../components/card/Card';
+import Matchups from '../../components/card/Matchups';
+import Ranking from '../../components/card/RankingTable';
+import TeamRanking from '../../components/card/teamRanking';
 
-type screenItem = 'leagues' | 'LFP' | 'LFT';
+const Home = () => {
+  // need to retriever user info like Teams, Leagues, Seasons
+  // what we have: userID
+  // Use userId to find player model:
+  // player model will have team and league id
+  // can find season information from league with seasonId
+  // look for season with seasonId
 
-const Home = ({navigation}) => {
-  const {leagues} = useSelector(selectLeagues);
-
-  // Seed this please OMG!
+  /* Start Selectors */
+  const {user} = useSelector(selectUser);
+  // console.log('user:   ', user);
   useSeedRedux();
-  const renderItem = ({item}: {item: screenItem}) => {
-    if (item === 'leagues') {
-      return <GridList allLeagues={leagues} navigation={navigation} />;
-    } else if (item === 'LFP') {
-      return <LFP navigation={navigation} />;
-    } else if (item === 'LFT') {
-      return <LFT navigation={navigation} />;
-    }
-    // return <GridList leagues={mappedLeagues} />;
-  };
 
   return (
-    <SafeAreaView style={{backgroundColor: '#1C1C1D'}}>
-      <FlatList
-        data={['leagues', 'LFP', 'LFT']}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={renderItem}
-        contentContainerStyle={styles.container}
-        showsVerticalScrollIndicator={false}
-      />
+    <SafeAreaView style={{flex: 1}}>
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <Card
+          title="Upcoming Matches"
+          subTitle="Weekly View"
+          footerText="See more matches">
+          <Matchups />
+        </Card>
+        <Card title="League Standings" subTitle="Playoffs contenders">
+          <Ranking>
+            <TeamRanking teamName="Barcelona" />
+            <TeamRanking teamName="Barcelona" />
+            <TeamRanking teamName="Barcelona" />
+            <TeamRanking teamName="Barcelona" />
+            <TeamRanking teamName="Barcelona" />
+          </Ranking>
+        </Card>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -42,9 +48,12 @@ export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#1C1C1D',
-    flexGrow: 1,
+    backgroundColor: '#EBEBEB',
+    // flex: 1,
     paddingVertical: 10,
-    height: '100%',
+    // height: '100%',
+  },
+  scrollView: {
+    flex: 1,
   },
 });
