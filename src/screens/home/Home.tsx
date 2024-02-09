@@ -7,6 +7,7 @@ import Card from '../../components/card/Card';
 import Matchups from '../../components/card/Matchups';
 import Ranking from '../../components/card/RankingTable';
 import TeamRanking from '../../components/card/teamRanking';
+import {selectPlayers} from '../../selectors/playerSelectors';
 
 const Home = () => {
   // need to retriever user info like Teams, Leagues, Seasons
@@ -18,8 +19,7 @@ const Home = () => {
 
   /* Start Selectors */
   const {user} = useSelector(selectUser);
-  // console.log('user:   ', user);
-  useSeedRedux();
+  const {players} = useSelector(selectPlayers);
 
   return (
     <SafeAreaView style={{flex: 1}}>

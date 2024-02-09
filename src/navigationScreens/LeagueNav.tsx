@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Details from '../screens/league/Details';
@@ -76,7 +77,7 @@ const LeagueStack = () => {
 };
 
 const LeagueNav = () => {
-  const League = true;
+  const League = false;
   return (
     <>
       {League ? (

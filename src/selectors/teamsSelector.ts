@@ -7,10 +7,9 @@ export const selectIncompleteTeams = createSelector([selectTeams], ({teams}) =>
 );
 
 export const selectTeamById = (id: string) =>
-  createSelector(
-    [selectTeams],
-    ({teams}) => teams.filter(team => team.id === id) || null,
-  );
+  createSelector([selectTeams], ({teams}) => {
+    return teams.find(team => team.id === id);
+  });
 
 export const selectTeamsNoLeague = createSelector([selectTeams], ({teams}) => {
   return teams.filter(team => {
@@ -24,5 +23,3 @@ export const selectTeamByIdBulk = (idsArray: string[] | undefined) =>
   createSelector([selectTeams], ({teams}) => {
     return teams.filter(team => idsArray?.includes(team.id));
   });
-
-

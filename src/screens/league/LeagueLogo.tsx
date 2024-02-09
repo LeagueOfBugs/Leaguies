@@ -6,7 +6,6 @@ import {Button} from 'react-native-paper';
 const LeagueLogo = () => {
   const route = useRoute();
   const {sport, team} = route.params;
-  // console.log(sport, team);
   const handleContinue = () => {
     // navigation.navigate('Team');
     // create team

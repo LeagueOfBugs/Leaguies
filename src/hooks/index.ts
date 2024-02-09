@@ -1,17 +1,16 @@
 import {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {createTeam} from '../store/reducers/teams/teamSlice';
 import {createPlayer} from '../store/reducers/players/playerSlice';
-import {createLeague} from '../store/reducers/leagues/leagueSlice';
 import {SEED} from '../constants';
 import {createSeason} from '../store/reducers/seasons/seasonSlice';
 import {createMatch} from '../store/reducers/matches/matchesSlice';
-import {seedApp} from '../thunks/seedLeagueThunk';
+import {seedPlayer} from '../thunks/seedPlayerThunk';
 
-export const useSeedRedux = () => {
+export const useSeedRedux = userId => {
   const dispatch = useDispatch();
   useEffect(() => {
-
+    dispatch(seedPlayer());
     // Seed teams
     SEED.teams.forEach(team => {
       return dispatch(createTeam(team));

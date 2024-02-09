@@ -1,19 +1,43 @@
 import React from 'react';
 import {Button} from 'react-native-paper';
 import {NoStateRoster} from './NoStatesUi';
-import {View, SafeAreaView, StyleSheet} from 'react-native';
+import {View, SafeAreaView, StyleSheet, ScrollView} from 'react-native';
+import usePlayerDetails from '../../hooks/usePlayerDetails';
+import {useExtractPersonnel} from '../../hooks/useExtractPersonnel';
+import {Squad, TeamStaff} from './RosterCards';
 
 const Roster = () => {
+  // team model
+  const {team} = usePlayerDetails();
+  const teamPlayersId = team.players;
+  const benchPlayersId = team.bench;
+  const adminIds = team.admin;
+  const playerModels = useExtractPersonnel(teamPlayersId);
+  const benchPlayerModels = useExtractPersonnel(benchPlayersId);
+  const adminModels = useExtractPersonnel(adminIds);
+  console.log(adminIds);
+  const hasRoster = playerModels.length > 0;
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.mainContainer}>
-        <View style={styles.messageContainer}>
-          <NoStateRoster />
+      {hasRoster ? (
+        <ScrollView>
+          <TeamStaff admins={adminModels} />
+          <Squad
+            playerModels={playerModels}
+            limit={team.limit}
+            bench={benchPlayerModels}
+          />
+        </ScrollView>
+      ) : (
+        <View style={styles.mainContainer}>
+          <View style={styles.messageContainer}>
+            <NoStateRoster />
+          </View>
+          <View style={styles.actionsContainer}>
+            <Button mode="contained">RECRUIT PLAYERS</Button>
+          </View>
         </View>
-        <View style={styles.actionsContainer}>
-          <Button mode="contained">RECRUIT PLAYERS</Button>
-        </View>
-      </View>
+      )}
     </SafeAreaView>
   );
 };

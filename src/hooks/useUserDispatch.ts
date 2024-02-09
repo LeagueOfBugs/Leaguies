@@ -62,7 +62,9 @@ function useUserDispatch() {
   on login, retrieve user information from dynamo db
   and set state in redux
   */
-  const retrieveUserFromDb = (email: string) => {
+  const retrieveUserDetails = (email: string) => {
+    // retrieve user
+    // user settings and preferences
     dispatch(retrieveUser(email) as any);
   };
 
@@ -78,7 +80,7 @@ function useUserDispatch() {
     setUser,
     registerUser,
     saveUserToDB,
-    retrieveUserFromDb,
+    retrieveUserDetails,
     validateRegisteredUser,
     resetUserCredentials,
   };

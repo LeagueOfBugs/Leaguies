@@ -11,6 +11,7 @@ interface AuthState {
   temp: any;
   loading: boolean;
   error: string | null;
+  loaded: false;
 }
 
 const initialState: AuthState = {
@@ -18,12 +19,20 @@ const initialState: AuthState = {
   temp: null,
   loading: false,
   error: null,
+  loaded: false,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    loadedComplete: (state, action) => {
+      return {
+        ...state,
+        loaded: action.payload,
+      };
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(signInUser.pending, state => {
@@ -68,5 +77,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {} = authSlice.actions;
+export const {loadedComplete} = authSlice.actions;
 export default authSlice.reducer;

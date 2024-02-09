@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import Record from '../screens/team/Record';
@@ -11,6 +12,7 @@ import SportsSelect from '../screens/team/SportsSelect';
 import TeamForm from '../screens/team/TeamForm';
 import TeamLogo from '../screens/team/TeamLogo';
 import SearchTeams from '../screens/team/SearchTeams';
+import usePlayerDetails from '../hooks/usePlayerDetails';
 
 const teamTopTab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -75,7 +77,7 @@ const TeamStack = () => {
 };
 
 const TeamNav = () => {
-  const team = false;
+  const {team} = usePlayerDetails();
   return (
     <>
       {team ? (

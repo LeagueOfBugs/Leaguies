@@ -19,7 +19,6 @@ const LeagueForm = () => {
   const {sport} = route.params;
 
   const handleContinue = () => {
-    console.log(leagueInfo);
     navigation.navigate('League Logo', {sport: sport, team: leagueInfo});
   };
 

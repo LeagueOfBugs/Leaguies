@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import store from './store/store';
 import {Provider, useSelector} from 'react-redux';
 import Home from './screens/home/Home';
@@ -10,11 +10,7 @@ import {config} from '@gluestack-ui/config';
 import ResetPassword from './screens/auth/ResetPassword';
 import SignUp from './screens/auth/SignUp';
 import SignIn from './screens/auth/SignIn';
-import {selectUser} from './selectors/userSelector';
-import LoadingSpinner from './components/LoadingSpinner';
 import SignUpButton from './components/SignUpButton';
-import {seedApp} from './thunks/seedLeagueThunk';
-import {useDispatch} from 'react-redux';
 import Validate from './screens/auth/Validate';
 import ValidateReset from './screens/auth/ValidateReset';
 import Header from './components/headers/HomeHeader';
@@ -76,21 +72,11 @@ const HomeTabs = () => {
 
 const signUp = <SignUpButton />;
 const LoginFlowStack = ({component}) => {
-  // put this in splash screen
-  // welcome splash screen ---> sign in ---> splash screen ---> app
-
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(seedApp('Leagues'));
-  }, [dispatch]);
-  const {user, loading, error} = useSelector(selectUser);
+  const {loaded} = useSelector((state: RootState) => state.user);
   // Need error handling
-  if (loading) {
-    return <LoadingSpinner loading={loading} />;
-  }
   return (
     <Stack.Navigator>
-      {user ? (
+      {!loaded ? (
         <>
           <Stack.Screen
             name="Sign in"

@@ -1,5 +1,6 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import uuid from 'react-native-uuid';
+import {seedTeams} from '../../../thunks/seedTeamThunk';
 
 const initialState: Teams = {
   teams: [],
@@ -51,6 +52,23 @@ const teamSlice = createSlice({
         teams: [...action.payload],
       };
     },
+  },
+  extraReducers: builder => {
+    builder
+      .addCase(seedTeams.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(seedTeams.fulfilled, (state, action) => {
+        state.loading = false;
+        const {data} = action.payload;
+        state.teams = data;
+      })
+      .addCase(seedTeams.rejected, (state, action) => {
+        const {data} = action.payload;
+        state.loading = false;
+        state.error = data;
+      });
   },
 });
 export const {createTeam, editTeam, deleteTeam} = teamSlice.actions;

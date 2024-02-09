@@ -18,3 +18,7 @@ export const selectPlayerById = (playerId: string) =>
     return players.find(player => player.id === playerId);
   });
 
+export const selectPlayerByIdBulk = playerIds =>
+  createSelector([selectPlayers], ({players}) => {
+    return players.filter(player => playerIds.includes(player.id));
+  });

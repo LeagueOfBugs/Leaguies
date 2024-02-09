@@ -78,13 +78,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   defaultImage: {
-    height: 30,
-    width: 30,
+    height: 20,
+    width: 20,
     backgroundColor: '#B1B1B1',
     borderRadius: 50,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
+    fontWeight: '500',
   },
   subTitle: {
     fontSize: 15,
@@ -109,6 +110,7 @@ const styles = StyleSheet.create({
   footerText: {
     fontSize: 12,
     color: '#757575',
+    fontWeight: '300',
   },
 });
 export default Card;

@@ -1,10 +1,8 @@
 // leagueSlice.js
 import {createSlice} from '@reduxjs/toolkit';
-import {seedApp} from '../../../thunks/seedLeagueThunk';
+import {seedLeagues} from '../../../thunks/seedLeagueThunk';
 const initialState = {
   leagues: [],
-  loading: false,
-  error: null,
 };
 
 const leagueSlice = createSlice({
@@ -42,18 +40,16 @@ const leagueSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(seedApp.pending, state => {
+      .addCase(seedLeagues.pending, state => {
         state.loading = true;
         state.error = null;
       })
-      .addCase(seedApp.fulfilled, (state, action) => {
+      .addCase(seedLeagues.fulfilled, (state, action) => {
         state.loading = false;
-        const {statusCode, data} = action.payload;
-        if (statusCode === 200) {
-          state.leagues = data;
-        }
+        const {data} = action.payload;
+        state.leagues = data;
       })
-      .addCase(seedApp.rejected, (state, action) => {
+      .addCase(seedLeagues.rejected, (state, action) => {
         const {data} = action.payload;
         state.loading = false;
         state.error = data;

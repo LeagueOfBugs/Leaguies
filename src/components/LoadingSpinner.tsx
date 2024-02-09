@@ -5,24 +5,22 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import useUserDispatch from '../hooks/useUserDispatch';
 import {useSelector} from 'react-redux';
 import {selectUser} from '../selectors/userSelector';
+import {useSeedRedux} from '../hooks';
 
-const LoadingSpinner = ({loading}) => {
+const LoadingSpinner = () => {
   const {saveUserToDB} = useUserDispatch();
   const {user} = useSelector(selectUser);
-
   useEffect(() => {
     if (user) {
       saveUserToDB(user);
     }
   }, [saveUserToDB, user]);
 
-  if (loading) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <Spinner color="$emerald600" size="large" />
-      </SafeAreaView>
-    );
-  }
+  return (
+    <SafeAreaView style={styles.container}>
+      <Spinner color="$emerald600" size="large" />
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({

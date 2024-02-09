@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Button} from 'react-native-paper';
 import Card from '../../components/card/Card';
+import usePlayerDetails from '../../hooks/usePlayerDetails';
 
 const sportsExample = [
   {
@@ -22,11 +23,6 @@ const sportsExample = [
   },
 ];
 
-const teamExamples = [
-  {name: 'Team Name Here 1', badge: ''},
-  {name: 'Team Name Here 2', badge: ''},
-];
-
 const RenderPositions = () => {
   return sportsExample.map(sport => {
     return (
@@ -37,7 +33,7 @@ const RenderPositions = () => {
           {sport.positions.map(position => {
             return (
               <View style={styles.subPositionsContainer} key={position}>
-                <Text>{position}</Text>
+                <Text style={styles.position}>{position}</Text>
               </View>
             );
           })}
@@ -47,30 +43,35 @@ const RenderPositions = () => {
   });
 };
 
-const RenderCurrentTeam = () => {
-  return teamExamples.map(team => {
-    return (
-      <View style={styles.teamsContainer} key={team.name}>
-        <View style={styles.teamBadge} />
-        <Text style={styles.teamName}>{team.name}</Text>
-      </View>
-    );
-  });
+const RenderCurrentTeam = ({teams}) => {
+  return (
+    <View style={styles.teamsContainer} key={teams.name}>
+      <View style={styles.teamBadge} />
+      <Text style={styles.teamName}>{teams.name}</Text>
+    </View>
+  );
 };
 
 const Player = () => {
   const [message, setMessage] = useState('');
+  const {player, team} = usePlayerDetails();
   const ViewingOtherPlayer = true;
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.playerContainer}>
-        <View style={styles.avatar} />
-        <Text style={styles.playerName}>Player Name</Text>
-        <View style={styles.sportsContainer}>
-          <View style={styles.sportsIcons} />
-          <View style={styles.sportsIcons} />
-          <View style={styles.sportsIcons} />
+        <View style={styles.avatarContainer}>
+          <View style={styles.avatar} />
+        </View>
+        <View style={styles.playerInfo}>
+          <View>
+            <Text style={styles.playerName}>{player.name}</Text>
+          </View>
+          <View style={styles.sportsContainer}>
+            <View style={styles.sportsIcons} />
+            <View style={styles.sportsIcons} />
+            <View style={styles.sportsIcons} />
+          </View>
         </View>
         {/* setting button or an action button with Edit Profile text */}
         {/* <View>
@@ -98,7 +99,7 @@ const Player = () => {
           </View>
         )}
         <Card title="Teams" footerText="see player history">
-          <RenderCurrentTeam />
+          <RenderCurrentTeam teams={team} />
         </Card>
         <Card title="Position preferences">
           <RenderPositions />
@@ -114,32 +115,35 @@ const styles = StyleSheet.create({
     backgroundColor: '#C0c0c0',
   },
   playerContainer: {
-    maxHeight: 250,
-    minHeight: 250,
+    flex: 1,
     backgroundColor: '#D9D9D9',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    flexDirection: 'row',
+  },
+  avatarContainer: {
+    alignItems: 'center',
   },
   avatar: {
-    height: 100,
-    width: 100,
+    height: 70,
+    width: 70,
     borderRadius: 50,
     backgroundColor: '#3E3E3E',
   },
   playerName: {
-    fontSize: 25,
+    fontSize: 20,
+    marginBottom: 10,
   },
   sportsContainer: {
-    height: 50,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    width: 200,
   },
   sportsIcons: {
-    height: 40,
-    width: 40,
+    height: 20,
+    width: 20,
     backgroundColor: '#878787',
     borderRadius: 50,
+    marginHorizontal: 2,
   },
   invite: {
     width: '100%',
@@ -183,15 +187,15 @@ const styles = StyleSheet.create({
   subPositionsContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    height: 30,
-    paddingHorizontal: 10,
-    marginVertical: 5,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    marginVertical: 2,
     backgroundColor: '#D9D9D9',
     borderRadius: 50,
     marginRight: 10,
   },
   sport: {
-    fontSize: 18,
+    fontSize: 16,
     marginVertical: 10,
   },
   teamBadge: {
@@ -207,7 +211,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   teamName: {
-    fontSize: 18,
+    fontSize: 16,
+  },
+  position: {
+    fontSize: 14,
+  },
+  playerInfo: {
+    justifyContent: 'space-between',
+    alignContent: 'space-between',
   },
 });
 
