@@ -45,7 +45,7 @@ const RenderEmpty = () => {
 };
 
 export const Squad = ({playerModels, limit, bench}) => {
-  // empty roster spots
+  // empty roster spots - NUMBER
   const emptySpots = limit - playerModels.length;
 
   //   player models in team
@@ -125,7 +125,6 @@ const staffStyles = StyleSheet.create({
     flexWrap: 'wrap',
     borderWidth: 1,
     justifyContent: 'space-between',
-    // paddingHorizontal: 20,
   },
   container: {
     flexDirection: 'row',
