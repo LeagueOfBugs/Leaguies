@@ -1,14 +1,8 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  SafeAreaView,
-  TouchableHighlight,
-} from 'react-native';
+import {View, Text, Image, StyleSheet, SafeAreaView} from 'react-native';
 import React from 'react';
 // import {} from 'react-native-paper';
 import usePlayerDetails from '../../hooks/usePlayerDetails';
+import ActionButton from '../../components/actionButton';
 
 const Details = () => {
   const {team} = usePlayerDetails();
@@ -25,20 +19,14 @@ const Details = () => {
             <Text style={[styles.centerText, styles.sport]}>Sport</Text>
           </View>
           <View style={styles.quickActionContainer}>
-            <TouchableHighlight
-              activeOpacity={0.8}
-              underlayColor="#3E3E3E"
-              style={styles.buttonContainer}
-              onPress={() => console.log('working')}>
-              <Text style={styles.buttons}>REQUEST TO JOIN</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              activeOpacity={0.8}
-              underlayColor="#3E3E3E"
-              style={styles.buttonContainer}
-              onPress={() => console.log('working')}>
-              <Text style={styles.buttons}>FOLLOW</Text>
-            </TouchableHighlight>
+            <ActionButton
+              handleCallback={() => console.log('working')}
+              title="REQUEST TO JOIN"
+            />
+            <ActionButton
+              handleCallback={() => console.log('working')}
+              title="FOLLOW"
+            />
           </View>
         </View>
       </View>

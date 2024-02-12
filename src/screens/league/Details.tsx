@@ -1,21 +1,39 @@
 import {Text, Image, StyleSheet, SafeAreaView, View} from 'react-native';
 import React from 'react';
-import {Button} from 'react-native-paper';
+import usePlayerDetails from '../../hooks/usePlayerDetails';
+import {format} from 'date-fns';
+import ActionButton from '../../components/actionButton';
 
-const Details = ({}) => {
+const Details = () => {
+  const {league, season} = usePlayerDetails();
+  console.log('season info: ', league);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.playerContainer}>
         <View style={styles.badgeContainer}>
-          <View style={styles.leagueBadge} />
           {/* <Image /> */}
+          <View style={styles.badge} />
         </View>
-        <View style={styles.infoContainer}>
-          <Text style={[styles.centerText, styles.name]}>League Name</Text>
-          <Text style={[styles.centerText]}>Sport or start end dates</Text>
+        <View>
+          <Text style={[styles.centerText, styles.title]}>{league.name}</Text>
+          <View style={styles.playerInformation}>
+            <Text style={[styles.centerText, styles.lowPrio]}>
+              {league.sport}
+            </Text>
+            <Text style={[styles.centerText, styles.lowPrio]}>
+              {league.type}
+            </Text>
+          </View>
           <View style={styles.quickActionContainer}>
-            <Button compact={true}>JOIN</Button>
-            <Button>FOLLOW</Button>
+            <ActionButton
+              handleCallback={() => console.log('working')}
+              title="REQUEST TO JOIN"
+            />
+            <ActionButton
+              handleCallback={() => console.log('working')}
+              title="FOLLOW"
+            />
           </View>
         </View>
       </View>
@@ -26,40 +44,52 @@ const Details = ({}) => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#D9D9D9',
-    alignItems: 'center',
-    maxHeight: 170,
-    minHeight: 170,
-    width: '100%',
   },
   playerContainer: {
-    flex: 1,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
     flexDirection: 'row',
-    paddingHorizontal: 30,
   },
   quickActionContainer: {
+    marginTop: 10,
+    justifyContent: 'space-evenly',
     flexDirection: 'row',
-    justifyContent: 'center',
   },
   centerText: {
     textAlign: 'center',
   },
-  badgeContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
+  title: {
+    fontSize: 20,
+    fontWeight: '500',
+    marginBottom: 1,
   },
-  infoContainer: {
-    justifyContent: 'space-evenly',
-    flex: 2,
+  lowPrio: {
+    fontSize: 16,
+    fontWeight: '300',
+    paddingHorizontal: 5,
   },
-  leagueBadge: {
+  badgeContainer: {},
+  badge: {
     height: 80,
     width: 80,
     borderRadius: 50,
-    backgroundColor: '#000000',
+    backgroundColor: '#3E3E3E',
   },
-  name: {
-    fontSize: 30,
+  buttons: {
+    fontSize: 12,
+    color: '#ffffff',
+    fontWeight: '300',
+  },
+  buttonContainer: {
+    marginHorizontal: 5,
+    backgroundColor: '#7E7E7E',
+    paddingHorizontal: 15,
+    paddingVertical: 4,
+    borderRadius: 20,
+  },
+  playerInformation: {
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 

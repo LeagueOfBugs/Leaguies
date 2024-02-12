@@ -1,5 +1,6 @@
 // matchesSlice.js
 import {createSlice} from '@reduxjs/toolkit';
+import {seedMatches} from '../../../thunks/seedMatchesThunk';
 
 const initialState: Matches = {
   matches: [],
@@ -26,11 +27,13 @@ const matchesSlice = createSlice({
       };
     },
   },
-  // extraReducers: builder => {
-  //   builder.addCase(fetchInitialMatches.fulfilled, (state, action) => {
-  //     state.matches = action.payload;
-  //   });
-  // },
+  extraReducers: builder => {
+    builder.addCase(seedMatches.fulfilled, (state, action) => {
+      state.loading = false;
+      const {data} = action.payload;
+      state.matches = data;
+    });
+  },
 });
 
 export const {createMatch, editMatch, deleteMatch} = matchesSlice.actions;

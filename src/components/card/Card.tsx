@@ -1,4 +1,4 @@
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Pressable} from 'react-native';
 import React, {ReactNode} from 'react';
 import {Divider, Text} from 'react-native-paper';
 
@@ -9,7 +9,13 @@ interface CardProps {
   footerText?: string;
 }
 
-const Card = ({children, title, subTitle, footerText}: CardProps) => {
+const Card = ({
+  children,
+  title,
+  subTitle,
+  footerText,
+  handleFooterPress,
+}: CardProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -20,24 +26,24 @@ const Card = ({children, title, subTitle, footerText}: CardProps) => {
             {subTitle && <Text style={styles.subTitle}>{subTitle}</Text>}
           </View>
         </View>
-        <Text style={styles.link}>See All</Text>
+        {/* <Text style={styles.link}>See All</Text> */}
       </View>
       <Divider style={styles.topDivider} />
-      <View style={styles.main}>
-        {children ? (
-          children
-        ) : (
-          <View style={styles.mainDefault}>
-            <Text>Empty State</Text>
-          </View>
-        )}
-      </View>
+      {/* <View style={styles.main}> */}
+      {children ? (
+        children
+      ) : (
+        <View style={styles.mainDefault}>
+          <Text>Empty State</Text>
+        </View>
+      )}
+      {/* </View> */}
       {footerText && (
         <>
           <Divider style={styles.bottomDivider} />
-          <View style={styles.footer}>
+          <Pressable style={styles.footer} onPress={() => handleFooterPress()}>
             <Text style={styles.footerText}>{footerText}</Text>
-          </View>
+          </Pressable>
         </>
       )}
     </View>
@@ -46,7 +52,7 @@ const Card = ({children, title, subTitle, footerText}: CardProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    // width: '100%',
     backgroundColor: '#fff',
     borderRadius: 15,
     padding: 10,
@@ -76,6 +82,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     alignItems: 'center',
+    paddingVertical: 5,
   },
   defaultImage: {
     height: 20,

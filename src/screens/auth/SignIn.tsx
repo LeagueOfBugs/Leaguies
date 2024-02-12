@@ -25,6 +25,7 @@ import {selectTeams} from '../../selectors/teamsSelector';
 import {selectLeagues} from '../../selectors/leagueSelector';
 import {selectSeasons} from '../../selectors/seasonSelector';
 import {loadedComplete} from '../../store/reducers/user/userSlice';
+import {seedMatches} from '../../thunks/seedMatchesThunk';
 // fix register loading spinner save user to db func will not get called
 const SignIn = () => {
   const navigation = useNavigation();
@@ -40,11 +41,6 @@ const SignIn = () => {
   });
 
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (user) {
-  //     retrievePlayerDetails(user.id);
-  //   }
-  // }, [retrievePlayerDetails, user]);
 
   useEffect(() => {
     if (user) {
@@ -52,6 +48,7 @@ const SignIn = () => {
       dispatch(seedLeagues('Leagues'));
       dispatch(seedSeasons('seasons'));
       dispatch(seedTeams('teams'));
+      dispatch(seedMatches('matches'));
     }
   }, [dispatch, user]);
 

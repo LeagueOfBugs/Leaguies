@@ -8,6 +8,8 @@ import Matchups from '../../components/card/Matchups';
 import Ranking from '../../components/card/RankingTable';
 import TeamRanking from '../../components/card/teamRanking';
 import {selectPlayers} from '../../selectors/playerSelectors';
+import {selectMatches} from '../../selectors/matchSelector';
+import WebSocketComponent from '../../webSocket/WebSocket';
 
 const Home = () => {
   // need to retriever user info like Teams, Leagues, Seasons
@@ -20,6 +22,8 @@ const Home = () => {
   /* Start Selectors */
   const {user} = useSelector(selectUser);
   const {players} = useSelector(selectPlayers);
+  const {matches} = useSelector(selectMatches);
+  // WebSocketComponent();
 
   return (
     <SafeAreaView style={{flex: 1}}>

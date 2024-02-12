@@ -17,6 +17,8 @@ import Header from './components/headers/HomeHeader';
 import TeamNav from './navigationScreens/TeamNav';
 import PlayerNav from './navigationScreens/PlayerNav';
 import LeagueNav from './navigationScreens/LeagueNav';
+import MatchForm from './screens/league/MatchForm';
+import WebSocketComponent from './webSocket/WebSocket';
 const customTheme = {
   ...DefaultTheme,
   colors: {
@@ -112,6 +114,11 @@ const LoginFlowStack = ({component}) => {
           <Stack.Screen
             name="Home"
             component={HomeTabs}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Match Form"
+            component={MatchForm}
             options={{headerShown: false}}
           />
         </>

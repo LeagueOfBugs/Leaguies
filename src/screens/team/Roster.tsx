@@ -15,7 +15,6 @@ const Roster = () => {
   const playerModels = useExtractPersonnel(teamPlayersId);
   const benchPlayerModels = useExtractPersonnel(benchPlayersId);
   const adminModels = useExtractPersonnel(adminIds);
-  console.log(adminIds);
   const hasRoster = playerModels.length > 0;
   return (
     <SafeAreaView style={styles.container}>

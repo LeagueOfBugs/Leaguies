@@ -13,6 +13,8 @@ import Season from '../screens/league/Season';
 import Teams from '../screens/league/Teams';
 import Schedule from '../screens/league/Schedule';
 import SearchLeagues from '../screens/league/SearchLeagues';
+import usePlayerDetails from '../hooks/usePlayerDetails';
+import MatchForm from '../screens/league/MatchForm';
 
 const teamTopTab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -77,10 +79,10 @@ const LeagueStack = () => {
 };
 
 const LeagueNav = () => {
-  const League = false;
+  const {league} = usePlayerDetails();
   return (
     <>
-      {League ? (
+      {league ? (
         <>
           <Details />
           <teamTopTab.Navigator

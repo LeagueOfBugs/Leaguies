@@ -109,7 +109,7 @@ const squadStyles = StyleSheet.create({
     marginRight: 10,
   },
   emptyContainer: {
-    marginVertical: 10,
+    marginVertical: 15,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

@@ -11,20 +11,8 @@ import {Button} from 'react-native-paper';
 import Card from '../../components/card/Card';
 import usePlayerDetails from '../../hooks/usePlayerDetails';
 
-const sportsExample = [
-  {
-    sport: 'Soccer',
-    positions: ['Attacking center mid', 'Right winger', 'Left winger'],
-  },
-  {sport: 'Football', positions: ['Runnin back', 'Wide receiver']},
-  {
-    sport: 'Volleyball',
-    positions: ['Setter', 'Outside hitter', 'Defensive specialist'],
-  },
-];
-
-const RenderPositions = () => {
-  return sportsExample.map(sport => {
+const RenderPositions = ({sportPositions}) => {
+  return sportPositions.map(sport => {
     return (
       <View style={styles.mainPositionContainer} key={sport.sport}>
         {/* <View style={styles.teamBadge} /> */}
@@ -60,23 +48,15 @@ const Player = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.playerContainer}>
-        <View style={styles.avatarContainer}>
-          <View style={styles.avatar} />
+        <View style={styles.badgeContainer}>
+          {/* <Image /> */}
+          <View style={styles.badge} />
         </View>
-        <View style={styles.playerInfo}>
+        <View style={styles.playerInformation}>
           <View>
-            <Text style={styles.playerName}>{player.name}</Text>
-          </View>
-          <View style={styles.sportsContainer}>
-            <View style={styles.sportsIcons} />
-            <View style={styles.sportsIcons} />
-            <View style={styles.sportsIcons} />
+            <Text style={[styles.centerText, styles.title]}>{player.name}</Text>
           </View>
         </View>
-        {/* setting button or an action button with Edit Profile text */}
-        {/* <View>
-          <Button>Edit Profile</Button>
-        </View> */}
       </View>
       <ScrollView>
         {ViewingOtherPlayer && (
@@ -102,7 +82,7 @@ const Player = () => {
           <RenderCurrentTeam teams={team} />
         </Card>
         <Card title="Position preferences">
-          <RenderPositions />
+          <RenderPositions sportPositions={player.preferences} />
         </Card>
       </ScrollView>
     </SafeAreaView>
@@ -219,6 +199,27 @@ const styles = StyleSheet.create({
   playerInfo: {
     justifyContent: 'space-between',
     alignContent: 'space-between',
+  },
+  badgeContainer: {},
+  badge: {
+    height: 80,
+    width: 80,
+    borderRadius: 50,
+    backgroundColor: '#3E3E3E',
+  },
+  playerInformation: {},
+  quickActionContainer: {
+    marginTop: 10,
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
+  },
+  centerText: {
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: '500',
+    marginBottom: 1,
   },
 });
 

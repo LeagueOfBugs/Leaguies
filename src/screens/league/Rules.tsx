@@ -1,16 +1,24 @@
 import {View, StyleSheet, SafeAreaView} from 'react-native';
 import React from 'react';
 import {NoStateRules} from './NoStatesUi';
+import LeagueDetails from '../../components/card/LeagueDetails';
+import usePlayerDetails from '../../hooks/usePlayerDetails';
 
 const Rules = () => {
+  const {league} = usePlayerDetails();
+
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.mainContainer}>
-        <View style={styles.messageContainer}>
-          <NoStateRules />
+      {league ? (
+        <LeagueDetails />
+      ) : (
+        <View style={styles.mainContainer}>
+          <View style={styles.messageContainer}>
+            <NoStateRules />
+          </View>
+          <View style={styles.actionsContainer} />
         </View>
-        <View style={styles.actionsContainer} />
-      </View>
+      )}
     </SafeAreaView>
   );
 };

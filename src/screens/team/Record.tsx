@@ -7,10 +7,7 @@ import {Seasons, Showcase} from './RecordCards';
 
 const Record = () => {
   const {player, team, league, season} = usePlayerDetails();
-  console.log(team);
-  console.log(player);
-  console.log(league);
-  console.log(season);
+
   return (
     <SafeAreaView style={styles.container}>
       {season ? (
