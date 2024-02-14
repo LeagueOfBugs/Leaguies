@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  TextInput,
-  Pressable,
-  FlatList,
-  StyleSheet,
-} from 'react-native';
+import {Text, TextInput, Pressable, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import Forms from '../../components/Forms';
 import {FormInput} from '../../components/FormInput';
@@ -13,59 +6,62 @@ import {Selector} from '../../components/Selector';
 import {useNavigation} from '@react-navigation/native';
 import DatePicker from 'react-native-date-picker';
 import {format} from 'date-fns';
-import {Switch} from 'react-native-paper';
-const types = [
-  {
-    id: 1,
-    value: 'coed',
-  },
-  {
-    id: 2,
-    value: 'Men only',
-  },
-  {
-    id: 3,
-    value: 'Women only',
-  },
-];
+import useMatchDispatch from '../../hooks/useMatchDispatch';
+import usePlayerDetails from '../../hooks/usePlayerDetails';
+import uuid from 'react-native-uuid';
+
+/*
+TODO:
+officiating
+location google API
+populating teams
+fix date issues schedule records match 1 day prior to set date
+*/
 
 const MatchForm = () => {
-  const [steps, setSteps] = useState({current: 1, outOf: 2});
-  const [visible, setVisible] = React.useState(false);
-  const [visibleDatePicker, setVisibleDatePicker] = React.useState(false);
-  const [repeat, showRepeat] = React.useState(false);
-  const [date, setDate] = useState(new Date());
+  const {season, league} = usePlayerDetails();
+  const [visibleDatePicker, setVisibleDatePicker] = useState(false);
+  const [date] = useState(new Date());
   const [matchDetails, setMatchDetails] = useState({
     name: '',
+    date: '',
     location: '',
-    type: '',
-    startDate: '',
-    allDayEvent: 'false',
-    endDate: '',
-    repeats: '',
-    numOfMatches: '',
-    randomize: 'false',
     homeTeam: '',
     awayTeam: '',
+    officiating: [],
   });
-
+  const {makeMatch} = useMatchDispatch();
   const navigation = useNavigation();
 
-  const renderSteps = () => {
-    let formattedStart;
-    let formattedEnd;
+  // save new match to state
+  const handleContinue = () => {
+    const formatDate = format(matchDetails.date, 'yyyy-MM-dd');
+    const formatTime = format(matchDetails.date, 'HH:mm:ss');
 
-    if (matchDetails.startDate) {
-      const startDate = new Date(matchDetails.startDate);
-      formattedStart = format(startDate, 'yyyy-dd-MM');
-    }
-    if (matchDetails.endDate) {
-      const endDate = new Date(matchDetails.endDate);
-      formattedEnd = format(endDate, 'yyyy-dd-MM');
-    }
+    // create match object
+    const matchModel = {
+      ...matchDetails,
+      leagueId: league?.id,
+      seasonId: season?.id,
+      id: uuid.v4().toString(),
+      date: formatDate,
+      time: formatTime,
+    };
+    makeMatch(matchModel);
+    navigation.navigate('Schedule' as never);
+  };
 
-    if (steps.current === 1) {
-      return (
+  // cancel match creation anvigate back to schedule
+  const handleCancel = () => {
+    navigation.navigate('Schedule' as never);
+  };
+
+  return (
+    <>
+      <Forms
+        title="Match Details"
+        handleContinue={handleContinue}
+        handleCancel={handleCancel}>
         <>
           <FormInput>
             <TextInput
@@ -85,53 +81,10 @@ const MatchForm = () => {
               }
             />
           </FormInput>
-          <FormInput selection={matchDetails.type}>
-            <Pressable onPress={() => setVisible(true)}>
-              <Text style={styles.type}>Type</Text>
-            </Pressable>
-          </FormInput>
-          <FormInput selection={formattedStart}>
+          <FormInput>
             <Pressable onPress={() => setVisibleDatePicker(true)}>
               <Text style={styles.type}>Start Date</Text>
             </Pressable>
-          </FormInput>
-          <FormInput selection={formattedEnd}>
-            <Pressable onPress={() => setVisibleDatePicker(true)}>
-              <Text style={styles.type}>End date</Text>
-            </Pressable>
-          </FormInput>
-          <FormInput>
-            <Pressable onPress={() => setVisible(true)}>
-              <Text style={styles.type}>Repeats</Text>
-            </Pressable>
-          </FormInput>
-        </>
-      );
-    } else {
-      return (
-        <>
-          <FormInput>
-            <TextInput
-              placeholder="Number of matches"
-              keyboardType="number-pad"
-              inputMode="numeric"
-              value={matchDetails.numOfMatches}
-              onChangeText={input =>
-                setMatchDetails({...matchDetails, numOfMatches: input})
-              }
-            />
-          </FormInput>
-          <FormInput>
-            <Text>Randomize opponents</Text>
-            <Switch
-              value={matchDetails.randomize}
-              onValueChange={input => {
-                setMatchDetails({
-                  ...matchDetails,
-                  randomize: input,
-                });
-              }}
-            />
           </FormInput>
           <FormInput>
             <TextInput
@@ -152,50 +105,7 @@ const MatchForm = () => {
             />
           </FormInput>
         </>
-      );
-    }
-  };
-
-  const handleContinue = () => {
-    setSteps({
-      ...steps,
-      current: steps.current + 1,
-    });
-  };
-
-  const handleCancel = () => {
-    navigation.navigate('Schedule');
-  };
-
-  const renderItem = ({item}) => {
-    return (
-      <Pressable
-        style={[styles.pressable]}
-        onPress={() => {
-          setVisible(false);
-          setMatchDetails({...matchDetails, type: item.value});
-        }}>
-        <Text style={styles.selection}>{item.value}</Text>
-      </Pressable>
-    );
-  };
-
-  return (
-    <>
-      <Forms
-        title="Match Details"
-        steps={steps}
-        handleContinue={handleContinue}
-        handleCancel={handleCancel}>
-        <>{renderSteps()}</>
       </Forms>
-      <Selector visible={visible} setVisible={setVisible}>
-        <FlatList
-          data={types}
-          extraData={matchDetails.type}
-          renderItem={renderItem}
-        />
-      </Selector>
       <Selector visible={visibleDatePicker} setVisible={setVisibleDatePicker}>
         <Text>Start Time</Text>
         <DatePicker
@@ -203,17 +113,7 @@ const MatchForm = () => {
           onDateChange={input => {
             setMatchDetails({
               ...matchDetails,
-              startDate: input,
-            });
-          }}
-        />
-        <Text>End Time</Text>
-        <DatePicker
-          date={matchDetails.startDate || date}
-          onDateChange={input => {
-            setMatchDetails({
-              ...matchDetails,
-              endDate: input,
+              date: input.toISOString(),
             });
           }}
         />

@@ -15,9 +15,7 @@ const SeasonSchedule = () => {
   const matchesId = season.matches;
   const seasonStart = new Date(season.start);
   const seasonEnd = new Date(season.end);
-
   const matchesModel = useExtractMatches(matchesId);
-
   const handleDayPress = day => {
     setSelectedDay(day.dateString);
   };

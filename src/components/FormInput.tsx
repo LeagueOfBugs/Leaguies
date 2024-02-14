@@ -1,14 +1,20 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 
-export const FormInput = ({children, selection}) => {
+interface FormInputProps {
+  children: React.ReactNode;
+  selection?: string;
+}
+export const FormInput = ({children, selection}: FormInputProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.input}>
         <View style={styles.image} />
         {children}
       </View>
-      <Text style={styles.selection}>{selection && selection}</Text>
+      {selection && (
+        <Text style={styles.selection}>{selection && selection}</Text>
+      )}
     </View>
   );
 };

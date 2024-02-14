@@ -40,6 +40,7 @@ interface Team {
   league: string;
   record: number[] | undefined;
   limit: number;
+  location: string;
   active: boolean;
 }
 /* Team types  --- ENDS */
@@ -56,6 +57,8 @@ interface League {
   badge?: string | undefined;
   teams?: string[] | undefined;
   limit: string;
+  location: string;
+  admin: string[];
   seasonId?: string | undefined;
 }
 /* League types  --- ENDS */

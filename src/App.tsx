@@ -19,6 +19,7 @@ import PlayerNav from './navigationScreens/PlayerNav';
 import LeagueNav from './navigationScreens/LeagueNav';
 import MatchForm from './screens/league/MatchForm';
 import WebSocketComponent from './webSocket/WebSocket';
+import SearchTeams from './screens/team/SearchTeams';
 const customTheme = {
   ...DefaultTheme,
   colors: {
@@ -119,6 +120,11 @@ const LoginFlowStack = ({component}) => {
           <Stack.Screen
             name="Match Form"
             component={MatchForm}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Search Teams"
+            component={SearchTeams}
             options={{headerShown: false}}
           />
         </>

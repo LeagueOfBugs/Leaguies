@@ -1,6 +1,20 @@
 import {View, Text, StyleSheet, SafeAreaView, Pressable} from 'react-native';
 import React from 'react';
 import ActionButton from './actionButton';
+/*
+TODO:
+header styling icons and func
+*/
+interface FormsProps {
+  title: string;
+  children: React.JSX.Element;
+  steps?: {
+    current: number;
+    outOf: number;
+  };
+  handleContinue: () => void;
+  handleCancel: () => void;
+}
 
 const Forms = ({
   title,
@@ -8,14 +22,10 @@ const Forms = ({
   steps,
   handleContinue,
   handleCancel,
-}: {
-  title: string;
-  children: React.JSX.Element;
-}) => {
-  const {current, outOf} = steps;
+}: FormsProps) => {
   return (
     <SafeAreaView style={styles.safe}>
-      <View style={styles.container}>
+      <View>
         <View style={styles.header}>
           <View style={styles.headerWrapper}>
             <Text>text for now GO BACK</Text>
@@ -25,15 +35,17 @@ const Forms = ({
           </View>
           <View style={styles.formHeader}>
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.steps}>
-              Step {current} of {outOf}
-            </Text>
+            {steps && (
+              <Text style={styles.steps}>
+                Step {steps.current} of {steps.outOf}
+              </Text>
+            )}
           </View>
         </View>
         <View style={styles.form}>{children}</View>
       </View>
       <View style={styles.buttonContainer}>
-        {current === outOf ? (
+        {steps && steps.current === steps.outOf ? (
           <ActionButton title="SUBMIT" handleCallback={handleContinue} />
         ) : (
           <ActionButton title="CONTINUE" handleCallback={handleContinue} />
@@ -47,11 +59,6 @@ const styles = StyleSheet.create({
   safe: {
     flex: 1,
     justifyContent: 'space-between',
-  },
-
-  container: {
-    // borderWidth: 1,
-    // flex: 1,
   },
   header: {},
   headerWrapper: {

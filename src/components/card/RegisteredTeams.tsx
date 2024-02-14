@@ -1,8 +1,9 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import Card from './Card';
 import useExtractTeams from '../../hooks/useExtractTeams';
 import {Divider} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 
 const TeamStructure = ({name, wins, loss}) => {
   return (
@@ -26,25 +27,31 @@ const recommendedTeamsStructure = ({name}) => {
   );
 };
 
-const RenderEmpty = () => {
+const RenderEmpty = ({handleTeamInvite}) => {
   return (
     <>
       <Divider style={styles.divider} />
-      <View style={styles.emptyContainer}>
+      <Pressable
+        style={styles.emptyContainer}
+        onPress={() => handleTeamInvite()}>
         <View style={styles.add} />
         <Text style={styles.inviteText}>Invite a team</Text>
-      </View>
+      </Pressable>
       <Divider style={styles.divider} />
     </>
   );
 };
 
 const RegisteredTeams = ({teams, limit}) => {
+  const navigation = useNavigation();
   const teamModels = useExtractTeams(teams);
   const emptySpots = limit - teams.length;
+  const handleTeamInvite = () => {
+    navigation.navigate('Search Teams');
+  };
   const empty = [];
   for (let i = 0; i < emptySpots; i++) {
-    empty.push(<RenderEmpty />);
+    empty.push(<RenderEmpty key={i} handleTeamInvite={handleTeamInvite} />);
   }
   const renderTeams = teamModels.map(team => {
     const [wins, loss] = team.record;

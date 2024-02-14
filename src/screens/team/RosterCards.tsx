@@ -61,7 +61,7 @@ export const Squad = ({playerModels, limit, bench}) => {
   //   render empty spots in UI if available
   const empty = [];
   for (let i = 0; i < emptySpots; i++) {
-    empty.push(<RenderEmpty />);
+    empty.push(<RenderEmpty key={i} />);
   }
 
   return (

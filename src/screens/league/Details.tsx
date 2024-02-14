@@ -6,7 +6,6 @@ import ActionButton from '../../components/actionButton';
 
 const Details = () => {
   const {league, season} = usePlayerDetails();
-  console.log('season info: ', league);
 
   return (
     <SafeAreaView style={styles.container}>

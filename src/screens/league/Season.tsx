@@ -9,7 +9,7 @@ import useMPlayerDetails from '../../hooks/useMPlayerDetails';
 
 const Season = () => {
   const {season, league} = usePlayerDetails();
-  const leagueAdminModels = useMPlayerDetails(league.admin);
+  const leagueAdminModels = useMPlayerDetails(league?.admin);
   return (
     <SafeAreaView style={styles.container}>
       {season ? (

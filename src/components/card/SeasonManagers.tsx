@@ -7,7 +7,7 @@ const SeasonManagers = ({admin}) => {
     <Card title="Managers">
       {admin.map(player => {
         return (
-          <View style={styles.container}>
+          <View style={styles.container} key={player.id}>
             <View style={styles.image} />
             <Text style={styles.name}>{player.name}</Text>
           </View>
