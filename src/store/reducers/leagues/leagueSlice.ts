@@ -1,8 +1,10 @@
 // leagueSlice.js
 import {createSlice} from '@reduxjs/toolkit';
 import {seedLeagues} from '../../../thunks/seedLeagueThunk';
+import {proximityLocations} from '../../../thunks/proximityLocations';
 const initialState = {
   leagues: [],
+  nearbyTeams: [],
 };
 
 const leagueSlice = createSlice({
@@ -39,21 +41,15 @@ const leagueSlice = createSlice({
     },
   },
   extraReducers: builder => {
-    builder
-      .addCase(seedLeagues.pending, state => {
-        state.loading = true;
-        state.error = null;
-      })
-      .addCase(seedLeagues.fulfilled, (state, action) => {
-        state.loading = false;
-        const {data} = action.payload;
-        state.leagues = data;
-      })
-      .addCase(seedLeagues.rejected, (state, action) => {
-        const {data} = action.payload;
-        state.loading = false;
-        state.error = data;
-      });
+    builder.addCase(seedLeagues.fulfilled, (state, action) => {
+      const {data} = action.payload;
+      state.leagues = data;
+    });
+    builder.addCase(proximityLocations.fulfilled, (state, action) => {
+      const {data} = action.payload;
+      const teamIds = data.map(hash => hash.id);
+      state.nearbyTeams = teamIds;
+    });
   },
 });
 

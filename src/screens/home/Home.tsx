@@ -1,7 +1,6 @@
 import React from 'react';
 import {StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
-import {useSeedRedux} from '../../hooks';
 import {selectUser} from '../../selectors/userSelector';
 import Card from '../../components/card/Card';
 import Matchups from '../../components/card/Matchups';

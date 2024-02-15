@@ -18,7 +18,7 @@ const WebSocketComponent = () => {
   const {readyState, sendMessage} = useWebSocket(
     'wss://uuuwibeb89.execute-api.us-east-2.amazonaws.com/Alpha/',
   );
-  console.log('readyState', readyState);
+
   useEffect(() => {
     if (readyState === ReadyState.OPEN) {
       sendMessage(JSON.stringify(action));

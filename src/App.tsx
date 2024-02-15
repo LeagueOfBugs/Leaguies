@@ -20,6 +20,10 @@ import LeagueNav from './navigationScreens/LeagueNav';
 import MatchForm from './screens/league/MatchForm';
 import WebSocketComponent from './webSocket/WebSocket';
 import SearchTeams from './screens/team/SearchTeams';
+import LeagueForm from './screens/league/LeagueForm';
+import SportsSelect from './screens/league/SportsSelect';
+import LeagueLogo from './screens/league/LeagueLogo';
+
 const customTheme = {
   ...DefaultTheme,
   colors: {
@@ -126,6 +130,42 @@ const LoginFlowStack = ({component}) => {
             name="Search Teams"
             component={SearchTeams}
             options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Sports Select"
+            component={SportsSelect}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerLeft: () => null,
+              headerTitle: () => <Header header={'CREATE A LEAGUE'} />,
+            }}
+          />
+          <Stack.Screen
+            name="League Form"
+            component={LeagueForm}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerLeft: () => null,
+              headerTitle: () => <Header header={'CREATE A LEAGUE'} />,
+            }}
+          />
+          <Stack.Screen
+            name="League Logo"
+            component={LeagueLogo}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerLeft: () => null,
+              headerTitle: () => <Header header={'CREATE A LEAGUE'} />,
+            }}
           />
         </>
       )}

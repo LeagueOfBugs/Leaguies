@@ -14,8 +14,9 @@ import Teams from '../screens/league/Teams';
 import Schedule from '../screens/league/Schedule';
 import SearchLeagues from '../screens/league/SearchLeagues';
 import usePlayerDetails from '../hooks/usePlayerDetails';
-import MatchForm from '../screens/league/MatchForm';
-
+import {FAB} from 'react-native-paper';
+import {StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 const teamTopTab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
@@ -79,6 +80,10 @@ const LeagueStack = () => {
 };
 
 const LeagueNav = () => {
+  const navigation = useNavigation();
+  const handleCreateLeague = () => {
+    navigation.navigate('Sports Select');
+  };
   const {league} = usePlayerDetails();
   return (
     <>
@@ -100,6 +105,11 @@ const LeagueNav = () => {
             <teamTopTab.Screen name="Teams" component={Teams} />
             <teamTopTab.Screen name="Schedule" component={Schedule} />
           </teamTopTab.Navigator>
+          <FAB
+            style={styles.fab}
+            label="+   CREATE A LEAGUE"
+            onPress={() => handleCreateLeague()}
+          />
         </>
       ) : (
         <LeagueStack />
@@ -107,5 +117,12 @@ const LeagueNav = () => {
     </>
   );
 };
-
+const styles = StyleSheet.create({
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
+});
 export default LeagueNav;

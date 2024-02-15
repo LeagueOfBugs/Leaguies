@@ -1,14 +1,24 @@
 import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
-import React from 'react';
-import {useRoute} from '@react-navigation/native';
+import React, {useState} from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {Button} from 'react-native-paper';
-
+import useLeagueDispatch from '../../hooks/useLeagueDispatch';
+/* 
+TODO:
+Choose one from a range of badges
+it will be the icon displays
+more customization
+*/
 const LeagueLogo = () => {
+  // const [imaget, setImage] = useState();
   const route = useRoute();
-  const {sport, team} = route.params;
+  const navigation = useNavigation();
+  const {sport, league} = route.params;
+  const {addLeague} = useLeagueDispatch();
   const handleContinue = () => {
-    // navigation.navigate('Team');
+    navigation.navigate('Teams');
     // create team
+    addLeague(league);
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -30,7 +40,7 @@ const LeagueLogo = () => {
 
         <View style={styles.actionContainer}>
           <Button mode="contained" onPress={handleContinue}>
-            CREATE TEAM
+            CREATE LEAGUE
           </Button>
         </View>
       </View>

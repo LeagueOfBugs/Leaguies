@@ -5,11 +5,22 @@ import {NoStateTeams} from './NoStatesUi';
 import usePlayerDetails from '../../hooks/usePlayerDetails';
 import RegisteredTeams from '../../components/card/RegisteredTeams';
 import RecommendedTeams from '../../components/card/RecommendedTeams';
+import {
+  useProximityLocations,
+  useRetrieveCoordinates,
+} from '../../hooks/useTeamProximity';
+import {selectLeagues, selectNearby} from '../../selectors/leagueSelector';
+import {useSelector} from 'react-redux';
 
 const Teams = () => {
   const {league} = usePlayerDetails();
-  const teamIds = league.teams;
-  const LeagueTeamLimit = league.limit;
+  const teamIds = league?.teams;
+  const LeagueTeamLimit = league?.limit;
+  const leagueCoordinates = useRetrieveCoordinates(league.location);
+  const {leagues} = useSelector(selectLeagues);
+  console.log('leagues', leagues);
+
+  useProximityLocations(leagueCoordinates);
 
   return (
     <SafeAreaView style={styles.container}>

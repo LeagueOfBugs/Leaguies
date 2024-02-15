@@ -1,12 +1,10 @@
 import {Text, Image, StyleSheet, SafeAreaView, View} from 'react-native';
 import React from 'react';
 import usePlayerDetails from '../../hooks/usePlayerDetails';
-import {format} from 'date-fns';
 import ActionButton from '../../components/actionButton';
 
 const Details = () => {
-  const {league, season} = usePlayerDetails();
-
+  const {league} = usePlayerDetails();
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.playerContainer}>
