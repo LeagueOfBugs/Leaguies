@@ -22,7 +22,7 @@ const sports = [
   {name: 'Other', image: ''},
 ];
 
-const SportsSelect = () => {
+const TeamSportsSelect = () => {
   const [selected, setSelected] = useState('');
   const navigation = useNavigation();
 
@@ -118,4 +118,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SportsSelect;
+export default TeamSportsSelect;

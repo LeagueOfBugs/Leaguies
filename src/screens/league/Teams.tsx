@@ -9,7 +9,7 @@ import {
   useProximityLocations,
   useRetrieveCoordinates,
 } from '../../hooks/useTeamProximity';
-import {selectLeagues, selectNearby} from '../../selectors/leagueSelector';
+import {selectLeagues} from '../../selectors/leagueSelector';
 import {useSelector} from 'react-redux';
 
 const Teams = () => {
@@ -18,7 +18,6 @@ const Teams = () => {
   const LeagueTeamLimit = league?.limit;
   const leagueCoordinates = useRetrieveCoordinates(league.location);
   const {leagues} = useSelector(selectLeagues);
-  console.log('leagues', leagues);
 
   useProximityLocations(leagueCoordinates);
 

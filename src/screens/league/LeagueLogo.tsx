@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {Button} from 'react-native-paper';
 import useLeagueDispatch from '../../hooks/useLeagueDispatch';
@@ -10,7 +10,7 @@ it will be the icon displays
 more customization
 */
 const LeagueLogo = () => {
-  // const [imaget, setImage] = useState();
+
   const route = useRoute();
   const navigation = useNavigation();
   const {sport, league} = route.params;

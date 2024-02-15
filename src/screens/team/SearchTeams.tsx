@@ -23,7 +23,6 @@ const RenderNearbyTeam = ({team}) => {
 const SearchTeams = () => {
   const nearbyTeamIds = useSelector(selectNearby);
   const teamModels = useSelector(selectTeamByIdBulk(nearbyTeamIds));
-  console.log('teamModels', teamModels);
   return (
     <SafeAreaView>
       <View style={styles.container}>

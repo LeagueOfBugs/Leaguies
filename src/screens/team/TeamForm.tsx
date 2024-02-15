@@ -3,19 +3,23 @@ import React, {useState} from 'react';
 import {Button} from 'react-native-paper';
 import {useRoute} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
+import {FormInput} from '../../components/FormInput';
 
 const TeamForm = () => {
+  const navigation = useNavigation();
+  const route = useRoute();
+  const {sport} = route.params;
+
   const [teamInfo, setTeamInfo] = useState({
     name: '',
     location: '',
     skill: '',
     ageRange: '',
     type: '',
+    limit: '',
+    visibility: '',
+    sport: sport,
   });
-
-  const route = useRoute();
-  const navigation = useNavigation();
-  const {sport} = route.params;
 
   const handleContinue = () => {
     navigation.navigate('Team Logo', {sport: sport, team: teamInfo});
@@ -32,13 +36,10 @@ const TeamForm = () => {
       </View>
       <View style={styles.mainContainer}>
         <View style={styles.information}>
-          <View style={styles.inputContainer}>
+          <FormInput>
             <TextInput
               value={`${teamInfo.name}`}
-              placeholder="League name"
-              style={styles.input}
-              multiline={false}
-              underlineColorAndroid="transparent"
+              placeholder="Team name"
               onChangeText={input =>
                 setTeamInfo({
                   ...teamInfo,
@@ -46,14 +47,11 @@ const TeamForm = () => {
                 })
               }
             />
-          </View>
-          <View style={styles.inputContainer}>
+          </FormInput>
+          <FormInput>
             <TextInput
               value={teamInfo.location}
               placeholder="Location"
-              style={styles.input}
-              multiline={false}
-              underlineColorAndroid="transparent"
               onChangeText={input =>
                 setTeamInfo({
                   ...teamInfo,
@@ -61,14 +59,11 @@ const TeamForm = () => {
                 })
               }
             />
-          </View>
-          <View style={styles.inputContainer}>
+          </FormInput>
+          <FormInput>
             <TextInput
               value={teamInfo.skill}
               placeholder="Skill level"
-              style={styles.input}
-              multiline={false}
-              underlineColorAndroid="transparent"
               onChangeText={input =>
                 setTeamInfo({
                   ...teamInfo,
@@ -76,14 +71,11 @@ const TeamForm = () => {
                 })
               }
             />
-          </View>
-          <View style={styles.inputContainer}>
+          </FormInput>
+          <FormInput>
             <TextInput
               value={teamInfo.ageRange}
               placeholder="Player age range (optional)"
-              style={styles.input}
-              multiline={false}
-              underlineColorAndroid="transparent"
               onChangeText={input =>
                 setTeamInfo({
                   ...teamInfo,
@@ -91,14 +83,11 @@ const TeamForm = () => {
                 })
               }
             />
-          </View>
-          <View style={styles.inputContainer}>
+          </FormInput>
+          <FormInput>
             <TextInput
               value={teamInfo.type}
               placeholder="Team Type"
-              style={styles.input}
-              multiline={false}
-              underlineColorAndroid="transparent"
               onChangeText={input =>
                 setTeamInfo({
                   ...teamInfo,
@@ -106,7 +95,31 @@ const TeamForm = () => {
                 })
               }
             />
-          </View>
+          </FormInput>
+          <FormInput>
+            <TextInput
+              // value={`${teamInfo.limit}`}
+              placeholder="Team size"
+              onChangeText={input =>
+                setTeamInfo({
+                  ...teamInfo,
+                  limit: input,
+                })
+              }
+            />
+          </FormInput>
+          <FormInput>
+            <TextInput
+              value={teamInfo.visibility}
+              placeholder="Team visibility"
+              onChangeText={input =>
+                setTeamInfo({
+                  ...teamInfo,
+                  visibility: input,
+                })
+              }
+            />
+          </FormInput>
         </View>
         <View style={styles.actionContainer}>
           <Button mode="contained" onPress={handleContinue}>

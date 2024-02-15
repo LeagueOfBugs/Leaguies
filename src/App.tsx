@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import store from './store/store';
 import {Provider, useSelector} from 'react-redux';
@@ -23,6 +24,9 @@ import SearchTeams from './screens/team/SearchTeams';
 import LeagueForm from './screens/league/LeagueForm';
 import SportsSelect from './screens/league/SportsSelect';
 import LeagueLogo from './screens/league/LeagueLogo';
+import TeamSportsSelect from './screens/team/SportsSelect';
+import TeamForm from './screens/team/TeamForm';
+import TeamLogo from './screens/team/TeamLogo';
 
 const customTheme = {
   ...DefaultTheme,
@@ -52,7 +56,6 @@ const HomeTabs = () => {
             backgroundColor: '#000000',
             height: 100,
           },
-          // eslint-disable-next-line react/no-unstable-nested-components
           headerTitle: () => <Header header={'LEAGUIES'} />,
         }}
       />
@@ -135,7 +138,7 @@ const LoginFlowStack = ({component}) => {
             name="Sports Select"
             component={SportsSelect}
             options={{
-              headerShown: true,
+              headerShown: false,
               headerStyle: {
                 backgroundColor: '#000000',
               },
@@ -147,7 +150,7 @@ const LoginFlowStack = ({component}) => {
             name="League Form"
             component={LeagueForm}
             options={{
-              headerShown: true,
+              headerShown: false,
               headerStyle: {
                 backgroundColor: '#000000',
               },
@@ -159,12 +162,48 @@ const LoginFlowStack = ({component}) => {
             name="League Logo"
             component={LeagueLogo}
             options={{
-              headerShown: true,
+              headerShown: false,
               headerStyle: {
                 backgroundColor: '#000000',
               },
               headerLeft: () => null,
               headerTitle: () => <Header header={'CREATE A LEAGUE'} />,
+            }}
+          />
+          <Stack.Screen
+            name="Team Sports Select"
+            component={TeamSportsSelect}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerLeft: () => null,
+              headerTitle: () => <Header header={'CREATE A TEAM'} />,
+            }}
+          />
+          <Stack.Screen
+            name="Team Form"
+            component={TeamForm}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerLeft: () => null,
+              headerTitle: () => <Header header={'CREATE A TEAM'} />,
+            }}
+          />
+          <Stack.Screen
+            name="Team Logo"
+            component={TeamLogo}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerLeft: () => null,
+              headerTitle: () => <Header header={'CREATE A TEAM'} />,
             }}
           />
         </>

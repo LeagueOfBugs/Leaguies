@@ -27,7 +27,6 @@ const LeagueForm = () => {
   });
 
   const handleContinue = () => {
-    console.log('leagueInfo', leagueInfo);
     navigation.navigate('League Logo', {sport: sport, league: leagueInfo});
   };
 

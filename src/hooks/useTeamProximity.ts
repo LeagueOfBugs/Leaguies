@@ -36,7 +36,7 @@ export const useProximityLocations = coordinates => {
       tableName: 'team-location-hash',
       searchLocation,
     };
-    // console.log('coordinates', locationPayload);
+
     dispatch(proximityLocations(locationPayload));
   }, [coordinates, dispatch, searchLocation]);
 };

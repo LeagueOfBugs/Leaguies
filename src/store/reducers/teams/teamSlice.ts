@@ -1,5 +1,4 @@
-import {PayloadAction, createSlice} from '@reduxjs/toolkit';
-import uuid from 'react-native-uuid';
+import {createSlice} from '@reduxjs/toolkit';
 import {seedTeams} from '../../../thunks/seedTeamThunk';
 
 const initialState: Teams = {
@@ -10,34 +9,10 @@ const teamSlice = createSlice({
   name: 'teams',
   initialState,
   reducers: {
-    createTeam: (
-      state,
-      action: PayloadAction<{
-        id: string;
-        name: string;
-        players: string[];
-        league: string;
-        record: number[];
-        badge: string;
-        image: string;
-        limit: number;
-        active: boolean;
-      }>,
-    ) => {
-      const {id, name, league, players, record, badge, image, limit, active} =
-        action.payload;
-      const newTeam: Team = {
-        id: id || uuid.v4().toString(),
-        name: name,
-        players: players,
-        league: league,
-        record: record,
-        badge: badge,
-        image: image,
-        limit: limit,
-        active: active,
-      };
-      state.teams.push(newTeam);
+    createTeam: (state, action) => {
+      const newTeamModel = action.payload;
+      state.teams.push(newTeamModel);
+      console.log('state in team slice', state);
       return state;
     },
     editTeam: (state, action) => {

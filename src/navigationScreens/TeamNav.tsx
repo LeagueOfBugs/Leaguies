@@ -8,11 +8,10 @@ import Details from '../screens/team/Details';
 import Team from '../screens/team/Team';
 import {createStackNavigator} from '@react-navigation/stack';
 import Header from '../components/headers/HomeHeader';
-import SportsSelect from '../screens/team/SportsSelect';
-import TeamForm from '../screens/team/TeamForm';
-import TeamLogo from '../screens/team/TeamLogo';
-import SearchTeams from '../screens/team/SearchTeams';
 import usePlayerDetails from '../hooks/usePlayerDetails';
+import {FAB} from 'react-native-paper';
+import {StyleSheet} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const teamTopTab = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -31,53 +30,18 @@ const TeamStack = () => {
           headerTitle: () => <Header header={'LEAGUIES'} />,
         }}
       />
-      <Stack.Screen
-        name="Sports Select"
-        component={SportsSelect}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#000000',
-          },
-          headerLeft: () => null,
-          headerTitle: () => <Header header={'CREATE A TEAM'} />,
-        }}
-      />
-      <Stack.Screen
-        name="Team Form"
-        component={TeamForm}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#000000',
-          },
-          headerLeft: () => null,
-          headerTitle: () => <Header header={'CREATE A TEAM'} />,
-        }}
-      />
-      <Stack.Screen
-        name="Team Logo"
-        component={TeamLogo}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#000000',
-          },
-          headerLeft: () => null,
-          headerTitle: () => <Header header={'CREATE A TEAM'} />,
-        }}
-      />
-      <Stack.Screen
-        name="Search Teams"
-        component={SearchTeams}
-        options={{headerShown: false}}
-      />
     </Stack.Navigator>
   );
 };
 
 const TeamNav = () => {
   const {team} = usePlayerDetails();
+  const navigation = useNavigation();
+
+  const handleCreateLeague = () => {
+    navigation.navigate('Team Sports Select');
+  };
+
   return (
     <>
       {team ? (
@@ -97,6 +61,11 @@ const TeamNav = () => {
             <teamTopTab.Screen name="Roster" component={Roster} />
             <teamTopTab.Screen name="Activity" component={Activity} />
           </teamTopTab.Navigator>
+          <FAB
+            style={styles.fab}
+            label="+   CREATE A TEAM"
+            onPress={() => handleCreateLeague()}
+          />
         </>
       ) : (
         <TeamStack />
@@ -104,5 +73,14 @@ const TeamNav = () => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
+});
 
 export default TeamNav;

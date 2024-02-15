@@ -1,16 +1,19 @@
 import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
 import React from 'react';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {Button} from 'react-native-paper';
+import useTeamDispatch from '../../hooks/useTeamDispatch';
 
 const TeamLogo = () => {
   const route = useRoute();
+  const navigation = useNavigation();
   const {sport, team} = route.params;
-
+  const {createNewTeam} = useTeamDispatch();
   const handleContinue = () => {
-    // navigation.navigate('Team');
-    // create team
+    createNewTeam(team);
+    navigation.navigate('Team');
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>

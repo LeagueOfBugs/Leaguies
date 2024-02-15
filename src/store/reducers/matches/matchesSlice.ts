@@ -11,7 +11,6 @@ const matchesSlice = createSlice({
   initialState,
   reducers: {
     createMatch: (state, action) => {
-      console.log('action.payload', action.payload)
       state.matches.push(action.payload);
       return state;
     },
