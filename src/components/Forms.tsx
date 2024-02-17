@@ -14,6 +14,7 @@ interface FormsProps {
   };
   handleContinue: () => void;
   handleCancel: () => void;
+  titleArray?: [];
 }
 
 const Forms = ({
@@ -22,6 +23,7 @@ const Forms = ({
   steps,
   handleContinue,
   handleCancel,
+  titleArray,
 }: FormsProps) => {
   return (
     <SafeAreaView style={styles.safe}>

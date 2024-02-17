@@ -6,10 +6,16 @@ import usePlayerDetails from '../../hooks/usePlayerDetails';
 import SeasonDetails from '../../components/card/SeasonDetails';
 import SeasonManagers from '../../components/card/SeasonManagers';
 import useMPlayerDetails from '../../hooks/useMPlayerDetails';
+import EmptyStateButton from '../../components/EmptyStateButton';
+import {useNavigation} from '@react-navigation/native';
 
 const Season = () => {
   const {season, league} = usePlayerDetails();
-  const leagueAdminModels = useMPlayerDetails(league?.admin);
+  const leagueAdminModels = useMPlayerDetails(season?.admins);
+  const navigation = useNavigation();
+  const handleCreateSeason = () => {
+    navigation.navigate('Season Form');
+  };
   return (
     <SafeAreaView style={styles.container}>
       {season ? (
@@ -25,7 +31,10 @@ const Season = () => {
             <NoStateSeason />
           </View>
           <View style={styles.actionsContainer}>
-            <Button mode="contained">JOIN A SEASON</Button>
+            <EmptyStateButton
+              title="START A SEASON"
+              handleButtonPress={handleCreateSeason}
+            />
           </View>
         </View>
       )}

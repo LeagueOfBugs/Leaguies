@@ -27,6 +27,9 @@ import LeagueLogo from './screens/league/LeagueLogo';
 import TeamSportsSelect from './screens/team/SportsSelect';
 import TeamForm from './screens/team/TeamForm';
 import TeamLogo from './screens/team/TeamLogo';
+import SeasonForm from './screens/league/season/SeasonForm';
+import SeasonLogo from './screens/league/season/SeasonLogo';
+import SeasonList from './screens/league/LeagueList';
 
 const customTheme = {
   ...DefaultTheme,
@@ -125,18 +128,23 @@ const LoginFlowStack = ({component}) => {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Match Form"
-            component={MatchForm}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
             name="Search Teams"
             component={SearchTeams}
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Sports Select"
-            component={SportsSelect}
+            name="Match Form"
+            component={MatchForm}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Season Form"
+            component={SeasonForm}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Season List"
+            component={SeasonList}
             options={{
               headerShown: false,
               headerStyle: {
@@ -159,8 +167,39 @@ const LoginFlowStack = ({component}) => {
             }}
           />
           <Stack.Screen
+            name="Team Form"
+            component={TeamForm}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerLeft: () => null,
+              headerTitle: () => <Header header={'CREATE A TEAM'} />,
+            }}
+          />
+          <Stack.Screen
             name="League Logo"
             component={LeagueLogo}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Team Logo"
+            component={TeamLogo}
+            options={{
+              headerShown: false,
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerLeft: () => null,
+              headerTitle: () => <Header header={'CREATE A TEAM'} />,
+            }}
+          />
+          <Stack.Screen
+            name="Season Logo"
+            component={SeasonLogo}
             options={{
               headerShown: false,
               headerStyle: {
@@ -183,27 +222,15 @@ const LoginFlowStack = ({component}) => {
             }}
           />
           <Stack.Screen
-            name="Team Form"
-            component={TeamForm}
+            name="Sports Select"
+            component={SportsSelect}
             options={{
               headerShown: false,
               headerStyle: {
                 backgroundColor: '#000000',
               },
               headerLeft: () => null,
-              headerTitle: () => <Header header={'CREATE A TEAM'} />,
-            }}
-          />
-          <Stack.Screen
-            name="Team Logo"
-            component={TeamLogo}
-            options={{
-              headerShown: false,
-              headerStyle: {
-                backgroundColor: '#000000',
-              },
-              headerLeft: () => null,
-              headerTitle: () => <Header header={'CREATE A TEAM'} />,
+              headerTitle: () => <Header header={'CREATE A LEAGUE'} />,
             }}
           />
         </>

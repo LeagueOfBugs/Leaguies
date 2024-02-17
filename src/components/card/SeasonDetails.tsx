@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import Card from './Card';
+import {format} from 'date-fns';
 
 const Rule = ({title, value}) => {
   return (
@@ -14,31 +15,45 @@ const Rule = ({title, value}) => {
   );
 };
 const SeasonDetails = ({season}) => {
+  const seasonStart = new Date(season.start);
+  const seasonEnd = new Date(season.end);
+
+  const formatDate = date => {
+    return format(date, 'MM/dd/yyyy');
+  };
   return (
-    <Card title="Season Details">
-      <View style={styles.container}>
-        <View style={styles.catContainers}>
-          <Text style={styles.categories}>General</Text>
-          <Rule title="Location" value={season.location} />
-          <Rule title="Start" value={season.start} />
-          <Rule title="End" value={season.end} />
-          <Rule title="Fee" value={`$${season.fee}`} />
-          <Rule title="Cadence" value={season.cadence} />
-          <Rule title="Level" value={season.level} />
+    <>
+      <Card title="Season Details">
+        <View style={styles.container}>
+          <View style={styles.catContainers}>
+            <Text style={styles.categories}>General</Text>
+            <Rule title="Location" value={season.location} />
+            <Rule title="Start" value={formatDate(seasonStart)} />
+            <Rule title="End" value={formatDate(seasonEnd)} />
+            <Rule title="Fee" value={`$${season.fee}`} />
+            <Rule title="Cadence" value={season.cadence} />
+            <Rule title="Level" value={season.skill} />
+          </View>
+          <View style={styles.catContainers}>
+            <Text style={styles.categories}>Matches</Text>
+            <Rule title="Teams" value={season.teams} />
+            <Rule title="Matches" value={season.games} />
+          </View>
+          <View style={styles.catContainers}>
+            <Text style={styles.categories}>Post Season</Text>
+            <Rule title="Winners" value={season.winners} />
+            <Rule title="Prize" value={`$${season.cashPrize}`} />
+            <Rule title="Post-season Games" value={season.postSeasonGames} />
+          </View>
         </View>
-        <View style={styles.catContainers}>
-          <Text style={styles.categories}>Matches</Text>
-          <Rule title="Teams" value={season.teams} />
-          <Rule title="Matches" value={season.games} />
-        </View>
-        <View style={styles.catContainers}>
-          <Text style={styles.categories}>Post Season</Text>
-          <Rule title="Winners" value={season.location} />
-          <Rule title="Prize" value={`$${season.cashPrize}`} />
-          <Rule title="Post-season Games" value={season.postSeasonGames} />
-        </View>
-      </View>
-    </Card>
+      </Card>
+      <Card title="Postseason details">
+        <Text>Post season management here</Text>
+      </Card>
+      <Card title="Upcoming seasons">
+        <Text>Create future seasons</Text>
+      </Card>
+    </>
   );
 };
 

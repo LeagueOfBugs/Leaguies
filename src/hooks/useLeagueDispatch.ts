@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   addTeam,
   createLeague,
@@ -9,10 +9,11 @@ import {
 } from '../store/reducers/leagues/leagueSlice';
 import {editTeam} from '../store/reducers/teams/teamSlice';
 import {editPlayer} from '../store/reducers/players/playerSlice';
+import {selectLeagues} from '../selectors/leagueSelector';
 
 function useLeagueDispatch() {
   const dispatch = useDispatch();
-
+  const {leagues} = useSelector(selectLeagues);
   const addLeagueTeam = (
     teamObj: Team,
     leagueId: string,
@@ -138,11 +139,7 @@ function useLeagueDispatch() {
   };
 
   // update seasons
-  const addSeasonToLeague = (
-    seasonModel: Season,
-    leagues: League[],
-    leagueId: string,
-  ) => {
+  const addSeasonToLeague = (seasonModel: Season, leagueId: string) => {
     const modifiedLeagues = leagues.map((league: League) => {
       if (league.id === leagueId) {
         return {

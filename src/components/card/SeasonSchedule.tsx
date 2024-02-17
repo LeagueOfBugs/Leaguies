@@ -1,16 +1,15 @@
 import React, {useState} from 'react';
 import {ScrollView, Alert} from 'react-native';
 import {CalendarList} from 'react-native-calendars';
-import {format, isSameDay, startOfDay} from 'date-fns';
+import {format} from 'date-fns';
 import Card from './Card';
 import usePlayerDetails from '../../hooks/usePlayerDetails';
 import useExtractMatches from '../../hooks/useExtractMatches';
 import {useNavigation} from '@react-navigation/native';
-
 const SeasonSchedule = () => {
   const [selectedDay, setSelectedDay] = useState(null);
-
   const navigation = useNavigation();
+
   const {season} = usePlayerDetails();
   const matchesId = season.matches;
   const seasonStart = new Date(season.start);
@@ -19,7 +18,7 @@ const SeasonSchedule = () => {
   const handleDayPress = day => {
     setSelectedDay(day.dateString);
   };
-
+  console.log('matchesModel', matchesModel);
   // Convert season start and end dates to YYYY-MM-DD format
   const minCalDate = format(seasonStart, 'yyyy-MM-dd');
   const maxCalDate = format(seasonEnd, 'yyyy-MM-dd');
@@ -28,6 +27,12 @@ const SeasonSchedule = () => {
   const markedDates = {};
   matchesModel.forEach(match => {
     const matchDate = new Date(match.date);
+
+    /*
+    TODO
+     */
+
+    // Formatted date is not taking into account UTC and rounding day down due to TZ
     const formattedDate = format(matchDate, 'yyyy-MM-dd');
     markedDates[formattedDate] = {
       selected: true,
@@ -40,6 +45,10 @@ const SeasonSchedule = () => {
     navigation.navigate('Match Form');
   };
 
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth();
+  const calLimit = seasonEnd.getMonth();
+
   return (
     <ScrollView>
       <Card
@@ -48,8 +57,8 @@ const SeasonSchedule = () => {
         handleFooterPress={handleFooterPress}>
         <CalendarList
           markingType={'period'}
-          pastScrollRange={1}
-          futureScrollRange={1}
+          pastScrollRange={currentMonth}
+          futureScrollRange={calLimit}
           horizontal={true}
           minDate={minCalDate}
           maxDate={maxCalDate}
