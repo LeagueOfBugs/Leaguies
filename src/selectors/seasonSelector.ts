@@ -11,3 +11,8 @@ export const selectSeasonsObjByLeagueId = (leagueId: string) =>
   createSelector([selectSeasons], ({seasons}) => {
     return seasons.filter(season => season.leagueId === leagueId);
   });
+
+export const selectSeasonByIdBulk = (idsArray: string[] | undefined) =>
+  createSelector([selectSeasons], ({seasons}) => {
+    return seasons.filter(season => idsArray?.includes(season.id));
+  });

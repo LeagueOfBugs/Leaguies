@@ -1,19 +1,21 @@
 import {useSelector} from 'react-redux';
 import {selectUser} from '../selectors/userSelector';
-import {selectSeasonsObjById} from '../selectors/seasonSelector';
-import {selectLeagueById} from '../selectors/leagueSelector';
-import {selectTeamById} from '../selectors/teamsSelector';
+import {selectSeasonByIdBulk} from '../selectors/seasonSelector';
+import {selectLeagueByIdBulk} from '../selectors/leagueSelector';
 import {selectPlayerById} from '../selectors/playerSelectors';
+import {selectTeamByIdBulk} from '../selectors/teamsSelector';
 
 const usePlayerDetails = () => {
   const {user} = useSelector(selectUser);
-  console.log('user', user)
   const player = useSelector(selectPlayerById(user.id));
-  console.log('player', player)
-  const team = useSelector(selectTeamById(player.team));
-  const league = useSelector(selectLeagueById(team.league));
-  const season = useSelector(selectSeasonsObjById(league.seasonId));
-  return {user, player, team, league, season};
+  const teams = useSelector(selectTeamByIdBulk(player.teams));
+  const teamLeagues = teams.filter(team => team.league.length > 0);
+  const leagueIds = teamLeagues.map(team => team.league);
+  const leagues = useSelector(selectLeagueByIdBulk(leagueIds));
+  const getSeasons = leagues.filter(league => league.seasonId.length > 0);
+  const seasonIds = getSeasons.map(season => season.seasonId);
+  const seasons = useSelector(selectSeasonByIdBulk(seasonIds));
+  return {user, player, teams, leagues, seasons};
 };
 
 export default usePlayerDetails;

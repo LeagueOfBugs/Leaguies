@@ -10,42 +10,50 @@ import usePlayerDetails from '../hooks/usePlayerDetails';
 const Stack = createStackNavigator();
 
 const LeagueStack = () => {
-  const {league} = usePlayerDetails();
+  const {leagues} = usePlayerDetails();
+  console.log('league', leagues);
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="League state"
-        component={League}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#000000',
-          },
-          headerTitle: () => <Header header={'LEAGUIES'} />,
-        }}
-      />
-      <Stack.Screen
-        name="League List"
-        component={LeagueList}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#000000',
-          },
-          headerTitle: () => <Header header={'LEAGUIES'} />,
-        }}
-      />
-      <Stack.Screen
-        name="League Details"
-        component={LeagueDetails}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: '#000000',
-          },
-          headerTitle: () => <Header header={'LEAGUIES'} />,
-        }}
-      />
+      {leagues.length >= 1 ? (
+        <>
+          <Stack.Screen
+            name="League List"
+            component={LeagueList}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerTitle: () => <Header header={'LEAGUIES'} />,
+            }}
+          />
+          <Stack.Screen
+            name="League Details"
+            component={LeagueDetails}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerTitle: () => <Header header={'LEAGUIES'} />,
+            }}
+          />
+        </>
+      ) : (
+        <>
+          <Stack.Screen
+            name="League state"
+            component={League}
+            options={{
+              headerShown: true,
+              headerStyle: {
+                backgroundColor: '#000000',
+              },
+              headerTitle: () => <Header header={'LEAGUIES'} />,
+            }}
+          />
+        </>
+      )}
     </Stack.Navigator>
   );
 };
