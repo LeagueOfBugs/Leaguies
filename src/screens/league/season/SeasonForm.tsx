@@ -31,7 +31,6 @@ const SeasonForm = () => {
   const navigation = useNavigation();
   const handleContinue = () => {
     navigation.navigate('Season Logo', {season: seasonInfo});
-    // console.log('seasonInfo', seasonInfo);
   };
   const handleCancel = () => {
     navigation.goBack();

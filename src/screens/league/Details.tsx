@@ -2,8 +2,9 @@ import {Text, Image, StyleSheet, SafeAreaView, View} from 'react-native';
 import React from 'react';
 import usePlayerDetails from '../../hooks/usePlayerDetails';
 import ActionButton from '../../components/actionButton';
-
+import {useRoute} from '@react-navigation/native';
 const Details = () => {
+  const route = useRoute();
   const {league} = usePlayerDetails();
   return (
     <SafeAreaView style={styles.container}>

@@ -11,7 +11,6 @@ const Stack = createStackNavigator();
 
 const LeagueStack = () => {
   const {leagues} = usePlayerDetails();
-  console.log('league', leagues);
   return (
     <Stack.Navigator>
       {leagues.length >= 1 ? (

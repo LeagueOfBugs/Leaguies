@@ -6,7 +6,6 @@ import Rules from '../screens/league/Rules';
 import Season from '../screens/league/Season';
 import Teams from '../screens/league/Teams';
 import Schedule from '../screens/league/Schedule';
-import Fab from '../components/Fab';
 
 const teamTopTab = createMaterialTopTabNavigator();
 
@@ -29,7 +28,6 @@ const LeagueDetails = () => {
         <teamTopTab.Screen name="Teams" component={Teams} />
         <teamTopTab.Screen name="Schedule" component={Schedule} />
       </teamTopTab.Navigator>
-      <Fab />
     </>
   );
 };

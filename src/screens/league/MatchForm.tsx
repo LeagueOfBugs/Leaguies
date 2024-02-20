@@ -49,7 +49,6 @@ const MatchForm = () => {
     };
     makeMatch(matchModel);
     navigation.navigate('Schedule' as never);
-    console.log('matchModel', matchModel);
   };
 
   // cancel match creation anvigate back to schedule
