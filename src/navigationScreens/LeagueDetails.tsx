@@ -4,12 +4,13 @@ import Details from '../screens/league/Details';
 
 import Rules from '../screens/league/Rules';
 import Season from '../screens/league/Season';
-import Teams from '../screens/league/Teams';
-import Schedule from '../screens/league/Schedule';
+import {useRoute} from '@react-navigation/native';
 
 const teamTopTab = createMaterialTopTabNavigator();
 
 const LeagueDetails = () => {
+  const route = useRoute();
+  const {leagueId} = route.params;
   return (
     <>
       <Details />
@@ -24,9 +25,13 @@ const LeagueDetails = () => {
           },
         }}>
         <teamTopTab.Screen name="Rules" component={Rules} />
-        <teamTopTab.Screen name="Season" component={Season} />
-        <teamTopTab.Screen name="Teams" component={Teams} />
-        <teamTopTab.Screen name="Schedule" component={Schedule} />
+        <teamTopTab.Screen
+          name="Season"
+          component={Season}
+          initialParams={{leagueId: leagueId}}
+        />
+        {/* <teamTopTab.Screen name="Teams" component={Teams} />
+        <teamTopTab.Screen name="Schedule" component={Schedule} /> */}
       </teamTopTab.Navigator>
     </>
   );

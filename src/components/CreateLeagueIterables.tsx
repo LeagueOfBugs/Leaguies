@@ -7,10 +7,10 @@ const CreateLeagueIterables = () => {
   const {player, leagues, seasons} = usePlayerDetails();
   const navigation = useNavigation();
 
-  const handlePress = () => {
-    navigation.navigate('League Details');
-  };
   return leagues.map(league => {
+    const handlePress = () => {
+      navigation.navigate('League Details', {leagueId: league.id});
+    };
     let isAdmin = false;
     const leagueName = league.name;
     if (league.seasonId.length > 0) {

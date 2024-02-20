@@ -1,16 +1,17 @@
 import {View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import React from 'react';
-import {Button} from 'react-native-paper';
 import {NoStateSeason} from './NoStatesUi';
-import usePlayerDetails from '../../hooks/usePlayerDetails';
 import SeasonDetails from '../../components/card/SeasonDetails';
-import SeasonManagers from '../../components/card/SeasonManagers';
-import useMPlayerDetails from '../../hooks/useMPlayerDetails';
 import EmptyStateButton from '../../components/EmptyStateButton';
 import {useNavigation} from '@react-navigation/native';
+import useWhichLeague from '../../hooks/useWhichLeague';
+import useWhichSeason from '../../hooks/useWhichSeason';
+import useMPlayerDetails from '../../hooks/useMPlayerDetails';
+import SeasonManagers from '../../components/card/SeasonManagers';
 
 const Season = () => {
-  const {season, league} = usePlayerDetails();
+  const league = useWhichLeague();
+  const season = useWhichSeason(league?.seasonId);
   const leagueAdminModels = useMPlayerDetails(season?.admins);
   const navigation = useNavigation();
   const handleCreateSeason = () => {
