@@ -18,9 +18,9 @@ interface Players {
 interface Player {
   id: string;
   name: string;
-  team: string;
+  teams: string[];
   position: string;
-  league: string;
+  leagues: string[];
   agency: string;
   image: string;
 }
@@ -70,6 +70,7 @@ interface Seasons {
 interface Season {
   id?: string;
   name: string;
+  admins: string[];
   leagueId: string;
   start?: string;
   end?: string;

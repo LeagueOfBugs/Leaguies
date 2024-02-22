@@ -10,13 +10,12 @@ it will be the icon displays
 more customization
 */
 const LeagueLogo = () => {
-
   const route = useRoute();
   const navigation = useNavigation();
   const {sport, league} = route.params;
   const {addLeague} = useLeagueDispatch();
   const handleContinue = () => {
-    navigation.navigate('Teams');
+    navigation.navigate('League List');
     // create team
     addLeague(league);
   };

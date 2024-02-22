@@ -1,15 +1,16 @@
 import {Text, View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
-import React from 'react';
+import React, {memo} from 'react';
 import Fab from '../../components/Fab';
 import CreateLeagueIterables from '../../components/CreateLeagueIterables';
 
-const LeagueList = () => {
+const LeagueList = ({leagues, player}) => {
+  console.log('in league list');
   return (
     <SafeAreaView style={styles.safe}>
       <Text style={styles.title}>MY LEAGUES</Text>
       <ScrollView style={styles.scroll}>
         <View style={styles.container}>
-          <CreateLeagueIterables />
+          <CreateLeagueIterables leagues={leagues} player={player} />
         </View>
       </ScrollView>
       <Fab />
@@ -34,4 +35,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LeagueList;
+export default memo(LeagueList);

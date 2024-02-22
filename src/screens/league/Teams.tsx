@@ -2,25 +2,22 @@ import {View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
 import React from 'react';
 import {Button} from 'react-native-paper';
 import {NoStateTeams} from './NoStatesUi';
-import usePlayerDetails from '../../hooks/usePlayerDetails';
 import RegisteredTeams from '../../components/card/RegisteredTeams';
 import RecommendedTeams from '../../components/card/RecommendedTeams';
 import {
   useProximityLocations,
   useRetrieveCoordinates,
 } from '../../hooks/useTeamProximity';
-import {selectLeagues} from '../../selectors/leagueSelector';
-import {useSelector} from 'react-redux';
+import {useRoute} from '@react-navigation/native';
 
 const Teams = () => {
-  const {league} = usePlayerDetails();
+  const route = useRoute();
+  const {league} = route.params;
   const teamIds = league?.teams;
   const LeagueTeamLimit = league?.limit;
   const leagueCoordinates = useRetrieveCoordinates(league.location);
-  const {leagues} = useSelector(selectLeagues);
-
   useProximityLocations(leagueCoordinates);
-
+  console.log('in teams');
   return (
     <SafeAreaView style={styles.container}>
       {league ? (

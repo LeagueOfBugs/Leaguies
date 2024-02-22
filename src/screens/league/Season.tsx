@@ -1,31 +1,26 @@
-import {View, StyleSheet, SafeAreaView, ScrollView} from 'react-native';
-import React from 'react';
+import {View, StyleSheet, SafeAreaView} from 'react-native';
+import React, {memo, useCallback} from 'react';
 import {NoStateSeason} from './NoStatesUi';
-import SeasonDetails from '../../components/card/SeasonDetails';
 import EmptyStateButton from '../../components/EmptyStateButton';
 import {useNavigation} from '@react-navigation/native';
-import useWhichLeague from '../../hooks/useWhichLeague';
-import useWhichSeason from '../../hooks/useWhichSeason';
-import useMPlayerDetails from '../../hooks/useMPlayerDetails';
-import SeasonManagers from '../../components/card/SeasonManagers';
+import SeasonInformation from './season/SeasonInformation';
+import {useRoute} from '@react-navigation/native';
 
 const Season = () => {
-  const league = useWhichLeague();
-  const season = useWhichSeason(league?.seasonId);
-  const leagueAdminModels = useMPlayerDetails(season?.admins);
+  const route = useRoute();
   const navigation = useNavigation();
-  const handleCreateSeason = () => {
+  const {hasSeason, season} = route.params;
+
+  console.log('in season');
+
+  const handleCreateSeason = useCallback(() => {
     navigation.navigate('Season Form');
-  };
+  }, [navigation]);
+
   return (
     <SafeAreaView style={styles.container}>
-      {season ? (
-        <ScrollView>
-          <View style={styles.scrollConatiner}>
-            <SeasonManagers admin={leagueAdminModels} />
-            <SeasonDetails season={season} />
-          </View>
-        </ScrollView>
+      {hasSeason ? (
+        <SeasonInformation season={season} />
       ) : (
         <View style={styles.mainContainer}>
           <View style={styles.messageContainer}>
@@ -64,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Season;
+export default memo(Season);

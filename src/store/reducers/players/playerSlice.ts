@@ -1,6 +1,6 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import uuid from 'react-native-uuid';
-import { seedPlayer } from '../../../thunks/seedPlayerThunk';
+import {seedPlayer} from '../../../thunks/seedPlayerThunk';
 
 const initialState: Players = {
   players: [],
@@ -10,20 +10,9 @@ const playerSlice = createSlice({
   name: 'players',
   initialState,
   reducers: {
-    createPlayer: (
-      state,
-      action: PayloadAction<{
-        id?: string;
-        name: string;
-        team: string;
-        position: string;
-        league: string;
-        agency: string;
-        image: string;
-        onlineStatus: boolean;
-      }>,
-    ): Players => {
-      const {id, name, team, position, league, agency, image, onlineStatus} = action.payload;
+    createPlayer: (state, action): Players => {
+      const {id, name, team, position, league, agency, image, onlineStatus} =
+        action.payload;
       const newPlayer = {
         id: id || uuid.v4().toString(),
         name: name,

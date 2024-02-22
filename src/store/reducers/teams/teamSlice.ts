@@ -12,7 +12,6 @@ const teamSlice = createSlice({
     createTeam: (state, action) => {
       const newTeamModel = action.payload;
       state.teams.push(newTeamModel);
-      console.log('state in team slice', state);
       return state;
     },
     editTeam: (state, action) => {

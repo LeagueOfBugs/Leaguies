@@ -10,10 +10,15 @@ import {
 import {editTeam} from '../store/reducers/teams/teamSlice';
 import {editPlayer} from '../store/reducers/players/playerSlice';
 import {selectLeagues} from '../selectors/leagueSelector';
+import uuid from 'react-native-uuid';
+import usePlayerDetails from './usePlayerDetails';
+import {selectPlayers} from '../selectors/playerSelectors';
 
 function useLeagueDispatch() {
   const dispatch = useDispatch();
+  const {player} = usePlayerDetails();
   const {leagues} = useSelector(selectLeagues);
+  const {players} = useSelector(selectPlayers);
   const addLeagueTeam = (
     teamObj: Team,
     leagueId: string,
@@ -76,7 +81,24 @@ function useLeagueDispatch() {
   };
 
   const addLeague = (leagueObj: League) => {
-    dispatch(createLeague(leagueObj));
+    const createdBy = player.id;
+    const leagueModel = {
+      ...leagueObj,
+      id: uuid.v4(),
+      admin: [createdBy],
+    };
+    const newPlayerState = players.map(ops => {
+      if (ops.id === createdBy) {
+        return {
+          ...ops,
+          leagues: [...ops.leagues, leagueModel.id],
+        };
+      }
+      return ops;
+    });
+
+    dispatch(createLeague(leagueModel));
+    dispatch(editPlayer(newPlayerState));
     return leagueObj;
   };
 

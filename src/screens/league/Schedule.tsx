@@ -1,17 +1,18 @@
 import {View, StyleSheet, SafeAreaView} from 'react-native';
-import React from 'react';
+import React, {memo} from 'react';
 import {Button} from 'react-native-paper';
 import {NoStateSchedule} from './NoStatesUi';
-import usePlayerDetails from '../../hooks/usePlayerDetails';
 import SeasonSchedule from '../../components/card/SeasonSchedule';
+import {useRoute} from '@react-navigation/native';
 
 const Schedule = () => {
-  const {season} = usePlayerDetails();
-
+  const route = useRoute();
+  const {hasSeason, season} = route.params;
+  console.log('In schedule');
   return (
     <SafeAreaView style={styles.container}>
-      {season ? (
-        <SeasonSchedule />
+      {hasSeason ? (
+        <SeasonSchedule season={season} />
       ) : (
         <View style={styles.mainContainer}>
           <View style={styles.messageContainer}>
@@ -46,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Schedule;
+export default memo(Schedule);

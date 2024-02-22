@@ -1,8 +1,9 @@
 import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {memo} from 'react';
 import Card from './Card';
 
 const SeasonManagers = ({admin}) => {
+  console.log('in season managers');
   return (
     <Card title="Managers">
       {admin.map(player => {
@@ -32,4 +33,8 @@ const styles = StyleSheet.create({
   },
   name: {},
 });
-export default SeasonManagers;
+
+export default memo(SeasonManagers, (prevProps, nextProps) => {
+  // Only re-render if the admin array reference changes
+  return prevProps.admin === nextProps.admin;
+});

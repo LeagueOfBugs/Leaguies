@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import React, {memo} from 'react';
 
 const messageStructure = (title: string, message: string) => (
   <View style={styles.container}>
@@ -45,29 +45,30 @@ const EmptyStateMessage = (tab: string) => {
   }
 };
 
-export const NoStateRules = () => {
+export const NoStateRules = memo(() => {
   const tab = 'rules';
   return <View>{EmptyStateMessage(tab)}</View>;
-};
+});
 
-export const NoStateSeason = () => {
+export const NoStateSeason = memo(() => {
   const tab = 'season';
   return <View>{EmptyStateMessage(tab)}</View>;
-};
+});
 
-export const NoStateTeams = () => {
+export const NoStateTeams = memo(() => {
   const tab = 'teams';
   return <View>{EmptyStateMessage(tab)}</View>;
-};
+});
 
-export const NoStateSchedule = () => {
+export const NoStateSchedule = memo(() => {
   const tab = 'schedule';
   return <View>{EmptyStateMessage(tab)}</View>;
-};
-export const NoStateLeague = () => {
+});
+
+export const NoStateLeague = memo(() => {
   const tab = 'league';
   return <View>{EmptyStateMessage(tab)}</View>;
-};
+});
 
 const styles = StyleSheet.create({
   container: {

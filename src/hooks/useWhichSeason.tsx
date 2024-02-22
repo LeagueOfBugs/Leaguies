@@ -1,8 +1,7 @@
-import usePlayerDetails from './usePlayerDetails';
+import {useSeason} from './usePlayerDetails';
 
 const useWhichSeason = (seasonId: string) => {
-  const {seasons} = usePlayerDetails();
-  const season = seasons.find(sea => sea.id === seasonId);
+  const season = useSeason(seasonId);
   return season;
 };
 

@@ -42,7 +42,7 @@ const RenderCurrentTeam = ({teams}) => {
 
 const Player = () => {
   const [message, setMessage] = useState('');
-  const {player, team} = usePlayerDetails();
+  const {player, teams} = usePlayerDetails();
   const ViewingOtherPlayer = true;
 
   return (
@@ -79,7 +79,7 @@ const Player = () => {
           </View>
         )}
         <Card title="Teams" footerText="see player history">
-          <RenderCurrentTeam teams={team} />
+          {/* <RenderCurrentTeam teams={team} /> */}
         </Card>
         <Card title="Position preferences">
           <RenderPositions sportPositions={player.preferences} />

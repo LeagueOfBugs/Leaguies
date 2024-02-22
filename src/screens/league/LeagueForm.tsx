@@ -20,9 +20,9 @@ const LeagueForm = () => {
     sport: sport,
     seasonId: '',
     teams: [],
-    location: '/Users/andres/Desktop/leaguies/src/assets/badge1.png',
+    location: 'Binghamton NY',
     image: '/Users/andres/Desktop/leaguies/src/assets/badge1.png',
-    badge: '',
+    badge: '/Users/andres/Desktop/leaguies/src/assets/badge1.png',
     admin: [],
   });
 

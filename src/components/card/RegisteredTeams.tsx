@@ -1,11 +1,11 @@
 import {View, Text, StyleSheet, Pressable} from 'react-native';
-import React from 'react';
+import React, {memo, useCallback} from 'react';
 import Card from './Card';
 import useExtractTeams from '../../hooks/useExtractTeams';
 import {Divider} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
 
-const TeamStructure = ({name, wins, loss}) => {
+const TeamStructure = memo(({name, wins, loss}) => {
   return (
     <View style={styles.container}>
       <View style={styles.image} />
@@ -17,17 +17,9 @@ const TeamStructure = ({name, wins, loss}) => {
       </View>
     </View>
   );
-};
-const recommendedTeamsStructure = ({name}) => {
-  return (
-    <View>
-      <View style={styles.image} />
-      <Text>{name}</Text>
-    </View>
-  );
-};
+});
 
-const RenderEmpty = ({handleTeamInvite}) => {
+const RenderEmpty = memo(({handleTeamInvite}) => {
   return (
     <>
       <Divider style={styles.divider} />
@@ -40,33 +32,41 @@ const RenderEmpty = ({handleTeamInvite}) => {
       <Divider style={styles.divider} />
     </>
   );
-};
+});
 
-const RegisteredTeams = ({teams, limit}) => {
-  const navigation = useNavigation();
-  const teamModels = useExtractTeams(teams);
-  const emptySpots = limit - teams.length;
-  const handleTeamInvite = () => {
-    navigation.navigate('Search Teams');
-  };
+const Empty = memo(({emptySpots, handlePress}) => {
   const empty = [];
   for (let i = 0; i < emptySpots; i++) {
-    empty.push(<RenderEmpty key={i} handleTeamInvite={handleTeamInvite} />);
+    empty.push(<RenderEmpty key={i} handleTeamInvite={handlePress} />);
   }
-  const renderTeams = teamModels.map(team => {
+  return empty;
+});
+
+const RenderTeams = memo(({teamModels}) => {
+  return teamModels.map(team => {
     const [wins, loss] = team.record;
     return (
       <TeamStructure name={team.name} wins={wins} loss={loss} key={team.id} />
     );
   });
+});
+
+const RegisteredTeams = ({teams, limit}) => {
+  const navigation = useNavigation();
+  const teamModels = useExtractTeams(teams);
+  const emptySpots = limit - teams.length;
+  console.log('inside register teams');
+  const handleTeamInvite = useCallback(() => {
+    navigation.navigate('Search Teams');
+  }, [navigation]);
 
   return (
     <Card title="Registered Teams">
       <View style={styles.mainContainer}>
         <Text style={styles.name}>Registered Teams</Text>
-        {renderTeams}
+        <RenderTeams teamModels={teamModels} />
         <Divider style={styles.divider} />
-        {empty}
+        <Empty emptySpots={emptySpots} handlePress={handleTeamInvite} />
       </View>
     </Card>
   );
@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
     color: '#A4A4A4',
   },
 });
-export default RegisteredTeams;
+export default memo(RegisteredTeams);

@@ -1,5 +1,5 @@
 import {View, StyleSheet, Pressable} from 'react-native';
-import React, {ReactNode} from 'react';
+import React, {ReactNode, memo} from 'react';
 import {Divider, Text} from 'react-native-paper';
 
 interface CardProps {
@@ -120,4 +120,4 @@ const styles = StyleSheet.create({
     fontWeight: '300',
   },
 });
-export default Card;
+export default memo(Card);

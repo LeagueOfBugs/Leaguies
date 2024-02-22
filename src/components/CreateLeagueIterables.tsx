@@ -1,46 +1,60 @@
-import React from 'react';
-import usePlayerDetails from '../hooks/usePlayerDetails';
+import React, {memo, useCallback, useMemo} from 'react';
+import {
+  useLeagues,
+  usePlayer,
+  useSeasons,
+  useUser,
+} from '../hooks/usePlayerDetails';
 import {useNavigation} from '@react-navigation/native';
 import ListElement from './ListElement';
 
-const CreateLeagueIterables = () => {
-  const {player, leagues, seasons} = usePlayerDetails();
+const CreateLeagueIterables = ({leagues, player}) => {
+  console.log('create league Iterables');
   const navigation = useNavigation();
 
-  return leagues.map(league => {
-    const handlePress = () => {
-      navigation.navigate('League Details', {leagueId: league.id});
-    };
-    let isAdmin = false;
-    const leagueName = league.name;
-    if (league.seasonId.length > 0) {
-      const [seasonModel] = seasons.filter(
-        season => season.id === league.seasonId,
-      );
-      isAdmin = seasonModel.admins.includes(player.id);
+  const getSeasonIds = useMemo(() => {
+    console.log('inside get seasonids');
+    const leaguesWithSeasons = leagues.filter(
+      league => league.seasonId.length > 0,
+    );
+    return leaguesWithSeasons.map(season => season.seasonId);
+  }, [leagues]);
+
+  const seasons = useSeasons(getSeasonIds);
+
+  const handlePress = useCallback(
+    (leagueId: string) => {
+      console.log('handlecallback');
+      navigation.navigate('League Details', {leagueId: leagueId});
+    },
+    [navigation],
+  );
+
+  const renderLeagues = useMemo(() => {
+    return leagues.map(league => {
+      const isAdmin = league.admin.includes(player?.id);
+      let seasonName;
+      if (league.seasonId!.length > 0) {
+        const [seasonModel] = seasons.filter(
+          season => season.id === league.seasonId,
+        );
+        seasonName = seasonModel.name;
+      }
 
       return (
         <React.Fragment key={league.id}>
           <ListElement
-            name={leagueName}
+            name={league.name}
             admin={isAdmin}
-            season={seasonModel.name}
-            handlePress={handlePress}
+            season={seasonName}
+            handlePress={() => handlePress(league.id)}
           />
         </React.Fragment>
       );
-    }
-    return (
-      <React.Fragment key={league.id}>
-        <ListElement
-          name={leagueName}
-          admin={isAdmin}
-          handlePress={handlePress}
-        />
-        ;
-      </React.Fragment>
-    );
-  });
+    });
+  }, [handlePress, leagues, player?.id, seasons]);
+
+  return <>{renderLeagues}</>;
 };
 
-export default CreateLeagueIterables;
+export default memo(CreateLeagueIterables);

@@ -1,10 +1,9 @@
 import {Text, Image, StyleSheet, SafeAreaView, View} from 'react-native';
-import React from 'react';
+import React, {memo} from 'react';
 import ActionButton from '../../components/actionButton';
-import useWhichLeague from '../../hooks/useWhichLeague';
-const Details = () => {
-  const league = useWhichLeague();
 
+const Details = ({league}) => {
+  console.log('in Details');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.playerContainer}>
@@ -90,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Details;
+export default memo(Details);

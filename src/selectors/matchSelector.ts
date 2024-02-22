@@ -9,6 +9,5 @@ export const selectMatchBySeasonId = (seasonId: string) =>
 
 export const selectMatchesByIdBulk = matchIds =>
   createSelector([selectMatches], ({matches}) => {
-
     return matches.filter(match => matchIds.includes(match.id));
   });
