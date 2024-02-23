@@ -4,19 +4,13 @@ import {NoStateSeason} from './NoStatesUi';
 import EmptyStateButton from '../../components/EmptyStateButton';
 import {useNavigation} from '@react-navigation/native';
 import SeasonInformation from './season/SeasonInformation';
-import {useRoute} from '@react-navigation/native';
 
-const Season = () => {
-  const route = useRoute();
+const Season = ({leagueId, season, hasSeason}) => {
   const navigation = useNavigation();
-  const {hasSeason, season} = route.params;
-
-  console.log('in season');
-
   const handleCreateSeason = useCallback(() => {
-    navigation.navigate('Season Form');
-  }, [navigation]);
-
+    navigation.navigate('Season Form', {leagueId: leagueId});
+  }, [leagueId, navigation]);
+  console.log('season', season);
   return (
     <SafeAreaView style={styles.container}>
       {hasSeason ? (

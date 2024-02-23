@@ -9,7 +9,6 @@ import {useNavigation} from '@react-navigation/native';
 const SeasonSchedule = ({season}) => {
   const [selectedDay, setSelectedDay] = useState(null);
   const navigation = useNavigation();
-  console.log('in season schedule');
   const matchesId = season.matches;
   const seasonStart = new Date(season.start);
   const seasonEnd = new Date(season.end);

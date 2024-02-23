@@ -1,19 +1,12 @@
 import React, {memo, useCallback, useMemo} from 'react';
-import {
-  useLeagues,
-  usePlayer,
-  useSeasons,
-  useUser,
-} from '../hooks/usePlayerDetails';
+import {useSeasons} from '../hooks/usePlayerDetails';
 import {useNavigation} from '@react-navigation/native';
 import ListElement from './ListElement';
 
 const CreateLeagueIterables = ({leagues, player}) => {
-  console.log('create league Iterables');
   const navigation = useNavigation();
 
   const getSeasonIds = useMemo(() => {
-    console.log('inside get seasonids');
     const leaguesWithSeasons = leagues.filter(
       league => league.seasonId.length > 0,
     );
@@ -24,7 +17,6 @@ const CreateLeagueIterables = ({leagues, player}) => {
 
   const handlePress = useCallback(
     (leagueId: string) => {
-      console.log('handlecallback');
       navigation.navigate('League Details', {leagueId: leagueId});
     },
     [navigation],

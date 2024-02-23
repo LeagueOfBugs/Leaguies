@@ -48,18 +48,24 @@ interface Team {
 /* League types  --- STARTS */
 interface Leagues {
   leagues: League[];
+  nearbyTeams: string[];
 }
 
 interface League {
   id?: string;
-  name: string;
-  image?: string | undefined;
-  badge?: string | undefined;
-  teams?: string[] | undefined;
-  limit: string;
-  location: string;
   admin: string[];
+  badge?: string | undefined;
+  competition: string;
+  fee: string;
+  image?: string | undefined;
+  limit: string;
+  location: string | undefined;
+  name: string;
   seasonId?: string | undefined;
+  sports: string;
+  teams?: string[] | undefined;
+  type: string;
+  visibility: string;
 }
 /* League types  --- ENDS */
 

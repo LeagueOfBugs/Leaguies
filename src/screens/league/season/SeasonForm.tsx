@@ -8,23 +8,26 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import Forms from '../../../components/Forms';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {Selector} from '../../../components/Selector';
 import {FormInput} from '../../../components/FormInput';
 import DatePicker from 'react-native-date-picker';
 
 const SeasonForm = () => {
+  const route = useRoute();
+  const {leagueId} = route.params;
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showEndDatePicker, setShowEndDatePicker] = useState(false);
   const [seasonInfo, setSeasonInfo] = useState({
     name: '',
-    location: '',
+    location: 'Binghamton NY',
     start: '',
+    leagueId: leagueId,
     end: '',
     games: '',
     cadence: '',
-    fee: '',
+    fee: '100',
     skill: '',
     postSeason: true,
   });

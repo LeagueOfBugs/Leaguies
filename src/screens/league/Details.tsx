@@ -3,7 +3,6 @@ import React, {memo} from 'react';
 import ActionButton from '../../components/actionButton';
 
 const Details = ({league}) => {
-  console.log('in Details');
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.playerContainer}>

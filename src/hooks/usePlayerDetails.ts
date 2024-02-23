@@ -28,7 +28,8 @@ export const useUser = () => {
 };
 
 export const usePlayer = (userId: string) => {
-  return useSelector(selectPlayerById(userId));
+  const {user} = useUser();
+  return useSelector(selectPlayerById(user.id));
 };
 
 export const useTeams = (teamIds: string[]) => {

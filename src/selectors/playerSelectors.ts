@@ -16,9 +16,6 @@ export const selectFreeAgentPlayers = createSelector(
 export const selectPlayerById = (playerId: string) =>
   createSelector([selectPlayers], ({players}) => {
     const playerFound = players.find(player => {
-      if (playerId === player.id) {
-        console.log('found');
-      }
       return player.id === playerId;
     });
     return playerFound;
@@ -26,5 +23,6 @@ export const selectPlayerById = (playerId: string) =>
 
 export const selectPlayerByIdBulk = (playerIds: string[]) =>
   createSelector([selectPlayers], ({players}) => {
+    console.log('playerId', playerIds);
     return players.filter(player => playerIds.includes(player.id));
   });

@@ -7,6 +7,7 @@ import useSeasonDispatch from '../../../hooks/useSeasonDispatch';
 const SeasonLogo = () => {
   const route = useRoute();
   const {season} = route.params;
+  console.log('season', season);
   const navigation = useNavigation();
   const {makeSeason} = useSeasonDispatch();
 

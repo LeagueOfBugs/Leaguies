@@ -5,15 +5,15 @@ import League from '../screens/league/League';
 import LeagueList from '../screens/league/LeagueList';
 import LeagueDetails from './LeagueDetails';
 import Header from '../components/headers/HomeHeader';
-import {useLeagues, usePlayer, useUser} from '../hooks/usePlayerDetails';
+import {useLeagues, usePlayer} from '../hooks/usePlayerDetails';
 
 const Stack = createStackNavigator();
 
 const LeagueStack = () => {
-  console.log('in league stack');
-  const {user} = useUser();
-  const player = usePlayer(user.id);
+  const player = usePlayer();
+  console.log('player', player);
   const leagues = useLeagues(player.leagues);
+
   return (
     <Stack.Navigator>
       {leagues.length >= 1 ? (

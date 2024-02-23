@@ -3,7 +3,6 @@ import React, {memo} from 'react';
 import Card from './Card';
 
 const SeasonManagers = ({admin}) => {
-  console.log('in season managers');
   return (
     <Card title="Managers">
       {admin.map(player => {

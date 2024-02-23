@@ -1,13 +1,12 @@
 import {useDispatch} from 'react-redux';
-import useLeagueDispatch from '../hooks/useLeagueDispatch';
 import {createSeason} from '../store/reducers/seasons/seasonSlice';
 import usePlayerDetails from './usePlayerDetails';
 import uuid from 'react-native-uuid';
+import useLeagueDispatch from './useLeagueDispatch';
 
 function useSeasonDispatch() {
   const dispatch = useDispatch();
-  const {user, league} = usePlayerDetails();
-  const leagueId = league?.id || '';
+  const {user} = usePlayerDetails();
   const {addSeasonToLeague} = useLeagueDispatch();
 
   const createSeasonModel = seasonInfo => {
@@ -16,7 +15,6 @@ function useSeasonDispatch() {
       id: uuid.v4().toString(),
       admin: [user.id],
       cashPrize: '',
-      leagueId: leagueId,
       matches: [],
       postSeasonGames: '',
       teams: '',
@@ -26,6 +24,8 @@ function useSeasonDispatch() {
 
   const makeSeason = seasonInfo => {
     const seasonModel = createSeasonModel(seasonInfo);
+    const leagueId = seasonInfo.leagueId;
+    console.log('leaguesId' , leagueId)
     addSeasonToLeague(seasonModel, leagueId);
     dispatch(createSeason(seasonModel));
   };

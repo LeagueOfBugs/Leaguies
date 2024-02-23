@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet} from 'react-native';
-import React, { memo } from 'react';
+import React, {memo} from 'react';
 import Card from './Card';
 import {format} from 'date-fns';
 
@@ -15,7 +15,6 @@ const Rule = ({title, value}) => {
   );
 };
 const SeasonDetails = ({season}) => {
-  console.log('in season details');
   const seasonStart = new Date(season.start);
   const seasonEnd = new Date(season.end);
 

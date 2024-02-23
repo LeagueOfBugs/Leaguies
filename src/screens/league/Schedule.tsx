@@ -3,12 +3,8 @@ import React, {memo} from 'react';
 import {Button} from 'react-native-paper';
 import {NoStateSchedule} from './NoStatesUi';
 import SeasonSchedule from '../../components/card/SeasonSchedule';
-import {useRoute} from '@react-navigation/native';
 
-const Schedule = () => {
-  const route = useRoute();
-  const {hasSeason, season} = route.params;
-  console.log('In schedule');
+const Schedule = ({hasSeason, season}) => {
   return (
     <SafeAreaView style={styles.container}>
       {hasSeason ? (

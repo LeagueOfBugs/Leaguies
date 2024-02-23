@@ -8,16 +8,12 @@ import {
   useProximityLocations,
   useRetrieveCoordinates,
 } from '../../hooks/useTeamProximity';
-import {useRoute} from '@react-navigation/native';
 
-const Teams = () => {
-  const route = useRoute();
-  const {league} = route.params;
+const Teams = ({league}) => {
   const teamIds = league?.teams;
   const LeagueTeamLimit = league?.limit;
   const leagueCoordinates = useRetrieveCoordinates(league.location);
   useProximityLocations(leagueCoordinates);
-  console.log('in teams');
   return (
     <SafeAreaView style={styles.container}>
       {league ? (

@@ -5,7 +5,8 @@ import useMPlayerDetails from '../../../hooks/useMPlayerDetails';
 import SeasonDetails from '../../../components/card/SeasonDetails';
 
 const SeasonInformation = ({season}) => {
-  const leagueAdminModels = useMPlayerDetails(season?.admins);
+  const leagueAdminModels = useMPlayerDetails(season?.admin);
+  console.log('season in season infor', season)
   return (
     <ScrollView>
       <View style={styles.scrollConatiner}>

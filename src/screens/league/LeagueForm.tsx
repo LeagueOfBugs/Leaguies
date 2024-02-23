@@ -1,5 +1,5 @@
 import {View, Text, StyleSheet, SafeAreaView, TextInput} from 'react-native';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {Button} from 'react-native-paper';
 import {useRoute} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
@@ -8,6 +8,7 @@ import {FormInput} from '../../components/FormInput';
 const LeagueForm = () => {
   const route = useRoute();
   const navigation = useNavigation();
+
   const {sport} = route.params;
 
   const [leagueInfo, setLeagueInfo] = useState({
@@ -26,9 +27,9 @@ const LeagueForm = () => {
     admin: [],
   });
 
-  const handleContinue = () => {
+  const handleContinue = useCallback(() => {
     navigation.navigate('League Logo', {sport: sport, league: leagueInfo});
-  };
+  }, [leagueInfo, navigation, sport]);
 
   return (
     <SafeAreaView style={styles.container}>

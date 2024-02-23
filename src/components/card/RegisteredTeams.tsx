@@ -55,7 +55,6 @@ const RegisteredTeams = ({teams, limit}) => {
   const navigation = useNavigation();
   const teamModels = useExtractTeams(teams);
   const emptySpots = limit - teams.length;
-  console.log('inside register teams');
   const handleTeamInvite = useCallback(() => {
     navigation.navigate('Search Teams');
   }, [navigation]);

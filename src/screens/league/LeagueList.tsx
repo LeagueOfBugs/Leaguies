@@ -4,7 +4,6 @@ import Fab from '../../components/Fab';
 import CreateLeagueIterables from '../../components/CreateLeagueIterables';
 
 const LeagueList = ({leagues, player}) => {
-  console.log('in league list');
   return (
     <SafeAreaView style={styles.safe}>
       <Text style={styles.title}>MY LEAGUES</Text>
